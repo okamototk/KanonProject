@@ -5,6 +5,7 @@
 		<fileset dir="../openproj_contrib">
 			<include name="openproj-contrib.jar" />
 			<include name="openproj-script.jar" />
+			<include name="lib/junit.jar" />
 		</fileset>
 		<fileset dir="../openproj_contrib/lib/exchange">
 			<include name="*.jar" />

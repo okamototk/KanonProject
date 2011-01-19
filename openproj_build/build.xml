@@ -4,11 +4,15 @@
 	<property file="build.properties"/>
 
 	<path id="compile.class.path">
+		<fileset dir="../openproj_contrib/lib">
+			<include name="**/*.jar" />
+		</fileset>
 		<fileset dir="../openproj_contrib">
 			<include name="openproj-contrib.jar" />
 			<include name="openproj-script.jar" />
 			<include name="openproj-exchange.jar" />
 			<include name="openproj-reports.jar" />
+			<include name="lib/junit.jar" />
 		</fileset>
 	</path>
 
@@ -39,6 +43,7 @@
 				<src path="${src_ui}" />
 				<src path="${src_reports}" />
 				<src path="${src_ext}" />
+				<src path="${src_contrib}" />
 				<include name="**/*.java" />
 				<!--exclude name="**/version.properties" />
 				<exclude name="test/**" /-->
