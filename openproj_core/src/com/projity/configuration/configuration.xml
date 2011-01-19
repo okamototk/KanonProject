@@ -82,7 +82,7 @@ must direct them back to http://www.projity.com.
 		</String>
 		<String>
 			<name>com.projity.util.SpecialDateFormat.DATE_FORMAT</name>
-			<value>EEE MM/dd/yy H:mm</value>
+			<value>yy/MM/dd EEE H:mm</value>
 		</String>
 	</constants>
 
@@ -124,11 +124,6 @@ must direct them back to http://www.projity.com.
 				percent="true" sum="This">
 				<range minimum="0" maximum="1" step="0.05" />
 			</field>
-			<!--- read only below is temporary because it doesnt work correctly yet -->
-			<field property="percentWorkComplete"
-				id="Field.percentWorkComplete" percent="true" readOnly="true">
-				<range minimum="0" maximum="1" step="0.05" />
-			</field>
 		</class>
 
 		<class name="com.projity.pm.criticalpath.ScheduleWindow">
@@ -146,7 +141,7 @@ must direct them back to http://www.projity.com.
 				</select>
 			</field>
 			<field property="constraintDate" id="Field.constraintDate"
-				date="true" allowNull="true"/>
+				date="true" />
 			<field property="lateFinish" id="Field.lateFinish"
 				readOnly="true" date="true" />
 			<field property="earlyFinish" id="Field.earlyFinish"
@@ -163,10 +158,10 @@ must direct them back to http://www.projity.com.
 				readOnly="true" duration="true" />
 			<field property="finishSlack" id="Field.finishSlack"
 				readOnly="true" duration="true" />
-			<field property="deadline" id="Field.deadline" date="true" dateOnly="true" endValue="true"  allowNull="true"/>
+			<field property="deadline" id="Field.deadline" date="true" dateOnly="true" endValue="true" />
 		</class>
 		<class name="com.projity.pm.assignment.TimeDistributedFields">
-			<field property="cost" id="Field.cost" 
+			<field property="cost" id="Field.cost" readOnly="true"
 				vector="true" money="true" sum="Sum">
 				<permission roles="Administrator;ProjectManager"/>
 			</field>
@@ -192,13 +187,13 @@ must direct them back to http://www.projity.com.
 			<field property="baselineCost" id="Field.baseline#Cost" help="Baselines"
 				indexes="11" zeroBasedIndex="true"
 				boundsField="com.projity.configuration.Settings.NUM_ARRAY_BASELINES"
-				vector="true" money="true" sum="SumTask" readOnly="true" >
+				vector="true" money="true" sum="Sum" readOnly="true" >
 				<permission roles="Administrator;ProjectManager"/>
 			</field>
 			<field property="baselineWork" id="Field.baseline#Work" help="Baselines"
 				indexes="11" zeroBasedIndex="true"
 				boundsField="com.projity.configuration.Settings.NUM_ARRAY_BASELINES"
-				vector="true" duration="true" work="true" sum="SumTask" readOnly="true" />
+				vector="true" duration="true" work="true" sum="Sum" readOnly="true" />
 		</class>
 		<class
 			name="com.projity.grouping.core.hierarchy.BelongsToHierarchy">
@@ -408,8 +403,13 @@ must direct them back to http://www.projity.com.
 				<range minimum="0" maximum="1000" step="20" />
 			</field>
 		</class>
-		TimeSheetSchedule
 		<class name="com.projity.pm.task.TaskSpecificFields">
+			<!--- read only below is temporary because it doesnt work correctly yet -->
+			<field property="percentWorkComplete"
+				id="Field.percentWorkComplete" percent="true" readOnly="true">
+				<range minimum="0" maximum="1" step="0.05" />
+			</field>
+
 			<field property="fixedCostAccrual"
 				id="Field.fixedCostAccrual" groupSum="Same">
 				<select name="fixedCostAccrual">
@@ -436,7 +436,7 @@ must direct them back to http://www.projity.com.
 				id="Field.resourcePhonetics" readOnly="true" />
 			<field property="resourceGroup" id="Field.resourceGroup"
 				readOnly="true" />
-			<field property="resourceNames" id="Field.resourceNames" help="Assign_Resources#Resources_on_the_Gantt_spreadsheet" resourceNames="true"/>
+			<field property="resourceNames" id="Field.resourceNames" help="Assign_Resources#Resources_on_the_Gantt_spreadsheet"/>
 			<field property="totalSlackStart" id="Field.totalSlackStart"
 				readOnly="true" date="true" />
 			<field property="totalSlackEnd" id="Field.totalSlackEnd"
@@ -538,9 +538,9 @@ must direct them back to http://www.projity.com.
 				<range minimum="0" maximum="99999999" step="0.5" />
 			</field>
 			<field property="availableFrom" id="Field.availableFrom"
-				date="true" dateOnly="true" startValue="true"  allowNull="true"/>
+				date="true" dateOnly="true" startValue="true"/>
 			<field property="availableTo" id="Field.availableTo"
-				date="true" dateOnly="true" endValue="true"  allowNull="true"/>
+				date="true" dateOnly="true" endValue="true"/>
 
 		</class>
 		<class name="com.projity.pm.costing.HasExpenseType">
@@ -630,9 +630,9 @@ must direct them back to http://www.projity.com.
 			<!--			<field property="resourcePool" id="Field.resourcePool" readOnly="true"/>			-->
 			<field property="forward" id="Field.forward" />
 			<field property="startDate" id="Field.startDate"
-				date="true" startValue="true" notChoosable="true"/>
+				date="true" startValue="true"/>
 			<field property="finishDate" id="Field.finishDate"
-				date="true" endValue="true" notChoosable="true"/>
+				date="true" endValue="true"/>
 			<field property="currentDate" id="Field.currentDate"
 				date="true" endValue="true"/>
 			<field property="earliestStartingTask"
@@ -759,28 +759,28 @@ must direct them back to http://www.projity.com.
 	<timescales defaultIndex="2">
 		<!--timescale calendarField1="12" number1="15" pattern1="m"
 			normalMinWidth="28" tableMinWidth="51" calendarField2="11" number2="1"
-			pattern2="E d MMM, H" /-->
+			pattern2="MMM/d（E）, H" /-->
 		<timescale calendarField1="11" number1="2" pattern1="H"
 			normalMinWidth="20"  tableMinWidth="51" calendarField2="5" number2="1"
-			pattern2="E d MMM" />
+			pattern2="MMM/d（E）" />
 		<timescale calendarField1="11" number1="6" pattern1="H"
 			normalMinWidth="20" normalMinWidthChinese="28" tableMinWidth="51" calendarField2="5" number2="1"
-			pattern2="E d MMM" />
+			pattern2="MMM/d（E）" />
 		<timescale calendarField1="7" number1="1" pattern1="E"
 			trunc1="1" upperCase1="true" normalMinWidth="15" tableMinWidth="51"
-			calendarField2="3" number2="1" pattern2="d MMM yy" />
+			calendarField2="3" number2="1" pattern2="yyyy/MMM/d" />
 		<timescale calendarField1="5" number1="3" pattern1="dd"
 			normalMinWidth="30" tableMinWidth="51" calendarField2="2" number2="1"
-			pattern2="MMM y" />
+			pattern2="yyyy/MMM" />
 		<timescale calendarField1="3" number1="1" pattern1="dd"
 			normalMinWidth="30" tableMinWidth="51" calendarField2="2" number2="1"
-			pattern2="MMM y" />
+			pattern2="yyyy/MMM" />
 		<timescale calendarField1="2" number1="1" pattern1="MMM"
 			normalMinWidth="30" normalMinWidthChinese="36" tableMinWidth="51" calendarField2="2" number2="3"
-			pattern2="QQ, yyyy" />
+			pattern2="yyyy, QQ" />
 		<timescale calendarField1="2" number1="1" pattern1="MMM" trunc1="1" upperCase1="true"
 			normalMinWidth="15" tableMinWidth="51" calendarField2="2" number2="6"
-			pattern2="LL, yyyy" />
+			pattern2="yyyy, LL" />
 		<timescale calendarField1="2" number1="3" pattern1="Q" 
 			normalMinWidth="20" tableMinWidth="51" calendarField2="1" number2="1"
 			pattern2="yyyy" />
