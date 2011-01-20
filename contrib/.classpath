@@ -1,10 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry kind="src" path="src/main/resources"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/jasperreports/jasperreports.jar"/>
 	<classpathentry kind="lib" path="lib/jasperreports/bsh.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang.jar"/>
 	<classpathentry kind="lib" path="lib/jdnc-0_7-all.jar"/>
+	<classpathentry kind="lib" path="lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="lib/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="lib/forms.jar"/>
+	<classpathentry kind="lib" path="lib/jcommon.jar"/>
+	<classpathentry kind="lib" path="lib/jfreechart.jar"/>
+	<classpathentry kind="lib" path="lib/jlfgr.jar"/>
+	<classpathentry kind="lib" path="lib/junit.jar"/>
+	<classpathentry kind="lib" path="lib/l2fprod-common-totd.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/ant-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/antlr.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/asm-analysis.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/asm-tree.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/asm-util.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/asm.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/bsf-2.3.0-rc1.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/groovy.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/xerces-2.4.0.jar"/>
+	<classpathentry kind="lib" path="lib/groovy/xstream-1.1.1.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jakarta-poi.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jax-qname.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jaxb-api.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jaxb-impl.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jaxb-libs.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/jaxb-xjc.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/mpop.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/mpxj.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/namespace.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/relaxngDatatype.jar"/>
+	<classpathentry kind="lib" path="lib/exchange/xsdlib.jar"/>
+	<classpathentry kind="lib" path="lib/jasperreports/itext-1.3.1.jar"/>
+	<classpathentry kind="lib" path="lib/nachocalendar-0_23.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

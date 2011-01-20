@@ -1,9 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="src" path="src/main/resources"/>
+	<classpathentry kind="src" path="src/main/java"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
-	<classpathentry exported="true" kind="lib" path="/openproj_contrib/openproj-script.jar"/>
-	<classpathentry exported="true" kind="lib" path="/openproj_contrib/openproj-contrib.jar"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/contrib"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-beanutils.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-collections.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-digester.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-lang.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-logging-api.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/commons-pool.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/forms.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/jcommon.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/jdnc-0_7-all.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/jfreechart.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/jlfgr.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/junit.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/l2fprod-common-totd.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/ant-1.6.5.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/antlr.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/asm-analysis.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/asm-attrs.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/asm-tree.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/asm-util.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/asm.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/bsf-2.3.0-rc1.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/groovy.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/xerces-2.4.0.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/groovy/xstream-1.1.1.jar"/>
+	<classpathentry kind="lib" path="/contrib/lib/nachocalendar-0_23.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
