@@ -60,8 +60,8 @@ import junit.framework.TestCase;
  *
  */
 public class MicrosoftImporterTest extends TestCase {
-	private static String mppFileName = "testdata/New Product.mpp";
-	private static String xmlFileName = "testdata/New Product.xml";	
+	private static String mppFileName = "resources/New Product.mpp";
+	private static String xmlFileName = "resources/New Product.xml";	
 	/**
 	 * Main method for testing from command line
 	 * 

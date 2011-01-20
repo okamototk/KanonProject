@@ -37,7 +37,7 @@
 
    <dependency>
       <groupId>com.l2fprod.common</groupId>
-      <artifactId>l2fprod-common-all</artifactId>
+      <artifactId>l2fprod-common</artifactId>
       <version>7.3</version>
     </dependency>
 
