@@ -789,10 +789,9 @@ must direct them back to http://www.projity.com.
 			pattern2="yyyy" />
 
 	</timescales>
-
 	<graphic columnHeaderHeight="30" printFooterHeight="15"
 		rowHeaderWidth="40" rowHeight="19" ganttBarHeight="11"
-		ganttProgressBarHeight="10" ganttBarYOffset="12" baselineHeight="10"
+		ganttProgressBarHeight="4" ganttBarYOffset="3" baselineHeight="10"
 		ganttBarAnnotationXOffset="12" ganttBarAnnotationYOffset="1"
 		pertCellWidth="200" pertCellHeight="65" pertXOffset="50"
 		pertYOffset="30" treeCellWidth="170" treeCellHeight="50"
@@ -801,6 +800,18 @@ must direct them back to http://www.projity.com.
 		selectionProgress0="3" selectionProgress1="3" selectionResize0="3"
 		selectionResize1="3" linkFlatness="2" ganttBarMinWidth="0"/>
 
+<!--
+	<graphic columnHeaderHeight="30" printFooterHeight="15"
+		rowHeaderWidth="40" rowHeight="19" ganttBarHeight="11"
+		ganttProgressBarHeight="4" ganttBarYOffset="12" baselineHeight="10"
+		ganttBarAnnotationXOffset="12" ganttBarAnnotationYOffset="1"
+		pertCellWidth="200" pertCellHeight="65" pertXOffset="50"
+		pertYOffset="30" treeCellWidth="170" treeCellHeight="50"
+		treeXOffset="50" treeYOffset="30" rowChartHeaderWidth="40"
+		collapseLevel="-1" networkCellSelectionSquare="6" selectionSquare="3"
+		selectionProgress0="3" selectionProgress1="3" selectionResize0="3"
+		selectionResize1="3" linkFlatness="2" ganttBarMinWidth="0"/>
+-->
 	<script>
 		<class name="java.lang.Object" />
 		<class name="com.projity.pm.graphic.model.cache.GraphicNode" />
