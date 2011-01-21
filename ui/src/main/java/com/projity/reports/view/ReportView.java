@@ -1,51 +1,51 @@
 /*
-The contents of this file are subject to the Common Public Attribution License 
-Version 1.0 (the "License"); you may not use this file except in compliance with 
-the License. You may obtain a copy of the License at 
-http://www.projity.com/license . The License is based on the Mozilla Public 
-License Version 1.1 but Sections 14 and 15 have been added to cover use of 
-software over a computer network and provide for limited attribution for the 
-Original Developer. In addition, Exhibit A has been modified to be consistent 
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+http://www.projity.com/license . The License is based on the Mozilla Public
+License Version 1.1 but Sections 14 and 15 have been added to cover use of
+software over a computer network and provide for limited attribution for the
+Original Developer. In addition, Exhibit A has been modified to be consistent
 with Exhibit B.
 
-Software distributed under the License is distributed on an "AS IS" basis, 
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-specific language governing rights and limitations under the License. The 
-Original Code is OpenProj. The Original Developer is the Initial Developer and 
-is Projity, Inc. All portions of the code written by Projity are Copyright (c) 
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+specific language governing rights and limitations under the License. The
+Original Code is OpenProj. The Original Developer is the Initial Developer and
+is Projity, Inc. All portions of the code written by Projity are Copyright (c)
 2006, 2007. All Rights Reserved. Contributors Projity, Inc.
 
-Alternatively, the contents of this file may be used under the terms of the 
-Projity End-User License Agreeement (the Projity License), in which case the 
-provisions of the Projity License are applicable instead of those above. If you 
-wish to allow use of your version of this file only under the terms of the 
-Projity License and not to allow others to use your version of this file under 
-the CPAL, indicate your decision by deleting the provisions above and replace 
-them with the notice and other provisions required by the Projity  License. If 
-you do not delete the provisions above, a recipient may use your version of this 
+Alternatively, the contents of this file may be used under the terms of the
+Projity End-User License Agreeement (the Projity License), in which case the
+provisions of the Projity License are applicable instead of those above. If you
+wish to allow use of your version of this file only under the terms of the
+Projity License and not to allow others to use your version of this file under
+the CPAL, indicate your decision by deleting the provisions above and replace
+them with the notice and other provisions required by the Projity  License. If
+you do not delete the provisions above, a recipient may use your version of this
 file under either the CPAL or the Projity License.
 
-[NOTE: The text of this license may differ slightly from the text of the notices 
-in Exhibits A and B of the license at http://www.projity.com/license. You should 
+[NOTE: The text of this license may differ slightly from the text of the notices
+in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright � 2006, 2007 
-Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
-an open source solution from Projity. Attribution URL: http://www.projity.com 
-Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
+Attribution Information: Attribution Copyright Notice: Copyright � 2006, 2007
+Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj,
+an open source solution from Projity. Attribution URL: http://www.projity.com
+Graphic Image as provided in the Covered Code as file:  openproj_logo.png with
 alternatives listed on http://www.projity.com/logo
 
-Display of Attribution Information is required in Larger Works which are defined 
-in the CPAL as a work which combines Covered Code or portions thereof with code 
-not governed by the terms of the CPAL. However, in addition to the other notice 
-obligations, all copies of the Covered Code in Executable and Source Code form 
-distributed must, as a form of attribution of the original author, include on 
-each user interface screen the "OpenProj" logo visible to all users.  The 
-OpenProj logo should be located horizontally aligned with the menu bar and left 
-justified on the top left of the screen adjacent to the File menu.  The logo 
-must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it 
-must direct them back to http://www.projity.com.  
+Display of Attribution Information is required in Larger Works which are defined
+in the CPAL as a work which combines Covered Code or portions thereof with code
+not governed by the terms of the CPAL. However, in addition to the other notice
+obligations, all copies of the Covered Code in Executable and Source Code form
+distributed must, as a form of attribution of the original author, include on
+each user interface screen the "OpenProj" logo visible to all users.  The
+OpenProj logo should be located horizontally aligned with the menu bar and left
+justified on the top left of the screen adjacent to the File menu.  The logo
+must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it
+must direct them back to http://www.projity.com.
 */
 package com.projity.reports.view;
 
@@ -69,6 +69,8 @@ import net.sf.jasperreports.engine.JasperReport;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.configuration.Dictionary;
 import com.projity.configuration.ReportDefinition;
@@ -105,6 +107,7 @@ import com.projity.workspace.WorkspaceSetting;
  */
 public class ReportView extends JPanel implements BaseView, CacheListener {
 	private static final long serialVersionUID = 5457040745964404658L;
+	private static Log log = LogFactory.getLog(ReportView.class);
 	protected JPanel report;
 	protected Project project;
 	private ReportViewer viewer = null;
@@ -126,7 +129,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 	private String viewName = DataSourceProvider.TASK_REPORT_VIEW;// initial report is task based
 	private Closure transformerClosure;
 	/**
-	 * 
+	 *
 	 */
 	public ReportView(DocumentFrame documentFrame) {
 		super();
@@ -170,7 +173,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 		c.update();
 		return c;
 	}
-	
+
 
 	private NodeModel updateCacheForView(String viewName) {
 		if (viewName.equals(DataSourceProvider.TASK_REPORT_VIEW)) {
@@ -188,28 +191,27 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 	    return cache.getModel();
 
 	}
-	
+
 	private void showReport() {
 		documentFrame.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 		try {
 			makeViewer();
 		} catch (JRException e) {
-			System.out.println(e.getMessage());
-			e.printStackTrace();
+			log.fatal("Fail create report view: ",e);
 		}
 		documentFrame.setCursor(Cursor.getDefaultCursor());
-		
+
 	}
 	private void makeViewer() throws JRException{
 		if (!dirty)
 			return;
-		
+
 		documentFrame.showWaitCursor(true);
 
 		if (cache != null) { // remove old listener
 		    cache.removeNodeModelListener(this);
 		}
-				   
+
         DataSource dataSource;
 
         SpreadSheetFieldArray fa = null;
@@ -223,8 +225,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
         JasperReport report = ReportUtil.getReport(reportDefinition, coord.getProjectTimeIterator(), fa);
 
         viewName = DataSourceProvider.getViewName(report);
-        //System.out.println("viewName="+viewName);
-        documentFrame.setComboBoxesViewName(viewName); 
+        documentFrame.setComboBoxesViewName(viewName);
 
         NodeModel model = null;
         PredicatedNodeFilterIterator iterator;
@@ -237,20 +238,18 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
         	model = updateCacheForView(viewName);
             if (cache == null){
             	iterator = GeneralFilteredIterator.instance(model.iterator());
-            	//for (Iterator i=GeneralFilteredIterator.instance(model.iterator());i.hasNext();) System.out.println("Report model iterator: "+i.next());
-            }else{ 
+            }else{
             	iterator = GeneralFilteredIterator.instance(cache.getIterator());
-            	//for (Iterator i=GeneralFilteredIterator.instance(cache.getIterator());i.hasNext();) System.out.println("Report cache iterator: "+i.next());
             }
         }
         dataSource = DataSourceProvider.createDataSource(report,project,iterator,model);
 
-        
+
         // projet name is used as report's title
         // and passed as a parameter
         HashMap params = new HashMap();
         params.put("projectName", project.getName()); //$NON-NLS-1$
-        
+
 		JasperPrint jasperPrint = JasperFillManager.fillReport(report, params, dataSource);
 		if (viewer != null) {
 			viewer.changeReport(jasperPrint);
@@ -263,11 +262,11 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 		    cache.addNodeModelListener(this);
 		}
 		dirty = false;
-		
+
 		documentFrame.showWaitCursor(false);
 
 	}
-	
+
 	private JPanel header() {
 		JPanel panel = new JPanel();
 		panel.add(reportLabel);
@@ -276,7 +275,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 		panel.add(columnsChoice);
 		return panel;
 	}
-	
+
 	private void initColumns() {
 		String ssFields = reportDefinition.getMainSpreadsheetCategory();
 		if (ssFields == null || ssFields.equals("assignmentSpreadsheet")) { //$NON-NLS-1$
@@ -308,7 +307,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 				showReport();
 				initColumns();
 			}});
-		
+
 		columnsLabel= new JLabel(Messages.getString("ReportView.Columns")); //$NON-NLS-1$
 		columnsChoice = new JComboBox();
 		initColumns();
@@ -335,7 +334,7 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 		}
 		showReport();
 	}
-	
+
 
 	public UndoController getUndoController() {
 		return null;
@@ -431,12 +430,12 @@ public class ReportView extends JPanel implements BaseView, CacheListener {
 
 	public void scrollToTask() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public NodeModelCache getCache(){
 		return cache;
 	}
-	
-	
+
+
 }

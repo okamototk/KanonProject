@@ -198,13 +198,10 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 
 
 		public void consumeInterval(ScheduleInterval interval){
-//			System.out.println("GanttUI consuming interval " + new java.util.Date(interval.getStart()) + " " + new java.util.Date(interval.getEnd()));
-//			if (interval.getEnd() < interval.getStart())
-//				return;
 			CoordinatesConverter coord=((GanttParams)graphInfo).getCoord();
 			if (interval.getEnd()>100000000000000L){
 				// this hasn't happened in years. whatever caused it is fixed, but keeping just in case
-				System.out.println("ERROR!!! leads to OutOfMemoryError, consumeInterval interval="+interval.getStart()+", "+CalendarUtil.toString(interval.getStart())+", "+interval.getEnd()+", "+CalendarUtil.toString(interval.getEnd())+"...");
+				log.fatal("ERROR!!! leads to OutOfMemoryError, consumeInterval interval="+interval.getStart()+", "+CalendarUtil.toString(interval.getStart())+", "+interval.getEnd()+", "+CalendarUtil.toString(interval.getEnd())+"...");
 				return;
 			}
 			double x=coord.toX(interval.getStart());
