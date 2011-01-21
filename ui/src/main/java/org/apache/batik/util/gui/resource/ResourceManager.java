@@ -91,7 +91,7 @@ public class ResourceManager {
     	try {
     		return bundle.getString(key);
     	} catch (MissingResourceException e) {
-    		log.warn("bundle key '"+key+"' is not found'");
+    		log.debug("bundle key '"+key+"' is not found'");
     		throw e;
     	}
     }
@@ -100,6 +100,7 @@ public class ResourceManager {
     	try {
     	   return getString(key);
     	} catch (MissingResourceException e) {
+    		log.debug("bundle key '"+key+"' is not found'");
     		return null;
     	}
     }

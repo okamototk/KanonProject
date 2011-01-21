@@ -104,14 +104,10 @@ public class ConfigurationReader {
 
 		try {
 			result = (ProvidesDigesterEvents) digester.parse(stream);
-		} catch (IOException e1) {
-			log.error("Could not read field xml configuration file.");
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SAXException e1) {
-			log.error("Error parsing field xml configuration file");
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		} catch (IOException e) {
+			log.fatal("Could not read field xml configuration file.",e);
+		} catch (SAXException e) {
+			log.fatal("Error parsing field xml configuration file",e);
 		}
 		return result;
 	}
