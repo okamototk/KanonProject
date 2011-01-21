@@ -56,6 +56,9 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 /**
  * This class offers convenience methods to decode
  * resource bundle entries
@@ -64,6 +67,7 @@ import java.util.StringTokenizer;
  * @version $Id: ResourceManager.java,v 1.1 2007/08/15 23:28:28 suricate Exp $
  */
 public class ResourceManager {
+	private static Log log = LogFactory.getLog(ResourceManager.class);
     /**
      * The managed resource bundle
      */
@@ -84,9 +88,14 @@ public class ResourceManager {
      */
     public String getString(String key)
 	throws MissingResourceException {
-	return bundle.getString(key);
+    	try {
+    		return bundle.getString(key);
+    	} catch (MissingResourceException e) {
+    		log.warn("bundle key '"+key+"' is not found'");
+    		throw e;
+    	}
     }
-    
+
     public String getStringOrNull(String key) {
     	try {
     	   return getString(key);
@@ -125,7 +134,7 @@ public class ResourceManager {
      * @param  returnDelims if true, the delimiters are returned in the list
      * @throws MissingResourceException if key is not the name of a resource
      */
-    public List getStringList(String key, String delim, boolean returnDelims) 
+    public List getStringList(String key, String delim, boolean returnDelims)
 	throws MissingResourceException {
         List            result = new ArrayList();
         StringTokenizer st     = new StringTokenizer(getString(key),
@@ -167,7 +176,7 @@ public class ResourceManager {
     public int getInteger(String key)
 	throws MissingResourceException, ResourceFormatException {
 	String i = getString(key);
-	
+
 	try {
 	    return Integer.parseInt(i);
 	} catch (NumberFormatException e) {
@@ -180,7 +189,7 @@ public class ResourceManager {
     public int getCharacter(String key)
         throws MissingResourceException, ResourceFormatException {
         String s = getString(key);
-        
+
         if(s == null || s.length() == 0){
             throw new ResourceFormatException("Malformed character",
                                               bundle.getClass().getName(),

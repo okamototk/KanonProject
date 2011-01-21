@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
@@ -9,6 +11,9 @@
 
   <name>Kanon Project</name>
   <url>http://maven.apache.org</url>
+  
+
+  <!-- 依存するモジュールを定義 -->
   <modules>
      <module>contrib</module>
      <module>core</module>
@@ -20,25 +25,82 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
+
+
+   <pluginRepositories>
+        <pluginRepository>
+            <id>Codehaus repository</id>
+            <url>http://repository.codehaus.org/</url>
+        </pluginRepository>
+    </pluginRepositories>
+    
+
+  
+ <dependencies>
+   <dependency>
+      <groupId>org.ultimania.kanon</groupId>
+      <artifactId>kanon-project-ui</artifactId>
+      <version>1.0-SNAPSHOT</version>
+   </dependency>   
+  </dependencies>
+
  <build>
   <plugins>
+  
+    <!-- パッケージの作成。全てのjarを実行ファイルに含める -->
     <plugin>
       <artifactId>maven-assembly-plugin</artifactId>
-      <executions>
-        <execution>
-          <id>distro-assembly</id>
-          <phase>package</phase>
-          <goals>
-            <goal>single</goal>
-          </goals>
-          <configuration>
-            <descriptors>
-              <descriptor>src/assemble/bin.xml</descriptor>
-            </descriptors>
-          </configuration>
-        </execution>
-      </executions>
+      <version>2.2</version>
+         <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <finalName>KanonProject</finalName>
+          
+
+          <appendAssemblyId>false</appendAssemblyId>
+          <archive>
+            <manifest>
+                <mainClass>com.projity.main.Main</mainClass>
+            </manifest>
+          </archive> 
+         </configuration>
     </plugin>
+    
+<!-- 起動スクリプトの作成。うまく動いていない... -->
+           <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>appassembler-maven-plugin</artifactId>
+                <version>1.0</version>
+                <configuration>
+                    <repositoryLayout>flat</repositoryLayout>
+                    <repositoryName>lib</repositoryName>
+                    <configurationDirectory>config</configurationDirectory>
+                    <generateRepository>false</generateRepository>
+
+                    <installArtifacts>true</installArtifacts>
+                    <extraJvmArguments>-Xmx512m</extraJvmArguments>
+                    <programs>
+                        <program>
+
+                            <mainClass>com.projity.main.Main</mainClass>
+                            <name>sample</name>
+                        </program>
+                    </programs>
+                </configuration>
+                
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>assemble</goal>
+                        </goals>
+                    </execution>
+                </executions>
+
+            </plugin>    
+
    </plugins>
   </build>
 </project>
+

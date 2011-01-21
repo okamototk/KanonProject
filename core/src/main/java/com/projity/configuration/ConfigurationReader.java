@@ -57,17 +57,19 @@ import java.net.URL;
 import org.apache.commons.digester.Digester;
 import org.xml.sax.SAXException;
 
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 /**
  * Reads configuration xml file using the digester
  */
 public class ConfigurationReader {
-	static Log log = LogFactory.getLog(ConfigurationReader.class);
+	private static Log log = LogFactory.getLog(ConfigurationReader.class);
 
 	public static ProvidesDigesterEvents read(String configurationUrl, ProvidesDigesterEvents root) {
 		URL url = ConfigurationReader.class.getClassLoader().getResource(configurationUrl);
+		log.info("Configuration file: "+ url);
+		log.debug("ProvideDigesterEvent: " + root.getClass().getName());
 		if (url == null) {
 			log.fatal("could not find xml configuration file: " + configurationUrl);
 			return null;

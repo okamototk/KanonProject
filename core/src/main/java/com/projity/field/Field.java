@@ -69,11 +69,11 @@ import org.apache.commons.beanutils.MethodUtils;
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.comparators.ComparableComparator;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.configuration.Configuration;
 import com.projity.configuration.FieldDictionary;
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
 import com.projity.datatype.Duration;
 import com.projity.datatype.DurationFormat;
 import com.projity.datatype.Hyperlink;
@@ -114,7 +114,7 @@ import com.projity.util.Environment;
  *
  */
 public class Field implements SummaryNames, Cloneable, Comparable, Finder, Comparator {
-	static Log log = LogFactory.getLog(FieldDictionary.class);
+	private static Log log = LogFactory.getLog(Field.class);
 	private static final String EMPTY_STRING = "";
 	private static final String PASSWORD_MASK = "********";
 	private static final String NON_IMPLEMENTED = "<not implemented>";
@@ -322,7 +322,7 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 	public Select getSelect() {
 		return select;
 	}
-	
+
 	/*
 	 * update the keys in the select so they will be formatted for display
 	 */
@@ -511,7 +511,7 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 			return EMPTY_STRING;
 		if (defaultValue != null && hideZeroValues && defaultValue.equals(value))
 			return EMPTY_STRING;
-		
+
 		Format f = getFormat(object);
 		if (isMoney()){
 			return ((Money)value).getFormattedValue();
@@ -747,7 +747,7 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 	}
 
 	private Object getPropertyValue(Object object, FieldContext context) {
-		Object result = null; 
+		Object result = null;
 		if (context == null)
 			context = specialFieldContext;
 
@@ -798,7 +798,7 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 			}
 		}
 		result = getPropertyValue(object,context);
-		if (isMap()) { 
+		if (isMap()) {
 			if (result == null) // if no map
 				return null;
 			result = ((Map)result).get(getMapEntryId());
@@ -833,10 +833,10 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 //			result = "<html><a href=\"" + result + "\">" + url + "</a></html>";
 //		}
 		//System.out.println("isMoney(): "+isMoney()+"\nisConvertCurrency(): "+isConvertCurrency());
-		
+
 		if(isMoney()&& (result instanceof Money) ) {
-			
-			String moneyResult = ((Money) result).getFormattedValue(); 
+
+			String moneyResult = ((Money) result).getFormattedValue();
 			//System.out.println("moneyResult: "+ moneyResult);
 			//return moneyResult;
 		}
@@ -1109,7 +1109,7 @@ public class Field implements SummaryNames, Cloneable, Comparable, Finder, Compa
 					value = FieldConverter.convert(value, type, context); // convert from date to long for example
 				if (value == null && !isMap()) // TODO is this how to treat null values?
 					return false;
-				
+
 				if (isMoney() && isConvertCurrency()) { // convert currency
 						value = CurrencyRateTable.convertFromDisplay((Number)value);
 					}

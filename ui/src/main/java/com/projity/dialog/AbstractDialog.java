@@ -204,9 +204,9 @@ public abstract class AbstractDialog extends JDialog {
 //				// TODO Auto-generated catch block
 //				e.printStackTrace();
 //			}
-//			if (!bind(false)) 
+//			if (!bind(false))
 //				setVisible(true);
-//			else 
+//			else
 //				setDialogResult(JOptionPane.OK_OPTION);
 //			setModal(true);
 //		}
@@ -251,7 +251,7 @@ public abstract class AbstractDialog extends JDialog {
 			getContentPane().remove(contentPanel);
 		if (buttonPanel != null)
 			getContentPane().remove(buttonPanel);
-		
+
 	}
     public void pack() {
        	initComponents();
@@ -274,7 +274,7 @@ public abstract class AbstractDialog extends JDialog {
 			}
 		});
     }
-    
+
     protected JComponent getHelpButton() {
     	if (help  == null) {
 		//	help= new JLabel(IconManager.getIcon("menu24.help"));
@@ -324,13 +324,13 @@ public abstract class AbstractDialog extends JDialog {
 
 	public boolean doModal() {
     	prepareModal(true);
-		
+
 		pack();
 		setLocationRelativeTo(getParent());// to center on parent
 		if (!showEnabled)
 			enableContent(false);
 		setVisible(true);
-		
+
 		boolean result =  (getDialogResult() != JOptionPane.CANCEL_OPTION);
 		prepareModal(false);
 		if (!showEnabled)
@@ -344,9 +344,9 @@ public abstract class AbstractDialog extends JDialog {
 
 	private void enableContent(boolean enable) {
 		getContentPanel().setEnabled(enable);
-		for (Component c :getContentPanel().getComponents()) 
+		for (Component c :getContentPanel().getComponents())
 			c.setEnabled(enable);
-		
+
 		for (Component c :getButtonPanel().getComponents()) {
 			if (c != cancel) // only cancel button is allowed
 				c.setEnabled(enable);
@@ -473,7 +473,7 @@ public abstract class AbstractDialog extends JDialog {
 		HelpUtil.addDocHelp(this,helpAddress);
 		this.helpAddress = helpAddress;
 	}
-	
+
 	protected boolean bindAfterOk() {
 		return isModal() && Environment.isNoPodServer();
 	}
@@ -519,7 +519,7 @@ public abstract class AbstractDialog extends JDialog {
 //		} else {
 ////			SessionFactory.getInstance().getSession(false).heartbeat(false);
 //		}
-//		
+//
 	}
 	public boolean isShowEnabled() {
 		return showEnabled;
@@ -528,5 +528,5 @@ public abstract class AbstractDialog extends JDialog {
 	public void setShowEnabled(boolean showEnabled) {
 		this.showEnabled = showEnabled;
 	}
-	
+
 }

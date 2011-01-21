@@ -32,6 +32,9 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import net.sf.mpxj.ProjectCalendar;
 import net.sf.mpxj.ProjectFile;
 import net.sf.mpxj.Resource;
@@ -46,8 +49,6 @@ import net.sf.mpxj.mspdi.schema.TimephasedDataType;
 
 import com.projity.association.AssociationList;
 import com.projity.configuration.Settings;
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
 import com.projity.exchange.ImportedCalendarService;
 import com.projity.pm.assignment.Assignment;
 import com.projity.pm.calendar.CalendarService;

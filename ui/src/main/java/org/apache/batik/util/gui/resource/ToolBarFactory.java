@@ -68,20 +68,20 @@ import com.projity.menu.ExtButtonFactory;
 /**
  * This class represents a tool bar factory which builds tool bars from the
  * content of a resource file. <br>
- * 
+ *
  * The resource entries format is (for a tool bar named 'ToolBar'): <br>
- * 
+ *
  * <pre>
- * 
+ *
  *    ToolBar           = Item1 Item2 - Item3 ...
  *    See ButtonFactory.java for details about the items
  *    ...
  *  '-' represents a separator
- *  
+ *
  * </pre>
- * 
+ *
  * All entries are optional.
- * 
+ *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion </a>
  * @version $Id: ToolBarFactory.java,v 1.3 2008/12/11 20:33:57 nekosej Exp $
  */
@@ -106,7 +106,7 @@ public class ToolBarFactory extends ResourceManager {
 
 	/**
 	 * Creates a new tool bar factory
-	 * 
+	 *
 	 * @param rb
 	 *            the resource bundle that contains the menu bar description.
 	 * @param am
@@ -121,7 +121,7 @@ public class ToolBarFactory extends ResourceManager {
 
 	/**
 	 * Creates a tool bar
-	 * 
+	 *
 	 * @param name
 	 *            the name of the menu bar in the resource bundle
 	 * @throws MissingResourceException
@@ -138,13 +138,14 @@ public class ToolBarFactory extends ResourceManager {
 		JToolBar result = new JToolBar();
 		List buttons = getStringList(name);
 		Iterator it = buttons.iterator();
-		
+
 		while (it.hasNext()) {
 			String s = (String) it.next();
 			if (s.equals(SEPARATOR)) {
 			    buttonGroup = null;
 				result.add(new JToolbarSeparator());
 			} else {
+				// TODO
 				AbstractButton button =  createJButton(s);
 				if (button == null)
 					continue;
@@ -162,7 +163,7 @@ public class ToolBarFactory extends ResourceManager {
 
 	/**
 	 * Creates and returns a new swing button
-	 * 
+	 *
 	 * @param name
 	 *            the name of the button in the resource bundle
 	 * @throws MissingResourceException
@@ -191,16 +192,16 @@ public class ToolBarFactory extends ResourceManager {
 				result.setBorderPainted(true);
 			}
 		} else {
-			
+
 			    buttonGroup = null;
-		}	
+		}
 
 		String help = getStringOrNull(name + ExtButtonFactory.DOC_SUFFIX);
 		if (help != null)
 			HelpUtil.addDocHelp(result,help);
 		return result;
 	}
-	
+
     /**
      * Returns the boolean mapped with the given key
      * @param  key a key of the resource bundle
@@ -220,5 +221,5 @@ public class ToolBarFactory extends ResourceManager {
                                               bundle.getClass().getName(),
                                               key);
 	}
-    }	
+    }
 }

@@ -71,23 +71,23 @@ import com.projity.util.ClassLoaderUtils;
 /**
  * This class represents a button factory which builds buttons from the content
  * of a resource bundle. <br>
- * 
+ *
  * The resource entries format is (for a button named 'Button'): <br>
- * 
+ *
  * <pre>
- * 
+ *
  *    Button.text      = text
- *    Button.icon      = icon_name 
- *    Button.mnemonic  = mnemonic 
+ *    Button.icon      = icon_name
+ *    Button.mnemonic  = mnemonic
  *    Button.action    = action_name
  *    Button.selected  = true | false
  *    Button.tooltip   = tool tip text
  *  where
  *    text, icon_name and action_name are strings
  *    mnemonic is a character
- *  
+ *
  * </pre>
- * 
+ *
  * @author <a href="mailto:stephane@hillion.org">Stephane Hillion </a>
  * @version $Id: ButtonFactory.java,v 1.2 2007/09/19 03:17:43 nekosej Exp $
  */
@@ -115,7 +115,7 @@ public class ButtonFactory extends ResourceManager {
 
 	/**
 	 * Creates a new button factory
-	 * 
+	 *
 	 * @param rb
 	 *            the resource bundle that contains the buttons description.
 	 * @param am
@@ -128,7 +128,7 @@ public class ButtonFactory extends ResourceManager {
 	}
 	/**
 	 * Creates and returns a new swing button
-	 * 
+	 *
 	 * @param name
 	 *            the name of the button in the resource bundle
 	 * @throws MissingResourceException
@@ -154,7 +154,7 @@ public class ButtonFactory extends ResourceManager {
 	/**
 	 * Creates and returns a new swing button initialised to be used as a
 	 * toolbar button
-	 * 
+	 *
 	 * @param name
 	 *            the name of the button in the resource bundle
 	 * @throws MissingResourceException
@@ -170,7 +170,7 @@ public class ButtonFactory extends ResourceManager {
 			MissingListenerException {
 	//	ToolTipManager.sharedInstance().setLightWeightPopupEnabled(false);
 //		result = new JToolbarButton(getString(name + TEXT_SUFFIX)) Don't want this - don't know why it is here
-		
+
 		JButton result = new JToolbarButton() {
 			public Point getToolTipLocation(MouseEvent event) { // the tip MUST be touching the button if html because you can click on links
 				if (getToolTipText().startsWith("<html>"))
@@ -194,7 +194,7 @@ public class ButtonFactory extends ResourceManager {
 
 	/**
 	 * Creates and returns a new swing radio button
-	 * 
+	 *
 	 * @param name
 	 *            the name of the button in the resource bundle
 	 * @throws MissingResourceException
@@ -222,7 +222,7 @@ public class ButtonFactory extends ResourceManager {
 
 	/**
 	 * Creates and returns a new swing check box
-	 * 
+	 *
 	 * @param name
 	 *            the name of the button in the resource bundle
 	 * @throws MissingResourceException
@@ -250,7 +250,7 @@ public class ButtonFactory extends ResourceManager {
 
 	/**
 	 * Initializes a button
-	 * 
+	 *
 	 * @param b
 	 *            the button to initialize
 	 * @param name
@@ -269,6 +269,7 @@ public class ButtonFactory extends ResourceManager {
 				throw new MissingListenerException("", "Action", name
 						+ ACTION_SUFFIX);
 			}
+
 			b.setAction(a);
 			b.setText(getString(name + TEXT_SUFFIX));
 			if (a instanceof JComponentModifier) {
@@ -307,7 +308,7 @@ public class ButtonFactory extends ResourceManager {
 				String help = getStringOrNull(name+HELP_SUFFIX);
 				String demo = getStringOrNull(name+DEMO_SUFFIX);
 				String doc = getStringOrNull(name+DOC_SUFFIX);
-				
+
 				if (doc != null)
 					s = HyperLinkToolTip.helpTipText(s,help,demo, doc);
 				b.setToolTipText(s);
@@ -315,5 +316,5 @@ public class ButtonFactory extends ResourceManager {
 		} catch (MissingResourceException e) {
 		}
 	}
-	
+
 }

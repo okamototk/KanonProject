@@ -123,6 +123,8 @@ import javax.swing.undo.CannotUndoException;
 import org.apache.batik.util.gui.resource.ActionMap;
 import org.apache.batik.util.gui.resource.MissingListenerException;
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.LogFactory;
+import org.apache.commons.logging.Log;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
 
@@ -219,6 +221,7 @@ import com.projity.workspace.WorkspaceSetting;
  *
  */
 public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowStateListener,  SelectionNodeListener, ObjectEvent.Listener, ActionMap, MenuActionConstants, SavableToWorkspace {
+	private static Log log = LogFactory.getLog(GraphicManager.class);
 	private static final boolean BINARY_WORKSPACE = true;
 	private static GraphicManager lastGraphicManager = null; // used when displaying a popup but the frame isn't known
     private DocumentFrame currentFrame = null;
@@ -359,7 +362,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		}
 		registerForMacOSXEvents();
 	}
-	public GraphicManager(Container container) {		
+	public GraphicManager(Container container) {
 		this(/*null,*/ server,container);
 	}
 
@@ -1001,6 +1004,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 
 	public void addHandlers() {
 		actionsMap = new MenuActionsMap(this,menuManager);
+		log.debug("add menu actions.");
 		actionsMap.addHandler(ACTION_NEW_PROJECT, new NewProjectAction());
 		actionsMap.addHandler(ACTION_OPEN_PROJECT, new OpenProjectAction());
 		actionsMap.addHandler(ACTION_INSERT_PROJECT, new InsertProjectAction());
@@ -1091,8 +1095,10 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_LOOK_AND_FEEL, new LookAndFeelAction());
 		actionsMap.addHandler(ACTION_FULL_SCREEN, new FullScreenAction());
 		actionsMap.addHandler(ACTION_REFRESH, new RefreshAction());
-		actionsMap.addHandler(ACTION_REINITIALIZE, new ReinitializeAction());
-		actionsMap.addHandler(ACTION_UNDO_STACK, new UndoStackAction());
+		// TODO: メニューがエラーになるので一時的に外した。
+		// 多分 menu.properties,menu_ja.propertiesに定義してやれば解決できる
+//		actionsMap.addHandler(ACTION_REINITIALIZE, new ReinitializeAction());
+//		actionsMap.addHandler(ACTION_UNDO_STACK, new UndoStackAction());
 
 
 	}
@@ -1112,7 +1118,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 	public class OpenProjectAction extends MenuActionsMap.GlobalMenuAction {
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
-				
+
 			setMeAsLastGraphicManager();
 			if (Environment.getStandAlone()) openLocalProject();
 			else doOpenProjectDialog();
@@ -1172,7 +1178,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
-			BrowserControl.displayURL("http://www.projity.com/");
+			BrowserControl.displayURL("http://ultiania.org/openproj_action");
 		}
 	}
 
@@ -1580,6 +1586,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 			}
 			}
 	}
+
 	public class PDFAction extends MenuActionsMap.DocumentMenuAction {
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
@@ -2004,9 +2011,13 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 			if (getCurrentFrame() == null)
 				return;
 			if (viewName.equals(ACTION_HISTOGRAM) || viewName.equals(ACTION_CHARTS))
-				if (getProject() == null || getProject().isDatesPinned())
+				if (getProject() == null || getProject().isDatesPinned()){
+					log.error("not configured:" + viewName);
 					return;
+				}
+			log.debug("Action Performed :" + viewName);
 			setColorTheme(viewName);
+
 			getCurrentFrame().activateView(viewName);
 			setButtonState(null,currentFrame.getProject()); // disable buttons because no selection when first activated
 
@@ -2956,7 +2967,7 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		encoder.writeObject(createWorkspace(SavableToWorkspace.VIEW));
 		encoder.close();
 		lastWorkspace = stream.toString();
-		System.out.println("workspace initialized");
+//		System.out.println("workspace initialized");
 //		System.out.println(lastWorkspace);
 	}
 	private void encodeWorkspaceBinary() {
@@ -3044,7 +3055,6 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 	}
 
 	public void initView() {
-		System.out.println("initView");
 		Container c=container;
 		if (container!=null && container instanceof RootPaneContainer){
 			c=((RootPaneContainer)container).getContentPane();
@@ -3158,7 +3168,7 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		if (frame==null) return null;
 		return frame.getUndoController();
 	}
-	
+
 	public static boolean is1_6Version(){
 		String[] figures=System.getProperty("java.version").split("\\.");
 		if (figures!=null&&figures.length>=2){
@@ -3166,7 +3176,7 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		}
 		return false;
 	}
-	
+
 	public void setAllButResourceDisabled(boolean disable) {
 		if (topTabs!=null) topTabs.setAllButResourceDisabled(disable);
 	}

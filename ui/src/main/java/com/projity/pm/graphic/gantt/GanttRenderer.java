@@ -74,6 +74,8 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.field.Field;
 import com.projity.field.FieldConverter;
@@ -118,6 +120,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 
 	protected GraphicConfiguration config;
 	protected JComponent container;
+	private static Log log = LogFactory.getLog(GanttRenderer.class);
 
 
 	public GanttRenderer(){

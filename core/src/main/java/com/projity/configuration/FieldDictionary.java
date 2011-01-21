@@ -30,7 +30,7 @@ in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright © 2006, 2007 
+Attribution Information: Attribution Copyright Notice: Copyright ï¿½ 2006, 2007 
 Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
 an open source solution from Projity. Attribution URL: http://www.projity.com 
 Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
@@ -64,9 +64,9 @@ import org.apache.commons.collections.MapIterator;
 import org.apache.commons.collections.Predicate;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.digester.Digester;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
 import com.projity.field.Field;
 import com.projity.pm.assignment.Assignment;
 import com.projity.pm.dependency.Dependency;

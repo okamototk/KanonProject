@@ -61,6 +61,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.util.ClassLoaderUtils;
 import com.projity.util.Environment;
@@ -71,7 +73,7 @@ import com.projity.util.Environment;
 public class Messages {
 	private static final String META_BUNDLE_NAME = "com.projity.configuration.meta"; //$NON-NLS-1$
 	private static ResourceBundle metaBundle = null;
-
+	private static Log log = LogFactory.getLog(Messages.class);
 	public static void setMetaBundle(String bundleName) {
 		metaBundle = ResourceBundle.getBundle(bundleName,Locale.getDefault(),ClassLoaderUtils.getLocalClassLoader()/*Messages.class.getClassLoader()*/);
 	}
@@ -114,12 +116,14 @@ public class Messages {
 						buns=new ArrayList<ResourceBundle>(bundleNames.length+directoryBundleNames.length);
 						for (int i =0; i < directoryBundleNames.length;i++) {
 							try {
+								log.info("Loading meta bundle from ClassLoader: "+directoryBundleNames[i]+","+Locale.getDefault()+","+directoryClassLoader);
 								ResourceBundle bundle=ResourceBundle.getBundle(directoryBundleNames[i],Locale.getDefault(),directoryClassLoader);
 								buns.add(bundle);
 							}catch (Exception e) {}
 						}
 					}else buns=new ArrayList<ResourceBundle>(bundleNames.length);
 					for (int i =bundleNames.length-1; i >=0; i--) { // reverse order since the later ones should be searched first
+						log.info("Loading meta bundle from ClassLoader: "+bundleNames[i]+","+Locale.getDefault()+","+ClassLoaderUtils.getLocalClassLoader());
 						buns.add(ResourceBundle.getBundle(bundleNames[i],Locale.getDefault(),ClassLoaderUtils.getLocalClassLoader()/*Messages.class.getClassLoader()*/));
 					}
 				}
@@ -163,7 +167,7 @@ public class Messages {
 		if (result == null)
 			result = defaultValue;
 		return result;
-		
+
 	}
     public static Properties getTipProperties() {
     	return getProperties(bundles.get(1));

@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-The contents of this file are subject to the Common Public Attribution License 
-Version 1.0 (the "License"); you may not use this file except in compliance with 
-the License. You may obtain a copy of the License at 
-http://www.projity.com/license . The License is based on the Mozilla Public 
-License Version 1.1 but Sections 14 and 15 have been added to cover use of 
-software over a computer network and provide for limited attribution for the 
-Original Developer. In addition, Exhibit A has been modified to be consistent 
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+http://www.projity.com/license . The License is based on the Mozilla Public
+License Version 1.1 but Sections 14 and 15 have been added to cover use of
+software over a computer network and provide for limited attribution for the
+Original Developer. In addition, Exhibit A has been modified to be consistent
 with Exhibit B.
 
-Software distributed under the License is distributed on an "AS IS" basis, 
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-specific language governing rights and limitations under the License. The 
-Original Code is OpenProj. The Original Developer is the Initial Developer and 
-is Projity, Inc. All portions of the code written by Projity are Copyright (c) 
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+specific language governing rights and limitations under the License. The
+Original Code is OpenProj. The Original Developer is the Initial Developer and
+is Projity, Inc. All portions of the code written by Projity are Copyright (c)
 2006, 2007. All Rights Reserved. Contributors Projity, Inc.
 
-Alternatively, the contents of this file may be used under the terms of the 
-Projity End-User License Agreeement (the Projity License), in which case the 
-provisions of the Projity License are applicable instead of those above. If you 
-wish to allow use of your version of this file only under the terms of the 
-Projity License and not to allow others to use your version of this file under 
-the CPAL, indicate your decision by deleting the provisions above and replace 
-them with the notice and other provisions required by the Projity  License. If 
-you do not delete the provisions above, a recipient may use your version of this 
+Alternatively, the contents of this file may be used under the terms of the
+Projity End-User License Agreeement (the Projity License), in which case the
+provisions of the Projity License are applicable instead of those above. If you
+wish to allow use of your version of this file only under the terms of the
+Projity License and not to allow others to use your version of this file under
+the CPAL, indicate your decision by deleting the provisions above and replace
+them with the notice and other provisions required by the Projity  License. If
+you do not delete the provisions above, a recipient may use your version of this
 file under either the CPAL or the Projity License.
 
-[NOTE: The text of this license may differ slightly from the text of the notices 
-in Exhibits A and B of the license at http://www.projity.com/license. You should 
+[NOTE: The text of this license may differ slightly from the text of the notices
+in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright ï¿½ 2006, 2007 
-Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
-an open source solution from Projity. Attribution URL: http://www.projity.com 
-Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
+Attribution Information: Attribution Copyright Notice: Copyright ï¿½ 2006, 2007
+Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj,
+an open source solution from Projity. Attribution URL: http://www.projity.com
+Graphic Image as provided in the Covered Code as file:  openproj_logo.png with
 alternatives listed on http://www.projity.com/logo
 
-Display of Attribution Information is required in Larger Works which are defined 
-in the CPAL as a work which combines Covered Code or portions thereof with code 
-not governed by the terms of the CPAL. However, in addition to the other notice 
-obligations, all copies of the Covered Code in Executable and Source Code form 
-distributed must, as a form of attribution of the original author, include on 
-each user interface screen the "OpenProj" logo visible to all users.  The 
-OpenProj logo should be located horizontally aligned with the menu bar and left 
-justified on the top left of the screen adjacent to the File menu.  The logo 
-must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it 
-must direct them back to http://www.projity.com.  
+Display of Attribution Information is required in Larger Works which are defined
+in the CPAL as a work which combines Covered Code or portions thereof with code
+not governed by the terms of the CPAL. However, in addition to the other notice
+obligations, all copies of the Covered Code in Executable and Source Code form
+distributed must, as a form of attribution of the original author, include on
+each user interface screen the "OpenProj" logo visible to all users.  The
+OpenProj logo should be located horizontally aligned with the menu bar and left
+justified on the top left of the screen adjacent to the File menu.  The logo
+must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it
+must direct them back to http://www.projity.com.
 -->
 <configuration>
 	<constants>
@@ -165,7 +165,7 @@ must direct them back to http://www.projity.com.
 				vector="true" money="true" sum="Sum">
 				<permission roles="Administrator;ProjectManager"/>
 			</field>
-				
+
 			<field property="work" id="Field.work" vector="true"
 				duration="true" work="true" sum="Sum" />
 			<field property="actualCost" id="Field.actualCost"
@@ -208,7 +208,7 @@ must direct them back to http://www.projity.com.
 				vector="true" money="true" sum="Sum" >
 				<permission roles="Administrator;ProjectManager"/>
 			</field>
-				
+
 			<field property="bac" id="Field.bac" readOnly="true" help="Earned_Value"
 				vector="true" money="true" sum="Sum" >
 				<permission roles="Administrator;ProjectManager"/>
@@ -284,7 +284,7 @@ must direct them back to http://www.projity.com.
 			</field>
 			<field property="critical" id="Field.critical"
 				readOnly="true" />
-			
+
 		</class>
 		<class name="com.projity.pm.snapshot.BaselineScheduleFields">
 			<!-- baseline fields are read only.  This is good PM practice.  MSP allows you to modify them, which is dangerous -->
@@ -324,11 +324,11 @@ must direct them back to http://www.projity.com.
 				id="Field.optimisticDuration" duration="true" />
 		</class>
 		<class name="com.projity.pm.costing.CostFields">
-			<!--			
-				<field property="actualCost" id="Field.actualCost" readOnly="true" vector="true" money="true"/>			
+			<!--
+				<field property="actualCost" id="Field.actualCost" readOnly="true" vector="true" money="true"/>
 				<field property="baselineCost" id="Field.baselineCost" vector="true" money="true"/>
 				<field property="baselineCosts" id="Field.baseline#Cost" indexes="10" boundsField="com.projity.configuration.Settings.NUM_ARRAY_BASELINES" vector="true" money="true"/>
-				
+
 			-->
 
 
@@ -348,7 +348,7 @@ must direct them back to http://www.projity.com.
 				money="true" indexes="10"
 				boundsField="com.projity.field.CustomFieldsImpl.NUM_COST" />
 			<field property="customDate" id="Field.customDate#" custom="true"
-				date="true" indexes="10" 
+				date="true" indexes="10"
 				boundsField="com.projity.field.CustomFieldsImpl.NUM_DATE" />
 			<field property="customDuration" id="Field.customDuration#" custom="true"
 				duration="true" indexes="10"
@@ -590,7 +590,7 @@ must direct them back to http://www.projity.com.
 				</select>
 				<filter method="filterRoles" />
 			</field>
-			
+
 			<field property="bookingType" id="Field.bookingType">
 				<select name="bookingType">
 					<option key="BookingType.Proposed" value="0" />
@@ -617,7 +617,7 @@ must direct them back to http://www.projity.com.
 			<field property="projectId" id="Field.projectId"
 				readOnly="true" />
 			<!--			<field property="debugDependencyOrder" id="Field.debugDependencyOrder" readOnly="true"/>	-->
-		<!-- 
+		<!--
 			<field property="predecessorOrder" id="Field.predecessorOrder" readOnly="true" />
  		-->
 		</class>
@@ -673,11 +673,11 @@ must direct them back to http://www.projity.com.
 			<field property="benefit" id="Field.benefit">
 					<range minimum="0" maximum="10" step="1" />
 			</field>
-			
-			
+
+
 
 		</class>
-		
+
 		<class name="com.projity.pm.dependency.Dependency">
 			<field property="predecessorName" id="Field.predecessorName"
 				readOnly="true" referencedObjectProperty="predecessor" />
@@ -753,7 +753,7 @@ must direct them back to http://www.projity.com.
 			<field property="id" id="Field.id"/>
 			<field property="name" id="Field.name"/>
 		</class-->
-		
+
 	</fieldDictionary>
 
 	<timescales defaultIndex="2">
@@ -781,10 +781,10 @@ must direct them back to http://www.projity.com.
 		<timescale calendarField1="2" number1="1" pattern1="MMM" trunc1="1" upperCase1="true"
 			normalMinWidth="15" tableMinWidth="51" calendarField2="2" number2="6"
 			pattern2="yyyy, LL" />
-		<timescale calendarField1="2" number1="3" pattern1="Q" 
+		<timescale calendarField1="2" number1="3" pattern1="Q"
 			normalMinWidth="20" tableMinWidth="51" calendarField2="1" number2="1"
 			pattern2="yyyy" />
-		<timescale calendarField1="2" number1="6" pattern1="L" 
+		<timescale calendarField1="2" number1="6" pattern1="L"
 			normalMinWidth="20" tableMinWidth="51" calendarField2="1" number2="1"
 			pattern2="yyyy" />
 
@@ -792,8 +792,8 @@ must direct them back to http://www.projity.com.
 
 	<graphic columnHeaderHeight="30" printFooterHeight="15"
 		rowHeaderWidth="40" rowHeight="19" ganttBarHeight="11"
-		ganttProgressBarHeight="4" ganttBarYOffset="4" baselineHeight="4"
-		ganttBarAnnotationXOffset="12" ganttBarAnnotationYOffset="1" 
+		ganttProgressBarHeight="10" ganttBarYOffset="12" baselineHeight="10"
+		ganttBarAnnotationXOffset="12" ganttBarAnnotationYOffset="1"
 		pertCellWidth="200" pertCellHeight="65" pertXOffset="50"
 		pertYOffset="30" treeCellWidth="170" treeCellHeight="50"
 		treeXOffset="50" treeYOffset="30" rowChartHeaderWidth="40"

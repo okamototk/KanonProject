@@ -64,6 +64,9 @@ import javax.swing.JViewport;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.configuration.Dictionary;
 import com.projity.field.FieldContext;
 import com.projity.graphic.configuration.BarStyles;
@@ -101,6 +104,7 @@ public class GanttView extends SplittedView implements BaseView, ScheduleEventLi
 	 *
 	 */
 	private static final long serialVersionUID = 514828655690086836L;
+	private static Log log = LogFactory.getLog(GanttView.class);
 	protected SpreadSheet spreadSheet;
 	protected Gantt gantt;
     protected SortedSet baseLines=new TreeSet();
@@ -180,7 +184,7 @@ public class GanttView extends SplittedView implements BaseView, ScheduleEventLi
 //				}
 //			}
 //		});
-		
+
 		leftScrollPane.getViewport().addMouseWheelListener(new MouseWheelListener(){
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				Component c = gantt.getParent();
@@ -191,13 +195,13 @@ public class GanttView extends SplittedView implements BaseView, ScheduleEventLi
 					if(newY>0){
 						p.y = newY;
 					} else{
-						p.y=0;	
+						p.y=0;
 					}
 					vp.setViewPosition(p);
 				}
 			}
 		});
-		
+
 		gantt.addMouseWheelListener(new MouseWheelListener(){
 			public void mouseWheelMoved(MouseWheelEvent e) {
 				Component c = gantt.getParent();
@@ -208,13 +212,13 @@ public class GanttView extends SplittedView implements BaseView, ScheduleEventLi
 					if(newY>0){
 						p.y = newY;
 					} else{
-						p.y=0;	
+						p.y=0;
 					}
 					vp.setViewPosition(p);
 				}
 			}
 		});
-		
+
 		cache.update();
 
 		//Call this last to be sure everything is initialized
@@ -243,7 +247,11 @@ public class GanttView extends SplittedView implements BaseView, ScheduleEventLi
 	public void setBarStyles(String styleName) {
 		if (gantt == null)
 			return;
-		gantt.setBarStyles((BarStyles) Dictionary.get(BarStyles.category,styleName));
+		BarStyles barStyles = (BarStyles) Dictionary.get(BarStyles.category,styleName);
+		if (barStyles == null){
+			log.fatal("Style: '"+styleName+"' was not found. Style maybe broken.'");
+		}
+		gantt.setBarStyles(barStyles);
 	}
 
     protected JScrollPane createLeftScrollPane() {

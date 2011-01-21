@@ -67,6 +67,8 @@ import javax.swing.JToolBar;
 
 import org.apache.batik.util.gui.resource.ActionMap;
 import org.apache.batik.util.gui.resource.ButtonFactory;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.pm.graphic.TabbedNavigation;
 import com.projity.strings.DirectoryClassLoader;
@@ -91,6 +93,7 @@ public class MenuManager {
 	public static final String VIEW_TOOL_BAR_WITH_NO_SUB_VIEW_OPTION ="ViewToolBarNoSubView";
 	public static final String PRINT_PREVIEW_TOOL_BAR ="PrintPreviewToolBar";
 
+	private static Log log = LogFactory.getLog(MenuManager.class);
 	//private static MenuManager instance = null;
 	static ResourceBundle bundle;
 	/*static*/ ExtMenuFactory menuFactory;
@@ -108,10 +111,15 @@ public class MenuManager {
 			try{
 				DirectoryClassLoader dir=new DirectoryClassLoader();
 				if (dir.isValid()){
+					log.info("Loading menu bundle from file: "+MENU_BUNDLE_CONF_DIR+","+Locale.getDefault()+","+dir);
 					bundle=ResourceBundle.getBundle(MENU_BUNDLE_CONF_DIR,Locale.getDefault(),dir);
+
 				}
 			}catch(Exception e){}
-			if (bundle==null) bundle =  ResourceBundle.getBundle(MENU_BUNDLE,Locale.getDefault(),ClassLoaderUtils.getLocalClassLoader());
+			if (bundle==null){
+				log.info("Loading menu bundle from classloader: "+MENU_BUNDLE+","+Locale.getDefault()+","+ClassLoaderUtils.getLocalClassLoader());
+				bundle =  ResourceBundle.getBundle(MENU_BUNDLE,Locale.getDefault(),ClassLoaderUtils.getLocalClassLoader());
+			}
 		}
 		menuFactory = new ExtMenuFactory(bundle,rootActionMap);
 		toolBarFactory = new ExtToolBarFactory(bundle,rootActionMap);
@@ -149,8 +157,9 @@ public class MenuManager {
 
 	public String getActionStringFromId(String id) {
 		String result = menuFactory.getActionStringFromId(id);
+		log.debug("Menu item: '"+id+"'is in menu properties.");
 		if (result == null)
-			System.out.println("Invalid item: " + id + " it must be a menu item in the menu properties, even if it's only shown in a toolbar");
+			log.error("Invalid menu item: '"+id+"'it must be a menu item in the menu properties, even if it's only shown in a toolbar");
 		return result;
 	}
 
@@ -187,7 +196,7 @@ public class MenuManager {
 			JMenuItem menuItem = menuFactory.getMenuItemFromId(id);
 			if (menuItem != null)
 				return menuItem.isEnabled();
-			
+
 		}
 		return false;
 	}

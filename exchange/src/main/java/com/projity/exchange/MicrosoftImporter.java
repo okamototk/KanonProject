@@ -80,13 +80,13 @@ import net.sf.mpxj.reader.AbstractProjectReader;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jdesktop.swing.calendar.DateSpan;
 
 import com.projity.association.InvalidAssociationException;
 import com.projity.configuration.CircularDependencyException;
 import com.projity.configuration.Settings;
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
 import com.projity.datatype.Duration;
 import com.projity.datatype.Rate;
 import com.projity.exchange.ResourceMappingForm.MergeField;

@@ -66,6 +66,8 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.association.InvalidAssociationException;
 import com.projity.command.Command;
@@ -154,6 +156,7 @@ import com.projity.workspace.WorkspaceSetting;
 public class DocumentFrame extends NamedFrame implements
 		SelectionNodeListener, UndoableEditListener, MenuActionConstants, ObjectEvent.Listener, ProjectListener, SavableToWorkspace, ObjectSelectionListener {
 	private static final long serialVersionUID = 2075764134837908178L;
+	private static Log log = LogFactory.getLog(DocumentFrame.class);
 	protected MainView mainView;
 	protected GanttView ganttView;
 	protected UsageDetailView taskUsageDetailView;
@@ -816,6 +819,11 @@ public class DocumentFrame extends NamedFrame implements
 	public void activateTrackingGanttView() {
 		getGanttView().setBarStyles("Tracking");
 		getGanttView().setTracking(true);
+		if(getGanttView().getGantt().getBarStyles()==null){
+			log.error("BarStyles 'Tracking' was not found. Use standard instead.");
+			getGanttView().setBarStyles("standard");
+		}
+
 		ganttColumns = getGanttView().setColumns("Spreadsheet.Task.tracking");
 		activateTopView(getGanttView(),ACTION_TRACKING_GANTT);
 	}

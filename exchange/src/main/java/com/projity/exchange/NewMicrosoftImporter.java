@@ -63,9 +63,9 @@ import java.util.Vector;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.Predicate;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-import com.projity.contrib.util.Log;
-import com.projity.contrib.util.LogFactory;
 
 import net.sf.mpxj.ProjectCalendar;
 import net.sf.mpxj.ProjectFile;
