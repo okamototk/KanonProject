@@ -53,6 +53,9 @@ import java.awt.Cursor;
 import java.awt.Shape;
 import java.awt.geom.Rectangle2D;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.association.InvalidAssociationException;
 import com.projity.functor.IntervalConsumer;
 import com.projity.pm.dependency.DependencyService;
@@ -75,6 +78,7 @@ import com.projity.util.ClassUtils;
  */
 public class GanttInteractor extends GraphInteractor{
 	private static final long serialVersionUID = -555882007216388246L;
+	private static Log log = LogFactory.getLog(GraphInteractor.class);
 	protected static final int BAR_MOVE_START=4;
 	protected static final int BAR_MOVE_END=5;
 	protected static final int PROGRESS_BAR_MOVE=6;
@@ -221,14 +225,14 @@ public class GanttInteractor extends GraphInteractor{
     	if (!(impl instanceof TimeSheetSchedule))
     		return true;
     	return ((TimeSheetSchedule)impl).isReadOnlyPercentComplete(null);
-    		
+
     }
- 
+
     protected boolean allowLinkSelectionToMove(){
     	return beforeLinkState==BAR_MOVE||beforeLinkState==BAR_MOVE_START||beforeLinkState==BAR_MOVE_END;
     }
 
-    
+
     protected boolean switchOnLinkCreation(double x, double y){
     	if (state==PROGRESS_BAR_MOVE) return false;
 		GraphicNode node=(GraphicNode)selected;
@@ -311,8 +315,13 @@ public class GanttInteractor extends GraphInteractor{
 
     protected void select(int x,int y){
     	if (selection){
+
     		selectedZone=ui.getObjectAt(x,y);
+
     		selected=selectedZone==null?null:selectedZone.getObject();
+    		if(log.isTraceEnabled()){
+    			log.trace(""+selectedZone.getZoneId()+"("+x+","+y+"): "+selectedZone);
+    		}
     		if (state==SPLIT) return;
 	    	if (selected==null ){
 	    		state=NOTHING_SELECTED;

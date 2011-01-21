@@ -212,16 +212,25 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 //			double width=coord.toW(interval.getEnd()-interval.getStart());
 			double height;
 			double y=yrow+config.getGanttBarYOffset();
+			if(log.isTraceEnabled()){
+				log.trace("==== Dump bar information ====");
+				log.trace("barYOffset:"+config.getGanttBarYOffset());
+			}
 			int row=format.getRow();
 		    if (row==1){
 		    	height=config.getGanttBarHeight();
+		    	if(log.isTraceEnabled())
+		    		log.trace("barHeight:"+height);
 		    }
 		    else{
 		    	height=config.getBaselineHeight();
-			    y+=config.getGanttBarHeight()+config.getBaselineHeight()*(row-2);
+		    	if(log.isTraceEnabled())
+		    		log.trace("baselineHeight:"+height);
+			    y+=config.getGanttBarHeight()+config.getBaselineHeight()*(row-1);
 		    }
 	    	y+=height/2;
-
+	    	if(log.isTraceEnabled())
+	    		log.trace("y(Offset+height/2): "+(y-yrow));
 			double dw=height;
 
 			if (format.getMiddle()!=null){

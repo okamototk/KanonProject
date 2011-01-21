@@ -76,12 +76,12 @@ public class GanttUI extends GraphUI{
     }
 
     public GraphZone getNodeAt(double x,double y){
-		double rowHeight=((Gantt)graph).getRowHeight();
+		double rowHeight=((Gantt)graph).getRowHeight(); //rowHeight
 		int row=(int)Math.floor(y/rowHeight);
 		if (row<0||row>=graph.getModel().getCache().getSize()) return null;
 		GraphicNode node=(GraphicNode)graph.getModel().getCache().getElementAt(row);
-		double y0=getBarY(row)+node.getGanttShapeOffset();//row*rowHeight+config.getGanttBarYOffset();
-		double h=node.getGanttShapeHeight();
+		double y0=getBarY(row)+node.getGanttShapeOffset();//row*rowHeight+???  //config.getGanttBarYOffset();
+		double h=node.getGanttShapeHeight();// GanttBarHeight
 		double delta=config.getSelectionSquare();
 		if (y<y0/*-delta*/||y>y0/*+delta*/+h) return null;
 		CoordinatesConverter coord=getCoord();
@@ -101,5 +101,10 @@ public class GanttUI extends GraphUI{
 
 	public CoordinatesConverter getCoord() {
 		return ((GanttParams)graphRenderer.getGraphInfo()).getCoord();
+	}
+
+	@Override
+	public boolean isEditing(GraphicNode node) {
+		return false;
 	}
 }
