@@ -1,7 +1,0 @@
-build
-dist
-bin
-packages
-build-override.properties
-deb
-rpm
