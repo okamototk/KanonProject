@@ -90,7 +90,6 @@ public class TexturedShape {
 		shape = PredefinedShape.find(shapeName);
 		color = Colors.findColor(colorName);
 		stroke = PredefinedStroke.find(strokeName);
-
 		paint = new PredefinedPaint(PredefinedPaint.find(paintName), color, Colors.findColor("WHITE"));
 	}
 
@@ -142,7 +141,7 @@ public class TexturedShape {
 		this.stroke = stroke;
 	}
 
-	public Shape draw(Graphics2D g2, double w, double h, double dw, double dh, Paint texture) {
+	public Shape draw(Graphics2D g2, double w, double h, double dw, double dh, boolean texture) {
 		return draw(g2, w, h, dw, dh, null, texture);
 	}
 
@@ -162,11 +161,8 @@ public class TexturedShape {
 		this.shapeScaleY = shapeScaleY;
 	}
 
-	public Shape draw(Graphics2D g2, double dw, double dh, AffineTransform transform, Paint texture) {
-		return draw(g2, shapeScaleX, shapeScaleY, dw, dh, transform, texture);
-	}
 	public Shape draw(Graphics2D g2, double dw, double dh, AffineTransform transform, boolean texture) {
-		return draw(g2, shapeScaleX, shapeScaleY, dw, dh, transform, null);
+		return draw(g2, shapeScaleX, shapeScaleY, dw, dh, transform, texture);
 	}
 
 	public GeneralPath toGeneralPath(double w, double h, double dw, double dh, AffineTransform transform) {
@@ -181,13 +177,13 @@ public class TexturedShape {
 		return theShape;
 	}
 
-	public Shape draw(Graphics2D g2, double w, double h, double dw, double dh, AffineTransform transform, Paint texture) {
+	public Shape draw(Graphics2D g2, double w, double h, double dw, double dh, AffineTransform transform, boolean texture) {
 		Shape theShape = toGeneralPath(w, h, dw, dh, transform);
 		paintShape(g2, theShape, texture);
 		return theShape;
 	}
 
-	public void paintShape(Graphics2D g2, Shape theShape, Paint texture) {
+	public void paintShape(Graphics2D g2, Shape theShape, boolean texture) {
 		Stroke oldStroke = null;
 		Paint oldPaint = null;
 		Color oldColor = null;
@@ -224,10 +220,10 @@ public class TexturedShape {
 			g2.setStroke(oldStroke);
 	}
 
-	protected void applyPaint(Graphics2D g2, Paint texture) {
+	protected void applyPaint(Graphics2D g2, boolean texture) {
 		// if ("SVGGraphics2D".equals(g2.getClass().getSimpleName()))
-		if (texture!=null)
-			g2.setPaint(texture); // the paint already has the color set
+		if (texture)
+			g2.setPaint(paint); // the paint already has the color set
 		else {
 			if (paint instanceof PredefinedPaint) {
 				PredefinedPaint p = (PredefinedPaint) paint;

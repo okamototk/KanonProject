@@ -240,19 +240,19 @@ public class FormComponent extends JPanel{
 					height,
 					0,
 					+height/2,
-					null);
+					texture);
 			if (format.getStart()!=null) format.getStart().draw(g2,
 					width,
 					height,
 					0,
 					+height/2,
-					null);
+					texture);
 			if (format.getEnd()!=null) format.getEnd().draw(g2,
 					width,
 					height,
 					0,
 					+height/2,
-					null);
+					texture);
 		}
 
 	}
