@@ -529,7 +529,7 @@ public abstract class StartupFactory {
 						if (welcome&&!Environment.isPlugin()) {
 							if (Environment.isOpenProj()) {
 								//LicenseDialog.showDialog(gm.getFrame(),false);
-								TipOfTheDay.showDialog(gm.getFrame(), false);
+								//TipOfTheDay.showDialog(gm.getFrame(), false);
 							} else {
 								if (Environment.isNeedToRestart())
 									return;
