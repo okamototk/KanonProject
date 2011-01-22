@@ -4,11 +4,11 @@
 
   <groupId>org.ultimania.kanon</groupId>
   <artifactId>kanon-project-core</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-dev</version>
   <packaging>jar</packaging>
 
   <name>Kanon Project :: Core</name>
-  <url>http://maven.apache.org</url>
+  <url>http://kanon.ultimanai.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -18,7 +18,7 @@
     <dependency>
       <groupId>org.ultimania.kanon</groupId>
       <artifactId>kanon-project-contrib</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1-dev</version>
     </dependency>
     <dependency>
       <groupId>org.codehaus.groovy</groupId>

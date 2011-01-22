@@ -6,14 +6,12 @@
 
   <groupId>org.ultimania.kanon</groupId>
   <artifactId>kanon-project</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-dev</version>
   <packaging>pom</packaging>
 
   <name>Kanon Project</name>
-  <url>http://maven.apache.org</url>
-  
-
-  <!-- 依存するモジュールを定義 -->
+  <url>http://kanon.ultimania.org</url>
+ 
   <modules>
      <module>contrib</module>
      <module>core</module>
@@ -52,8 +50,8 @@
           <source>1.5</source>
           <target>1.5</target>
         </configuration>
-      </plugin>  
-   </plugins>
-  </build>
+      </plugin>
+  </plugins>
+ </build>
 </project>
 

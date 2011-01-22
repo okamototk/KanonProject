@@ -6,34 +6,27 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.ultimania.kanon</groupId>
   <artifactId>kanon-project-ui</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-dev</version>
   <packaging>jar</packaging>
 
   <name>Kanon Project :: UI</name>
-  <url>http://maven.apache.org</url>
+  <url>http://kanon.ultimania.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
-  <repositories>
-<!--
-    <repository>
-     <id>l2prod</id>
-     <url>http://www.l2fprod.com/maven2</url>
-        </repository>
--->
-        <!--
-            <repository>
-              <id>L2FProd</id>
-             <url>http://java.freehep.org/maven2/</url>
-            </repository>
-            -->
-     </repositories>
+
    <dependencies>
+
+    <dependency>
+      <groupId>org.ultimania.kanon</groupId>
+      <artifactId>kanon-project-exchange</artifactId>
+      <version>0.1-dev</version>
+    </dependency>
+
     <dependency>
       <groupId>com.jgoodies</groupId>
       <artifactId>forms</artifactId>
-<!--     <version>1.0.7</version>-->
      <version>1.2.1</version>
     </dependency>
 
@@ -53,12 +46,6 @@
       <groupId>jfree</groupId>
       <artifactId>jfreechart </artifactId>
       <version>1.0.9</version>
-   </dependency>
-
-   <dependency>
-      <groupId>org.ultimania.kanon</groupId>
-      <artifactId>kanon-project-exchange</artifactId>
-      <version>1.0-SNAPSHOT</version>
    </dependency>
 
    <dependency>

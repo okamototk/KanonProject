@@ -4,48 +4,55 @@
 
   <groupId>org.ultimania.kanon</groupId>
   <artifactId>kanon-project-exchange</artifactId>
-  <version>1.0-SNAPSHOT</version>
+  <version>0.1-dev</version>
   <packaging>jar</packaging>
 
   <name>Kanon Project :: Exchange</name>
-  <url>http://maven.apache.org</url>
+  <url>http://kanon.ultimania.org</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
 
   <dependencies>
+
     <dependency>
       <groupId>org.ultimania.kanon</groupId>
       <artifactId>kanon-project-core</artifactId>
-      <version>1.0-SNAPSHOT</version>
+      <version>0.1-dev</version>
     </dependency>
+
     <dependency>
       <groupId>poi</groupId>
       <artifactId>poi-2.5.1-final</artifactId>
       <version>20040804</version>
     </dependency>
+
     <dependency>
       <groupId>com.sun.xml.bind</groupId>
       <artifactId>jaxb1-impl</artifactId>
        <version>2.1.13</version>
     </dependency>
+
     <dependency>
       <groupId>net.java.dev.msv</groupId>
       <artifactId>msv-core</artifactId>
       <version>2010.2</version>
-    </dependency>
+    </dependency
+>
     <dependency>
       <groupId>net.sf.mpxj</groupId>
       <artifactId>mpxj</artifactId>
       <version>custom</version>
     </dependency>
+
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
       <version>3.8.1</version>
     </dependency>
+
   </dependencies>
   <build>
     <plugins>
