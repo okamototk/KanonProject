@@ -277,7 +277,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 						completedW=width;
 					completedW=CoordinatesConverter.adaptSmallBarEndX(x, x+completedW, node,config)-x;
 					Rectangle2D progressBar=new Rectangle2D.Double(x,y-config.getGanttProgressBarHeight()/2,completedW,config.getGanttProgressBarHeight());
-					g2.setColor(Color.BLACK);
+					g2.setColor(Color.GRAY);
 					g2.fill(progressBar);
 				}
 			}
