@@ -52,6 +52,7 @@ package com.projity.pm.graphic.gantt;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -231,8 +232,8 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 			double dw=height;
 
 			if (format.getMiddle()!=null){
-
 				if (g2==null&&format.isMain()){
+					GradientPaint paint = new GradientPaint(0,(int)(y-height),new Color(0xff,0xff,0xff),0,(int)(14+y),format.getMiddle().getColor());
 					Shape shape=format.getMiddle().toGeneralPath(
 							width,
 							height,
@@ -243,13 +244,13 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 					node.setGanttShapeOffset(bounds.getY()-y+height/2);
 					node.setGanttShapeHeight(bounds.getHeight());
 				}else{
+					GradientPaint paint = new GradientPaint(0,(int)(y-height),new Color(0xff,0xff,0xff),0,(int)(14+y),format.getMiddle().getColor());
 					Shape shape=format.getMiddle().draw(g2,
 							width,
 							height,
 							x,
 							y,
-							useTextures());
-
+							paint);
 				}
 				// draw middle before ends
 			}
@@ -260,13 +261,14 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 					height,
 					x ,
 					y,
-					useTextures());
-			if (format.getEnd()!=null) format.getEnd().draw(g2,
+					null);
+			if (format.getEnd()!=null){ format.getEnd().draw(g2,
 					dw,
 					height,
 					x+width,
 					y,
-					useTextures()); //TODO case when no start symbol
+					null); //TODO case when no start symbol
+			}
 
 			//TODO style and format of completion should be treated with bar prefererences instead of a special case
 			if (format.isMain()&&!node.isSummary()&&node.isStarted()){
@@ -276,8 +278,11 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 					if (completedW>width && !GanttOption.getInstance().isCompletionIsContiguous())
 						completedW=width;
 					completedW=CoordinatesConverter.adaptSmallBarEndX(x, x+completedW, node,config)-x;
-					Rectangle2D progressBar=new Rectangle2D.Double(x,y-config.getGanttProgressBarHeight()/2,completedW,config.getGanttProgressBarHeight());
-					g2.setColor(Color.GRAY);
+					Rectangle2D progressBar=new Rectangle2D.Double(x,y-config.getGanttProgressBarHeight()/2,completedW,config.getGanttProgressBarHeight()+1);
+					GradientPaint gradient = new GradientPaint(0,(int)(y-config.getGanttProgressBarHeight()/2),new Color(0xff,0xff,0xff),0,(int)(y-config.getGanttProgressBarHeight()/2+14),Color.GREEN);
+//					GradientPaint gradient =new GradientPaint(0,(int)(y-config.getGanttProgressBarHeight()/2),new Color(0xff,0xff,0xff),0,(int)(y-config.getGanttProgressBarHeight()/2),format.getMiddle().getColor());
+					g2.setPaint(gradient);
+//					g2.setColor(Color.GREEN);
 					g2.fill(progressBar);
 				}
 			}
@@ -467,7 +472,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 				shape.setPaint(EXTERNAL_LINK_COLOR);
 			g2.setColor(shape.getColor());
 			LinkRouting routing=((GanttParams)graphInfo).getRouting();
-			shape.draw(g2,routing.getLastX(),routing.getLastY(),transform,useTextures());
+			shape.draw(g2,routing.getLastX(),routing.getLastY(),transform,null);
 			if (dep.isCrossProject())
 				shape.setPaint(oldEndColor);
 		}
@@ -566,7 +571,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 				Calendar cal=DateTime.calendarInstance();
 
 				PredefinedPaint paint=(PredefinedPaint)calFormat.getMiddle().getPaint();//new PredefinedPaint(PredefinedPaint.DOT_LINE,Colors.VERY_LIGHT_GRAY,Color.WHITE);
-				paint.applyPaint(g2, useTextures());
+				paint.applyPaint(g2, null);
 				while (i.hasNext()){
 					TimeInterval interval=i.next();
 					long s=interval.getStart();
