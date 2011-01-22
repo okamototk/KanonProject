@@ -27,7 +27,7 @@
         <dependencySet>
             <outputDirectory>lib</outputDirectory>
              <includes>
-                 <include>org.ultimania.kanon:kanon-project-assemble</include>
+                 <include>org.ultimania.kanon:kanon-project-pkg</include>
              </includes>
         </dependencySet>
     </dependencySets>

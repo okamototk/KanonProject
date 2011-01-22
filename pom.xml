@@ -18,7 +18,7 @@
      <module>ui</module>
      <module>reports</module>
      <module>exchange</module>
-     <module>assemble</module>
+     <module>pkg</module>
   </modules>
 
   <properties>
