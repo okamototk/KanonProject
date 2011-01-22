@@ -66,9 +66,10 @@ public class VersionUtils {
 	public static String getVersion(){
 		String version=null;
 		try {
+
 			ResourceBundle bundle = ResourceBundle.getBundle("org.ultimania.kanon.version");
 			if (bundle!=null) version=bundle.getString("kanon.version");
-			
+
 		} catch (Exception e) {
 			log.error("Could not found version.properties file.",e);
 		}
