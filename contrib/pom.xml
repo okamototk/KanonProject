@@ -33,11 +33,6 @@
      <version>0.7</version>
    </dependency
 >  
-   <dependency>
-     <groupId>jasperreports</groupId>
-     <artifactId>jasperreports</artifactId>
-     <version>custom</version>
-   </dependency>
 
    <dependency>
      <groupId>org.beanshell</groupId>
