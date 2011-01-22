@@ -135,7 +135,7 @@ import com.projity.util.Environment;
  *
  */
 public class MicrosoftImporter extends ServerFileImporter{
-	static Log log = LogFactory.getLog(MicrosoftImporter.class);
+	private static Log log = LogFactory.getLog(MicrosoftImporter.class);
 	protected ProjectFile mpx = null;
 	AbstractProjectReader reader;
 	List allTasks = null;
@@ -153,7 +153,6 @@ public class MicrosoftImporter extends ServerFileImporter{
 
 	protected Context context = new Context();
 	public MicrosoftImporter() {
-		System.out.println("-------MicrosoftImporter ctor");
 	}
 
 //	public void run() {
@@ -175,9 +174,9 @@ public class MicrosoftImporter extends ServerFileImporter{
 
 
 	protected InputStream getStream() throws Exception {
-		System.out.println("MicrosoftImporter.getStream()");
 		InputStream stream = null;
 		if (fileName.startsWith("http")) { //$NON-NLS-1$
+			log.info("Import project data over network: "+fileName);
 			fileName = URLDecoder.decode(fileName,"UTF-8"); //$NON-NLS-1$
 			if (fileName.startsWith("http://")) { //$NON-NLS-1$
 				stream = new URL(fileName).openStream();
@@ -190,20 +189,22 @@ public class MicrosoftImporter extends ServerFileImporter{
 					stream = new FileInputStream(fileName);
 					break;
 				} catch (java.io.FileNotFoundException e) {
+					log.warn("File not found: ",e);
 
 				}
 			}
+			log.info("Import project file: "+fileName + "("+originalName+")");
 		}
 		return stream;
 	}
 	private void setProgress(float p) {
 		if (jobRunnable == null)
-			log.info("Progress " + 100 * p + "%");
+			log.debug("Progress " + 100 * p + "%");
 		else
 			jobRunnable.setProgress(p);
 	}
 	public void importProject(Project p) throws Exception {
-		System.out.println("MicrosoftImporter.importProject()");
+		log.debug("MicrosoftImporter.importProject()");
 
     	subprojects = new ArrayList();
 		this.project = p;
@@ -211,16 +212,16 @@ public class MicrosoftImporter extends ServerFileImporter{
 		convertToProjity();
 	}
 	public void parse() throws Exception {
-		System.out.println("MicrosoftImporter.parse()");
 
 		Environment.setImporting(true); // will avoid certain popups
-		log.info("doing file import");		 //$NON-NLS-1$
+		log.debug("Doing file import");		 //$NON-NLS-1$
 		InputStream stream = null;
 		setProgress(0.05f);
 		int dot = fileName.lastIndexOf("."); //$NON-NLS-1$
 		stream = getStream();
 		if (stream == null) {
 			Alert.warn(Messages.getString("Warn.fileNotFound"));
+			log.warn(Messages.getString("Warn.fileNotFound"));
 			throw(new JobCanceledException(ABORT));
 		}
 
@@ -256,7 +257,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 				mpx = reader.read(stream);
 			} catch (Exception ex) {
 				lastException = ex;
-				System.out.println("Can't read xml: " + ex.getMessage()); //$NON-NLS-1$
+				log.error("Can't read xml: ",ex);
 				ex.printStackTrace();
 				mpx = null;
 				errorDescription = Messages.getString("MicrosoftImporter.ErrorImportingXML");;
@@ -272,6 +273,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 			}
 
 		}
+
 		if (stream != null) // close the stream
 			stream.close();
 
@@ -294,7 +296,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 			throw lastException == null ? new Exception("Failed to import file") : lastException; //$NON-NLS-1$
 		}
 		setProgress(0.2f);
-		log.info("prepare resources"); //$NON-NLS-1$
+		log.debug("prepare resources"); //$NON-NLS-1$
 		allResources= mpx.getAllResources();
 		if (!Environment.isNoPodServer()) {
 			prepareResources(mpx.getAllResources(),new Predicate(){
@@ -312,6 +314,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 	//		importResources();
 		}
 		setProgress(1f);
+		log.info("Import complete: "+fileName);
 
 	}
 	/**
@@ -323,7 +326,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 	 *             on file read error
 	 */
     public Job getImportFileJob(){
-		System.out.println("MicrosoftImporter.getImportFileJob()");
+    	log.debug("MicrosoftImporter.getImportFileJob()");
 
     	subprojects = new ArrayList();
     	errorDescription = null;
@@ -349,7 +352,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 						throw new Exception(ABORT);
 					}
 
-			log.info("import resources");		 //$NON-NLS-1$
+			log.debug("import resources");		 //$NON-NLS-1$
 				if(!importResources()){
 					setProgress(1.0f);
 					errorDescription = ABORT;
@@ -399,30 +402,30 @@ public class MicrosoftImporter extends ServerFileImporter{
 			context.setActualsProtected(actualsProtected);
 		}
 
-		log.info("import options"); //$NON-NLS-1$
+		log.debug("import options"); //$NON-NLS-1$
 			importOptions();
 			setProgress(0.45f);
-		log.info("import calendars"); //$NON-NLS-1$
+		log.debug("import calendars"); //$NON-NLS-1$
 				if(!this.isSkipCalendars())
 					importCalendars();
 				setProgress(0.5f);
-		log.info("import tasks");		 //$NON-NLS-1$
+		log.debug("import tasks");		 //$NON-NLS-1$
 				importTasks();
 				setProgress(0.6f);
-		log.info("import project fields");		 //$NON-NLS-1$
+		log.debug("import project fields");		 //$NON-NLS-1$
 				importProjectFields();
 				setProgress(0.7f);
-		log.info("import dependencies");		 //$NON-NLS-1$
+		log.debug("import dependencies");		 //$NON-NLS-1$
 				importDependencies();
 				setProgress(0.8f);
-		log.info("import hierarchy");		 //$NON-NLS-1$
+		log.debug("import hierarchy");		 //$NON-NLS-1$
 				importHierarchy();
 				setProgress(0.85f);
-		log.info("import assignments"); //$NON-NLS-1$
+		log.debug("import assignments"); //$NON-NLS-1$
 				importAssignments();
 				setProgress(0.9f);
 		importExtra();
-		log.info("about to initialize");		 //$NON-NLS-1$
+		log.debug("about to initialize");		 //$NON-NLS-1$
 			if (project.getName() == null)
 				project.setName("error - name not set on import"); //$NON-NLS-1$
 
@@ -717,7 +720,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 		while (iter.hasNext()) {
 			task = (Task) iter.next();
 			if (task.getNull()) {
-				System.out.println("skipping null task" + task.getName() + " " + task.getID()); //$NON-NLS-1$ //$NON-NLS-2$
+				log.debug("skipping null task" + task.getName() + " " + task.getID()); //$NON-NLS-1$ //$NON-NLS-2$
 				continue;
 			}
 			if (task.getSubProject() != null)
@@ -793,7 +796,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 			if (task == dummyFirstTask)
 				continue;
 			if (task == null)
-				System.out.println("null task"); //$NON-NLS-1$
+				log.debug("null task"); //$NON-NLS-1$
 			List rels = task.getPredecessors();
 			if (rels != null) {
 				Iterator relIter = rels.iterator();
@@ -818,7 +821,7 @@ public class MicrosoftImporter extends ServerFileImporter{
 		com.projity.pm.task.Task successor = (com.projity.pm.task.Task) taskMap.get(mpxTask);
 
 		if (predecessor == null || successor == null) {
-			System.out.println("invalid dependency -pred task not found - maybe duplicate task UIDs" //$NON-NLS-1$
+			log.warn("invalid dependency -pred task not found - maybe duplicate task UIDs" //$NON-NLS-1$
 					+ " pred UID=" + mpxRelation.getTaskUniqueID()); //$NON-NLS-1$
 			return null;
 		}
@@ -994,7 +997,7 @@ if (task.getID() == null)
 
 		// for some reason, mpxj returns a units value that is multiplied by 100
 		if (task == null) {
-			System.out.println("null task in assignment - dummy is " +(mpxAssignment.getTask() == this.dummyFirstTask)); //$NON-NLS-1$
+			log.debug("null task in assignment - dummy is " +(mpxAssignment.getTask() == this.dummyFirstTask)); //$NON-NLS-1$
 			return null;
 		}
 
@@ -1005,7 +1008,7 @@ if (task.getID() == null)
 			resource = (com.projity.pm.resource.Resource) resourceMap.get((long)mpxAssignment.getResource().getUniqueID());
 
 		if (resource == null) {
-			System.out.println("null resource in assignment - ignored. resource id was " +mpxAssignment.getResourceUniqueID()); //$NON-NLS-1$
+			log.debug("null resource in assignment - ignored. resource id was " +mpxAssignment.getResourceUniqueID()); //$NON-NLS-1$
 			return null;
 		}
 
@@ -1129,7 +1132,6 @@ if (task.getID() == null)
 
 	}
 	protected void mapResource(Number id, Object value) {
-//		System.out.println("Mapping res " + id + "   " + value);
 		resourceMap.put(id, value);
 	}
 	public HashMap getResourceMap() {

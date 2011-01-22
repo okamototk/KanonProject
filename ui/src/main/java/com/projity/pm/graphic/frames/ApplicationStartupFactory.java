@@ -62,12 +62,16 @@ import java.util.Properties;
 
 import javax.swing.JFrame;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.configuration.Settings;
 import com.projity.strings.Messages;
 import com.projity.util.Environment;
 import com.projity.util.FontUtil;
 
 public class ApplicationStartupFactory extends StartupFactory {
+	private static Log log = LogFactory.getLog(ApplicationStartupFactory.class);
 
 	public ApplicationStartupFactory(String args[]){
 		this(ApplicationStartupFactory.extractOpts(args));
@@ -242,13 +246,12 @@ public class ApplicationStartupFactory extends StartupFactory {
 		return opts;
 	}
 	public void dumpOpts() {
-		System.out.println("opts:");
 		for (Iterator i=opts.keySet().iterator();i.hasNext();){
 			String opt=(String)i.next();
-			System.out.println(opt+":");
+			log.info("Option: ");
 			String arg;
 			int index=0;
-			while ((arg=getOpt(opt,index++))!=null) System.out.println("\t"+arg);
+			while ((arg=getOpt(opt,index++))!=null) log.info("\t"+arg);
 		}
 	}
 	public void doPostInitView(Container container) {
