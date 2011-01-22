@@ -63,6 +63,8 @@ import javax.swing.RootPaneContainer;
 import javax.swing.SwingUtilities;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.openproj.util.UpdateChecker;
 
 import com.projity.company.DefaultUser;
@@ -127,7 +129,7 @@ import com.projity.util.VersionUtils;
 public abstract class StartupFactory {
 	public static final String defaultServerUrl = Settings.SITE_HOME;
 	private static final int NUM_INVALID_LOGINS = 3;
-
+	private static Log log = LogFactory.getLog(StartupFactory.class);
 
 	protected String serverUrl=null;
 	protected String[] projectUrls=null;
@@ -209,16 +211,14 @@ public abstract class StartupFactory {
 		VersionUtils.versionCheck(true);
 		if (!VersionUtils.isJnlpUpToDate()) System.out.println("Jnlp isn't up to date, current version is: "+VersionUtils.getJnlpVersion());
 		long t=System.currentTimeMillis();
-		System.out.println("---------- StartupFactory instanceFromNewSession#1 main");
+		log.info("New session");
 		Environment.setClientSide(true);
 
 		System.setSecurityManager(null);
 		Thread loadConfigThread=new Thread("loadConfig"){
 			public void run() {
 				long t=System.currentTimeMillis();
-//				System.out.println("---------- StartupFactory instanceFromNewSession#1 doLoadConfig");
 				doLoadConfig();
-//				System.out.println("---------- StartupFactory instanceFromNewSession#1 doLoadConfig done in "+(System.currentTimeMillis()-t)+" ms");
 			}
 		};
 		loadConfigThread.start();
@@ -303,13 +303,15 @@ public abstract class StartupFactory {
 	}
 
 	public boolean doLogin(GraphicManager graphicManager) {
-		System.out.println("do login");
-		if (Environment.isNoPodServer())
+
+		if (Environment.isNoPodServer()){
 			Environment.setNewLook(true);
+			log.info("Login POD Server.");
+		}
 		if (Environment.getStandAlone() || Environment.isNoPodServer()){
 			if(!Environment.isNoPodServer()){
 				Environment.setUser(new DefaultUser());
-				System.out.println("is local");
+				log.info("Locale user.");
 			}
 			return true;
 		}
@@ -469,11 +471,11 @@ public abstract class StartupFactory {
 	}
 	public void doStartupAction(final GraphicManager gm, final long projectId, final String[] projectUrls, final boolean welcome, boolean readOnly, final Map<String,String> args) {
 		this.args = args;
-		System.out.println("=====do startup action " + projectId);
+		log.debug("Start up action: "+projectId);
 		if (Environment.isClientSide() && !Environment.isTesting()) {
-			System.out.println("=====do startup action A");
+			log.debug("Start up action: A");
 			if (projectId > 0) {
-				System.out.println("=====do startup action B");
+				log.debug("Start up action: B");
 
 				Boolean writable = null;
 				if (readOnly)
@@ -483,18 +485,18 @@ public abstract class StartupFactory {
 				if (writable == null)
 					return;
 				AssignmentService.getInstance().setSubstituting(args.get("oldResourceId") != null);
-				System.out.println("=====do startup action C");
+				log.debug("Start up action: C");
 				gm.loadDocument(projectId, true,!writable,new Closure(){
 					public void execute(Object arg0) {
-						System.out.println("=====do startup action D");
+						log.debug("Start up action: D");
 						Project project=(Project)arg0;
 						DocumentFrame frame=gm.getCurrentFrame();
 						if (frame!=null&&frame.getProject().getUniqueId() != projectId) {
-							System.out.println("=====do startup action E");
+							log.debug("Start up action: E");
 
 							gm.switchToProject(projectId);
 						}
-						System.out.println("=====do startup action F");
+						log.debug("Start up action: F");
 						if (args.get("oldResourceId") != null) { // see if need to substitute
 							//JGao 6/3/2009 Need to set initial ids to make sure before doing resource substitution
 							if (project.getInitialTaskIds() == null)
@@ -508,7 +510,7 @@ public abstract class StartupFactory {
 								GraphicManager.getInstance().setEnabledDocumentMenuActions(true);
 							args.put("oldResourceId", null); //avoid doing again
 							AssignmentService.getInstance().setSubstituting(false);
-							System.out.println("=====do startup action G");
+							log.debug("Start up action: G");
 						}
 					}
 				});
@@ -521,7 +523,6 @@ public abstract class StartupFactory {
 						if (Environment.isOpenProj()&&!Environment.isPlugin()) {
 							LicenseDialog.showDialog(gm.getFrame(),false);
 							UserInfoDialog.showDialog(gm.getFrame(),false);
-//							DonateDialog.maybeShow(gm.getFrame(),false);
 							TryPODDialog.maybeShow(gm.getFrame(),false);
 							UpdateChecker.checkForUpdateInBackground();
 						}

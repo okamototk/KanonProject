@@ -56,28 +56,25 @@ import java.util.prefs.Preferences;
 
 import javax.swing.SwingUtilities;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.strings.Messages;
 
 public class VersionUtils {
+	private static Log log = LogFactory.getLog(VersionUtils.class);
 	public static String getVersion(){
 		String version=null;
 		try {
-			ResourceBundle bundle=ResourceBundle.getBundle("com.projity.version.version",Locale.ENGLISH,ClassLoaderUtils.getLocalClassLoader()); //$NON-NLS-1$
-			if (bundle!=null) version=bundle.getString("projity.version");
-		} catch (Exception e) {}
-		if (version==null){
-			try {
-				ResourceBundle bundle=ResourceBundle.getBundle("com.projity.strings.version",Locale.ENGLISH,ClassLoaderUtils.getLocalClassLoader()); //$NON-NLS-1$
-				if (bundle!=null) version=bundle.getString("projity.version");
-			} catch (Exception e) {}
+			ResourceBundle bundle=ResourceBundle.getBundle("org.ultimania.kanon.verison",Locale.getDefault(),ClassLoaderUtils.getLocalClassLoader());
+			if (bundle!=null) version=bundle.getString("kanon.version");
+		} catch (Exception e) {
+			log.error("Could not found version.properties file.",e);
 		}
-		if (version!=null)
-			return version; //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$ //$NON-NLS-4$
-		else return null;//return Messages.getString("Release.version"); // openproj version
-
+		return version;
 	}
 	public static String getJnlpVersion(){
-		return System.getProperty("projity.version");
+		return System.getProperty("kanon.version");
 	}
 
 	public static String toAppletVersion(String v){
@@ -106,10 +103,10 @@ public class VersionUtils {
 		if (version == null) // for running in debugger
 			version="0";
 		Preferences pref=Preferences.userNodeForPackage(VersionUtils.class);
-		String localVersion = pref.get("PODVersion","0");
+		String localVersion = pref.get("Kanon Version","unknown");
 		boolean updated = !localVersion.equals(version);
 		String javaVersion = System.getProperty("java.version");
-		System.out.println("POD Version: "+version + " local version " + localVersion + " updated=" + updated + " java version=" + javaVersion);
+		log.info("Kanon Version: "+version + " local version " + localVersion + " updated=" + updated + " java version=" + javaVersion);
 
 
 		pref.put("JavaVersion",javaVersion);

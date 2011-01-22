@@ -1,51 +1,51 @@
 /*
-The contents of this file are subject to the Common Public Attribution License 
-Version 1.0 (the "License"); you may not use this file except in compliance with 
-the License. You may obtain a copy of the License at 
-http://www.projity.com/license . The License is based on the Mozilla Public 
-License Version 1.1 but Sections 14 and 15 have been added to cover use of 
-software over a computer network and provide for limited attribution for the 
-Original Developer. In addition, Exhibit A has been modified to be consistent 
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+http://www.projity.com/license . The License is based on the Mozilla Public
+License Version 1.1 but Sections 14 and 15 have been added to cover use of
+software over a computer network and provide for limited attribution for the
+Original Developer. In addition, Exhibit A has been modified to be consistent
 with Exhibit B.
 
-Software distributed under the License is distributed on an "AS IS" basis, 
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-specific language governing rights and limitations under the License. The 
-Original Code is OpenProj. The Original Developer is the Initial Developer and 
-is Projity, Inc. All portions of the code written by Projity are Copyright (c) 
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+specific language governing rights and limitations under the License. The
+Original Code is OpenProj. The Original Developer is the Initial Developer and
+is Projity, Inc. All portions of the code written by Projity are Copyright (c)
 2006, 2007. All Rights Reserved. Contributors Projity, Inc.
 
-Alternatively, the contents of this file may be used under the terms of the 
-Projity End-User License Agreeement (the Projity License), in which case the 
-provisions of the Projity License are applicable instead of those above. If you 
-wish to allow use of your version of this file only under the terms of the 
-Projity License and not to allow others to use your version of this file under 
-the CPAL, indicate your decision by deleting the provisions above and replace 
-them with the notice and other provisions required by the Projity  License. If 
-you do not delete the provisions above, a recipient may use your version of this 
+Alternatively, the contents of this file may be used under the terms of the
+Projity End-User License Agreeement (the Projity License), in which case the
+provisions of the Projity License are applicable instead of those above. If you
+wish to allow use of your version of this file only under the terms of the
+Projity License and not to allow others to use your version of this file under
+the CPAL, indicate your decision by deleting the provisions above and replace
+them with the notice and other provisions required by the Projity  License. If
+you do not delete the provisions above, a recipient may use your version of this
 file under either the CPAL or the Projity License.
 
-[NOTE: The text of this license may differ slightly from the text of the notices 
-in Exhibits A and B of the license at http://www.projity.com/license. You should 
+[NOTE: The text of this license may differ slightly from the text of the notices
+in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright � 2006, 2007 
-Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
-an open source solution from Projity. Attribution URL: http://www.projity.com 
-Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
+Attribution Information: Attribution Copyright Notice: Copyright � 2006, 2007
+Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj,
+an open source solution from Projity. Attribution URL: http://www.projity.com
+Graphic Image as provided in the Covered Code as file:  openproj_logo.png with
 alternatives listed on http://www.projity.com/logo
 
-Display of Attribution Information is required in Larger Works which are defined 
-in the CPAL as a work which combines Covered Code or portions thereof with code 
-not governed by the terms of the CPAL. However, in addition to the other notice 
-obligations, all copies of the Covered Code in Executable and Source Code form 
-distributed must, as a form of attribution of the original author, include on 
-each user interface screen the "OpenProj" logo visible to all users.  The 
-OpenProj logo should be located horizontally aligned with the menu bar and left 
-justified on the top left of the screen adjacent to the File menu.  The logo 
-must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it 
-must direct them back to http://www.projity.com.  
+Display of Attribution Information is required in Larger Works which are defined
+in the CPAL as a work which combines Covered Code or portions thereof with code
+not governed by the terms of the CPAL. However, in addition to the other notice
+obligations, all copies of the Covered Code in Executable and Source Code form
+distributed must, as a form of attribution of the original author, include on
+each user interface screen the "OpenProj" logo visible to all users.  The
+OpenProj logo should be located horizontally aligned with the menu bar and left
+justified on the top left of the screen adjacent to the File menu.  The logo
+must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it
+must direct them back to http://www.projity.com.
 */
 package com.projity.pm.graphic.chart;
 
@@ -55,6 +55,8 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.jfree.data.xy.AbstractXYDataset;
 import org.jfree.data.xy.XYDataset;
 import org.jfree.data.xy.XYSeries;
@@ -83,6 +85,7 @@ import com.projity.util.Environment;
 
 public class ChartModel implements TimeDistributedConstants, Serializable {
 	private static final long serialVersionUID = -1617376166476506096L;
+	private static Log log = LogFactory.getLog(ChartModel.class);
 	private ChartView chartModel;
 	XYSeriesCollection seriesCollection;
 	XYSeriesCollection secondSeriesCollection = null;
@@ -91,7 +94,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 	public ChartModel(CoordinatesConverter coord) {
 		this.coord = coord;
 	}
-	
+
 	public CalculatedValues computeTrace(Iterator taskIterator, List resources, Object trace,  boolean histogram, boolean cumulative) {
 		if (taskIterator == null || !taskIterator.hasNext()) // if no task selected, dont change chart
 			return null;
@@ -100,13 +103,13 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 			calculatedValues = new GroupedCalculatedValues();
 		else
 			calculatedValues = new NonGroupedCalculatedValues(cumulative,coord.getOrigin());
-		
+
 
 		TimeIterator timeIterator = null;
 		TimeIteratorGenerator generator;
 		Iterator i = taskIterator;
 		Object current;
-		Assignment assignment;	
+		Assignment assignment;
 		double resourceMaxUnits = 0;
 		ArrayList assignmentResourcesUsed = new ArrayList();
 		boolean hasValues = false;
@@ -117,7 +120,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 
 				Iterator a = list.iterator();
 				while (a.hasNext()) { // loop through assignments,
-					
+
 					assignment = (Assignment)a.next();
 					if (histogram) {
 						timeIterator = coord.getProjectTimeIterator();
@@ -161,7 +164,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 		}
 		return calculatedValues;
 	}
-	
+
 	// Other Projects
 //	public CalculatedValues computeOtherProjects(List tasks, List resources) {
 //		if ((resources!=null&&resources.size()>0)||(tasks!=null&&tasks.size()>0)){ //resources can be put in tasks list, is it a bug?
@@ -193,14 +196,14 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 		if ((resources!=null&&resources.size()>0)||(tasks!=null&&tasks.size()>0)){ //resources can be put in tasks list, is it a bug?
 			Iterator j=((resources==null||resources.size()==0)?tasks:resources).iterator();
 			GroupedCalculatedValues c=(GroupedCalculatedValues)calculatedValues;
-			
+
 			TimeIterator timeIterator = coord.getProjectTimeIterator();
 			//TODO uncomment when scheduling is corrected
 			for (int k=0;timeIterator.hasNext();k++){
 				TimeInterval interval=timeIterator.next();
 				c.set(k,interval.getStart1(),interval.getEnd1(),0.0,null);
 			}
-				//return calculatedValues; 
+				//return calculatedValues;
 			while (j.hasNext()){
 				ResourceImpl resource;
 				Object obj=j.next();
@@ -230,7 +233,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 		// Other Projects
 		GroupedCalculatedValues otherProjectsCalculatedValues = null;
 		if (!Environment.getStandAlone()) otherProjectsCalculatedValues=(GroupedCalculatedValues) computeOtherProjects(tasks,resources);
-		
+
 		//This Project
 		GroupedCalculatedValues thisProjectCalculatedValues = (GroupedCalculatedValues) computeTrace(project.getTaskOutlineIterator(), resources, WORK,  true, false);
 
@@ -253,14 +256,14 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 				if (otherProjectsCalculatedValues!=null) otherProjectsCalculatedValues.setValue(i,allProjects);
 			}
 		}
-		
+
 		XYSeries availabilitySeries = buildHistogramSeries(AVAILABILITY,availabilityCalculatedValues);
 		XYSeries otherProjectsSeries = null;
 		if (otherProjectsCalculatedValues!=null) otherProjectsSeries=buildHistogramSeries(OTHER_PROJECTS,otherProjectsCalculatedValues);
 		XYSeries thisProjectSeries = buildHistogramSeries(THIS_PROJECT,thisProjectCalculatedValues);
 		XYSeries selectedSeries = buildHistogramSeries(SELECTED,selectedCalculatedValues);
-		
-		
+
+
 		seriesCollection = new XYSeriesCollection();
 		if (stackCurrentOnTop) {
 			seriesCollection.addSeries(selectedSeries);
@@ -275,7 +278,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 		secondSeriesCollection = new XYSeriesCollection();
 		secondSeriesCollection.addSeries(availabilitySeries);
 	}
-	
+
 	private XYSeries buildHistogramSeries(Object trace, CalculatedValues values) {
 		if (values == null)
 			return dummySeries(trace);
@@ -286,7 +289,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 
 	private XYSeries dummySeries(Object trace) {
 		return new XYSeries(trace.toString(),false,true); // dont bother sorting it already is
-		
+
 	}
 	private int findTrace(Object[] traces,Object trace) {
 		for (int i = 0; i < traces.length; i++)
@@ -294,7 +297,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 				return i;
 		return -1;
 	}
-	
+
 	public void dumpDataset(Object[] traces) {
 		for (int i = 0; i < seriesCollection.getSeriesCount(); i++) {
 			System.out.println("series " + i + " " + traces[i]);
@@ -306,12 +309,12 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 			System.out.println(new java.util.Date(series.getX(i).longValue()) + " " + series.getY(i));
 		}
 	}
-	
+
 	private boolean isTraceRectilinear(Object trace) {
 		return trace == AVAILABILITY;
 	}
 	private void makeSeries(XYSeries series, final Object trace, boolean cumulative, CalculatedValues calculatedValues) {
-		final double scaleFactor = getScaleFactor(trace); 
+		final double scaleFactor = getScaleFactor(trace);
 		final XYSeries _series = series;
 		if (isTraceRectilinear(trace)) {
 			calculatedValues.makeRectilinearSeries(new SeriesCallback() {
@@ -327,9 +330,9 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 			});
 		}
 	}
-	
-	
-	
+
+
+
 	public void computeValues(List tasks, List resources, boolean cumulative, Object[] traces, boolean histogram) {
 		if (tasks == null)
 			return;
@@ -342,23 +345,23 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 			//System.out.println("\n trace #"+i);
 			valuesArray[i] = computeTrace(tasks==null?null:tasks.iterator(),resources,traces[i],histogram,cumulative);
 		}
-		
-		
+
+
 		// done in a second step in case traces depend on each other.  Right now, there is no case like that
 		for (int i = 0; i < traces.length; i++) {
 			series = new XYSeries(traces[i].toString(),false,true); // dont bother sorting it already is
 			if (valuesArray[i] == null) {
-				System.out.println("skipping null values array " + traces[i]);
+				log.warn("Skipping null values array " + traces[i]);
 				continue;
 			}
 			makeSeries(series,traces[i],cumulative,valuesArray[i]);
 
 			seriesCollection.addSeries(series);
-			
+
 		}
 	}
-	
-	
+
+
 	private double getScaleFactor(Object trace) {
 		if (trace instanceof Field && !((Field)trace).isDurationOrWork())
 			return 1.0;
@@ -371,7 +374,7 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 	public AbstractXYDataset getDataset() {
 		return seriesCollection;
 	}
-	
+
 	private final boolean isTaskBased(Object trace) {
 		return (trace == FIXED_COST ||
 				trace == ACTUAL_FIXED_COST);
@@ -380,5 +383,5 @@ public class ChartModel implements TimeDistributedConstants, Serializable {
 	public XYDataset getSecondDataset() {
 		return secondSeriesCollection;
 	}
-	
+
 }
