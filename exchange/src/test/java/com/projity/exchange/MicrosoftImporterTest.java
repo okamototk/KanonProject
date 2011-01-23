@@ -49,40 +49,63 @@ must direct them back to http://www.projity.com.
 */
 package com.projity.exchange;
 
+import net.sf.mpxj.junit.MppProjectHeaderTest;
+
+import org.apache.commons.collections.Closure;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Test;
+
 import com.projity.exchange.MicrosoftImporter;
 import com.projity.job.Job;
+import com.projity.job.JobQueue;
+import com.projity.pm.task.Project;
 import com.projity.pm.task.ProjectFactory;
+import com.projity.session.LoadOptions;
+import com.projity.session.LocalSession;
 import com.projity.session.SessionFactory;
 
+import junit.framework.Assert;
 import junit.framework.TestCase;
 
 /**
  *
  */
 public class MicrosoftImporterTest extends TestCase {
-	private static String mppFileName = "resources/New Product.mpp";
-	private static String xmlFileName = "resources/New Product.xml";
-	/**
-	 * Main method for testing from command line
-	 *
-	 * @param args array of command line arguments
-	 */
-	public static void main(String[] args) {
+	private static String mppFileName = "New Product.mpp";
+	private static String xmlFileName = "New Product.xml";
+	ProjectFactory pf;
+
+	@Before
+	public void init(){
+		pf =ProjectFactory.createInstance();
+		JobQueue jobQueue = new JobQueue("test", true);
+		SessionFactory.getInstance().setJobQueue(jobQueue);
 	}
 
-
+	@Test
 	public void testMppImport() throws Exception {
-		MicrosoftImporter importer = new MicrosoftImporter();
-		importer.setFileName(mppFileName);
-		importer.setProject(ProjectFactory.getInstance().createProject());
-		Job job=importer.getImportFileJob();
-		SessionFactory.getInstance().getJobQueue().schedule(job);
+		LoadOptions opts = new LoadOptions();
+		opts.setLocal(true);
+		opts.setSync(false);
+		opts.setLocal(true);
+		opts.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
+		opts.setFileName(mppFileName);
+		Project project = pf.openProject(opts);
+		Assert.assertNotNull(project);
 	}
 
-	// JAXB is not on classpath yet
-//	public void testXmlImport() throws Exception {
-//		MicrosoftImporter importer = new MicrosoftImporter(xmlFileName,	Document.getTestInstance());
-//		importer.importFile();
-//	}
+	@Test
+	public void testXMLImport() throws Exception {
+		ProjectFactory pf =ProjectFactory.createInstance();
+		LoadOptions opts = new LoadOptions();
+		opts.setLocal(true);
+		opts.setSync(false);
+		opts.setLocal(true);
+		opts.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
+		opts.setFileName(xmlFileName);
+		Project project = pf.openProject(opts);
+		Assert.assertNotNull(project);
+	}
 
 }
