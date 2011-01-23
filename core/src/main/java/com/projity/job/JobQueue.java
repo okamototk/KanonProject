@@ -51,6 +51,7 @@ package com.projity.job;
 
 import java.awt.Component;
 import java.awt.Frame;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collections;
 import java.util.EventListener;
 import java.util.HashSet;
@@ -207,18 +208,18 @@ public class JobQueue extends ThreadGroup{
  	}
 
 	private static final String GRAPHIC_MANAGER="com.projity.pm.graphic.frames.GraphicManager";
-	public Component getComponent(){
+	public Component getComponent() {
 		if (!Environment.isVisible())
 			return null;
 		String methodName = documentBased ? "getDocumentFrameInstance" : "getFrameInstance";
 		try {
 		    return (Frame)Class.forName(GRAPHIC_MANAGER).getMethod(methodName,null).invoke(null,null);
-		} catch (Exception e) {
-			log.fatal("Clould not find Component("+GRAPHIC_MANAGER+":"+methodName+"): ",e);
-			log.fatal("PLEASE INCLUDE kanon-project-ui MODULE IN CLASSPATH.");
-			e.printStackTrace();
-			return null;
+		} catch (ClassNotFoundException e) {
+			log.warn("Clould not find Component("+GRAPHIC_MANAGER+":"+methodName+"): ");
+		} catch (Exception e){
+			log.warn("Load error("+GRAPHIC_MANAGER+":"+methodName+"): ",e);
 		}
+		return null;
 	}
 
 }

@@ -49,6 +49,9 @@ must direct them back to http://www.projity.com.
 */
 package com.projity.exchange;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
 import net.sf.mpxj.junit.MppProjectHeaderTest;
 
 import org.apache.commons.collections.Closure;
@@ -68,24 +71,20 @@ import com.projity.session.SessionFactory;
 import junit.framework.Assert;
 import junit.framework.TestCase;
 
-/**
- *
- */
 public class MicrosoftImporterTest extends TestCase {
 	private static String mppFileName = "New Product.mpp";
 	private static String xmlFileName = "New Product.xml";
 	ProjectFactory pf;
 
 	@Before
-	public void init(){
+	public void setUp() {
+		JobQueue jobQueue = new JobQueue("test", true);
+		SessionFactory.getInstance().setJobQueue(jobQueue);
+		pf =ProjectFactory.createInstance();
 	}
 
 	@Test
 	public void testMppImport() throws Exception {
-		pf =ProjectFactory.createInstance();
-		JobQueue jobQueue = new JobQueue("test", true);
-		SessionFactory.getInstance().setJobQueue(jobQueue);
-
 		LoadOptions opts = new LoadOptions();
 		opts.setLocal(true);
 		opts.setSync(true);
@@ -98,7 +97,6 @@ public class MicrosoftImporterTest extends TestCase {
 
 	@Test
 	public void testXMLImport() throws Exception {
-		ProjectFactory pf =ProjectFactory.createInstance();
 		LoadOptions opts = new LoadOptions();
 		opts.setLocal(true);
 		opts.setSync(true);
