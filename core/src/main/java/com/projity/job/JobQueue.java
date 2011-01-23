@@ -60,6 +60,8 @@ import javax.swing.ProgressMonitor;
 import javax.swing.event.EventListenerList;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.util.Environment;
 
@@ -69,6 +71,7 @@ import com.projity.util.Environment;
  */
 public class JobQueue extends ThreadGroup{
 	public final static int MAX_PROGRESS=10000;
+	private static Log log = LogFactory.getLog(JobQueue.class);
 	protected boolean documentBased = false;
 	public JobQueue(String name,boolean documentBased) {
 		super(name);
@@ -211,6 +214,7 @@ public class JobQueue extends ThreadGroup{
 		try {
 		    return (Frame)Class.forName(GRAPHIC_MANAGER).getMethod(methodName,null).invoke(null,null);
 		} catch (Exception e) {
+			log.fatal("Clould not find Component("+GRAPHIC_MANAGER+":"+methodName+"): ",e);
 			e.printStackTrace();
 			return null;
 		}
