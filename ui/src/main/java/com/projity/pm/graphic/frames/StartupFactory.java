@@ -523,7 +523,7 @@ public abstract class StartupFactory {
 						if (Environment.isOpenProj()&&!Environment.isPlugin()) {
 							LicenseDialog.showDialog(gm.getFrame(),false);
 							UserInfoDialog.showDialog(gm.getFrame(),false);
-							TryPODDialog.maybeShow(gm.getFrame(),false);
+//							TryPODDialog.maybeShow(gm.getFrame(),false);
 							UpdateChecker.checkForUpdateInBackground();
 						}
 						if (welcome&&!Environment.isPlugin()) {
