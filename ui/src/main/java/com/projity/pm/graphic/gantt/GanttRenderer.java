@@ -87,6 +87,7 @@ import com.projity.graphic.configuration.BarStyles;
 import com.projity.graphic.configuration.GraphicConfiguration;
 import com.projity.graphic.configuration.TexturedShape;
 import com.projity.graphic.configuration.shape.PredefinedPaint;
+import com.projity.graphic.configuration.shape.PredefinedStroke;
 import com.projity.options.GanttOption;
 import com.projity.pm.calendar.CalendarService;
 import com.projity.pm.calendar.WorkingCalendar;
@@ -248,6 +249,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 						GradientPaint paint = new GradientPaint(
 									0,(int)(y-height),new Color(0xff,0xff,0xff),0,(int)(14+y),format.getMiddle().getColor());
 						format.getMiddle().setPaint(paint);
+						format.getMiddle().setStroke(PredefinedStroke.SOLID);
 						Shape shape = format.getMiddle().draw(g2,
 								width,
 								height,
@@ -631,7 +633,7 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 			if (statusDate != 0) {
 				int statusDateX=(int)Math.round(coord.toX(statusDate));
 				if (statusDateX>=bounds.getX()&&statusDateX<=bounds.getMaxX()){
-					g2.setPaint(new PredefinedPaint(PredefinedPaint.DOT_LINE2,Color.GREEN,g2.getBackground()));
+					g2.setPaint(new PredefinedPaint(PredefinedPaint.DOT_LINE2,Color.RED,g2.getBackground()));
 					g2.drawLine(statusDateX,bounds.y,statusDateX,bounds.y+bounds.height);
 				}
 			}
