@@ -55,6 +55,9 @@ import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.job.Job;
 import com.projity.job.JobRunnable;
 import com.projity.server.data.DataUtil;
@@ -66,6 +69,7 @@ import com.projity.strings.Messages;
  */
 public class LocalFileImporter extends FileImporter {
 	public static final String VERSION="1.0.0"; //$NON-NLS-1$
+	private static Log log = LogFactory.getLog(LocalFileImporter.class);
 	/**
 	 *
 	 */
@@ -83,7 +87,7 @@ public class LocalFileImporter extends FileImporter {
         job.addRunnable(new JobRunnable("Import",1.0f){ //$NON-NLS-1$
     		public Object run() throws Exception{
     	        DataUtil serializer=new DataUtil();
-    	        System.out.println("Loading "+importer.getFileName()+"..."); //$NON-NLS-1$ //$NON-NLS-2$
+    	        log.debug("Loading : "+new File(importer.getFileName()).getCanonicalPath());
 
     	        long t1=System.currentTimeMillis();
     	        ObjectInputStream in=new ObjectInputStream(new FileInputStream(importer.getFileName()));
@@ -93,15 +97,13 @@ public class LocalFileImporter extends FileImporter {
     	        projectData.setMaster(true);
     	        projectData.setLocal(true);
     	        long t2=System.currentTimeMillis();
-    	        System.out.println("Loading...Done in "+(t2-t1)+" ms"); //$NON-NLS-1$ //$NON-NLS-2$
+    	        log.debug("Loading...Done in "+(t2-t1)+" ms");
 
-
-    	        System.out.println("Deserializing..."); //$NON-NLS-1$
     	        t1=System.currentTimeMillis();
 //    	        project=serializer.deserializeProject(projectData,false,true,resourceMap);
     	        importer.setProject(serializer.deserializeLocalDocument(projectData));
     	        t2=System.currentTimeMillis();
-    	        System.out.println("Deserializing...Done in "+(t2-t1)+" ms"); //$NON-NLS-1$ //$NON-NLS-2$
+    	        log.debug("Deserializing...Done in "+(t2-t1)+" ms");
     			setProgress(1.0f);
                 return null;
     		}

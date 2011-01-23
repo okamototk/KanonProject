@@ -78,18 +78,19 @@ public class MicrosoftImporterTest extends TestCase {
 
 	@Before
 	public void init(){
-		pf =ProjectFactory.createInstance();
-		JobQueue jobQueue = new JobQueue("test", true);
-		SessionFactory.getInstance().setJobQueue(jobQueue);
 	}
 
 	@Test
 	public void testMppImport() throws Exception {
+		pf =ProjectFactory.createInstance();
+		JobQueue jobQueue = new JobQueue("test", true);
+		SessionFactory.getInstance().setJobQueue(jobQueue);
+
 		LoadOptions opts = new LoadOptions();
 		opts.setLocal(true);
-		opts.setSync(false);
+		opts.setSync(true);
 		opts.setLocal(true);
-		opts.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
+		opts.setImporter(LocalSession.MICROSOFT_PROJECT_IMPORTER);
 		opts.setFileName(mppFileName);
 		Project project = pf.openProject(opts);
 		Assert.assertNotNull(project);
@@ -100,9 +101,9 @@ public class MicrosoftImporterTest extends TestCase {
 		ProjectFactory pf =ProjectFactory.createInstance();
 		LoadOptions opts = new LoadOptions();
 		opts.setLocal(true);
-		opts.setSync(false);
+		opts.setSync(true);
 		opts.setLocal(true);
-		opts.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
+		opts.setImporter(LocalSession.MICROSOFT_PROJECT_IMPORTER);
 		opts.setFileName(xmlFileName);
 		Project project = pf.openProject(opts);
 		Assert.assertNotNull(project);
