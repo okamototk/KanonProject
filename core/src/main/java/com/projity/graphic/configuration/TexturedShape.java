@@ -157,6 +157,11 @@ public class TexturedShape {
 		return shapeScaleY;
 	}
 
+	public String getPaintName() {
+		return paintName;
+
+	}
+
 	public void setShapeScaleY(double shapeScaleY) {
 		this.shapeScaleY = shapeScaleY;
 	}

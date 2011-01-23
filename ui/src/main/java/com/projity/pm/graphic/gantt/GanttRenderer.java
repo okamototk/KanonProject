@@ -52,6 +52,7 @@ package com.projity.pm.graphic.gantt;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
+import java.awt.GradientPaint;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Paint;
@@ -243,15 +244,27 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 					node.setGanttShapeOffset(bounds.getY()-y+height/2);
 					node.setGanttShapeHeight(bounds.getHeight());
 				}else{
-					Shape shape=format.getMiddle().draw(g2,
-							width,
-							height,
-							x,
-							y,
-							useTextures());
+					if("GRADIENT".equals(format.getMiddle().getPaintName())){
+						GradientPaint paint = new GradientPaint(
+									0,(int)(y-height),new Color(0xff,0xff,0xff),0,(int)(14+y),format.getMiddle().getColor());
+						format.getMiddle().setPaint(paint);
+						Shape shape = format.getMiddle().draw(g2,
+								width,
+								height,
+								x,
+								y,
+								true);
+					} else {
+						Shape shape = format.getMiddle().draw(g2,
+								width,
+								height,
+								x,
+								y,
+								useTextures());
+					}
 
 				}
-				// draw middle before ends
+
 			}
 			if (g2==null) return;
 
@@ -277,7 +290,16 @@ public class GanttRenderer extends GraphRenderer implements Serializable {
 						completedW=width;
 					completedW=CoordinatesConverter.adaptSmallBarEndX(x, x+completedW, node,config)-x;
 					Rectangle2D progressBar=new Rectangle2D.Double(x,y-config.getGanttProgressBarHeight()/2,completedW,config.getGanttProgressBarHeight());
-					g2.setColor(Color.GRAY);
+					if("GRADIENT".equals(format.getMiddle().getPaintName())){
+						GradientPaint paint = new GradientPaint(0,(int)(y-config.getGanttProgressBarHeight()/2),
+								new Color(0xff,0xff,0xff),0,
+								(int)(y-config.getGanttProgressBarHeight()/2+14),
+								Color.GREEN);
+						g2.setPaint(paint);
+					} else {
+						g2.setColor(Color.GRAY);
+					}
+
 					g2.fill(progressBar);
 				}
 			}

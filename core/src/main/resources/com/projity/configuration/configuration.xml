@@ -789,9 +789,12 @@ must direct them back to http://www.projity.com.
 			pattern2="yyyy" />
 
 	</timescales>
+	/*
+	ganttProgressBartが進捗線の幅
+	*/
 	<graphic columnHeaderHeight="30" printFooterHeight="15"
 		rowHeaderWidth="40" rowHeight="19" ganttBarHeight="12"
-		ganttProgressBarHeight="4" ganttBarYOffset="3" baselineHeight="10"
+		ganttProgressBarHeight="12" ganttBarYOffset="3" baselineHeight="10"
 		ganttBarAnnotationXOffset="12" ganttBarAnnotationYOffset="1"
 		pertCellWidth="200" pertCellHeight="65" pertXOffset="50"
 		pertYOffset="30" treeCellWidth="170" treeCellHeight="50"

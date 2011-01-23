@@ -53,8 +53,13 @@ must direct them back to http://www.projity.com.
 		<format id="Bar.totalSlack" row="1" from="Field.earlyStart" to="Field.lateFinish">
 			<middle shapeName="FULL_HEIGHT" colorName="BLUE" paintName="DIAGONAL" strokeName="SOLID"/>
 		</format>
+		<!--
 		<format id="Bar.task" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator" from="Field.start" to="Field.finish">
 			<middle shapeName="FULL_HEIGHT" colorName="BLUE" paintName="DEFAULT" strokeName="FRAMED"/>
+			-->
+					<format id="Bar.task" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator" from="Field.start" to="Field.finish">
+			<middle shapeName="FULL_HEIGHT" colorName="GRAY" paintName="GRADIENT" strokeName="FRAMED"/>
+
 		</format>
 		<format id="Bar.milestone" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.finish" to="Field.finish">
 			<start shapeName="DIAMOND" colorName="BLACK" paintName="SOLID"/>
@@ -64,9 +69,15 @@ must direct them back to http://www.projity.com.
 			<middle shapeName="QUARTER_HEIGHT_TOP" colorName="BLACK" paintName="SOLID"/>
 			<end shapeName="TRIANGLE_DOWN_RIGHT" colorName="BLACK" paintName="SOLID"/>
 		</format>
+		<!--
 		<format id="Bar.critical" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.start" to="Field.finish">
 			<middle shapeName="FULL_HEIGHT" colorName="RED" paintName="DEFAULT" strokeName="FRAMED"/>
 		</format>
+		 -->
+		<format id="Bar.critical" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.start" to="Field.finish">
+			<middle shapeName="FULL_HEIGHT" colorName="ORANGE" paintName="GRADIENT" strokeName="FRAMED"/>
+		</format>
+
 <!--
 		<format id="Bar.late"  row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.start" to="Field.finish">
 			<middle shapeName="FULL_HEIGHT" colorName="PURPLE" paintName="DEFAULT" strokeName="FRAMED"/>
