@@ -215,6 +215,7 @@ public class JobQueue extends ThreadGroup{
 		    return (Frame)Class.forName(GRAPHIC_MANAGER).getMethod(methodName,null).invoke(null,null);
 		} catch (Exception e) {
 			log.fatal("Clould not find Component("+GRAPHIC_MANAGER+":"+methodName+"): ",e);
+			log.fatal("PLEASE INCLUDE kanon-project-ui MODULE IN CLASSPATH.");
 			e.printStackTrace();
 			return null;
 		}
