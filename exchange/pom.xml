@@ -28,18 +28,7 @@
       <version>20040804</version>
     </dependency>
 
-    <dependency>
-      <groupId>com.sun.xml.bind</groupId>
-      <artifactId>jaxb1-impl</artifactId>
-       <version>2.1.13</version>
-    </dependency>
 
-    <dependency>
-      <groupId>net.java.dev.msv</groupId>
-      <artifactId>msv-core</artifactId>
-      <version>2010.2</version>
-    </dependency
->
     <dependency>
       <groupId>net.sf.mpxj</groupId>
       <artifactId>mpxj</artifactId>
@@ -53,6 +42,20 @@
     	<version>4.8.2</version>
     	<type>jar</type>
     	<scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.sun.xml.bind</groupId>
+    	<artifactId>jaxb-impl</artifactId>
+    	<version>2.2.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
+    </dependency>
+    <dependency>
+    	<groupId>com.sun.xml.bind</groupId>
+    	<artifactId>jaxb1-impl</artifactId>
+    	<version>2.2</version>
+    	<type>jar</type>
+    	<scope>compile</scope>
     </dependency>
   </dependencies>
   <build>
