@@ -1,51 +1,51 @@
 /*
-The contents of this file are subject to the Common Public Attribution License 
-Version 1.0 (the "License"); you may not use this file except in compliance with 
-the License. You may obtain a copy of the License at 
-http://www.projity.com/license . The License is based on the Mozilla Public 
-License Version 1.1 but Sections 14 and 15 have been added to cover use of 
-software over a computer network and provide for limited attribution for the 
-Original Developer. In addition, Exhibit A has been modified to be consistent 
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+http://www.projity.com/license . The License is based on the Mozilla Public
+License Version 1.1 but Sections 14 and 15 have been added to cover use of
+software over a computer network and provide for limited attribution for the
+Original Developer. In addition, Exhibit A has been modified to be consistent
 with Exhibit B.
 
-Software distributed under the License is distributed on an "AS IS" basis, 
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-specific language governing rights and limitations under the License. The 
-Original Code is OpenProj. The Original Developer is the Initial Developer and 
-is Projity, Inc. All portions of the code written by Projity are Copyright (c) 
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+specific language governing rights and limitations under the License. The
+Original Code is OpenProj. The Original Developer is the Initial Developer and
+is Projity, Inc. All portions of the code written by Projity are Copyright (c)
 2006, 2007. All Rights Reserved. Contributors Projity, Inc.
 
-Alternatively, the contents of this file may be used under the terms of the 
-Projity End-User License Agreeement (the Projity License), in which case the 
-provisions of the Projity License are applicable instead of those above. If you 
-wish to allow use of your version of this file only under the terms of the 
-Projity License and not to allow others to use your version of this file under 
-the CPAL, indicate your decision by deleting the provisions above and replace 
-them with the notice and other provisions required by the Projity  License. If 
-you do not delete the provisions above, a recipient may use your version of this 
+Alternatively, the contents of this file may be used under the terms of the
+Projity End-User License Agreeement (the Projity License), in which case the
+provisions of the Projity License are applicable instead of those above. If you
+wish to allow use of your version of this file only under the terms of the
+Projity License and not to allow others to use your version of this file under
+the CPAL, indicate your decision by deleting the provisions above and replace
+them with the notice and other provisions required by the Projity  License. If
+you do not delete the provisions above, a recipient may use your version of this
 file under either the CPAL or the Projity License.
 
-[NOTE: The text of this license may differ slightly from the text of the notices 
-in Exhibits A and B of the license at http://www.projity.com/license. You should 
+[NOTE: The text of this license may differ slightly from the text of the notices
+in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright © 2006, 2007 
-Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
-an open source solution from Projity. Attribution URL: http://www.projity.com 
-Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
+Attribution Information: Attribution Copyright Notice: Copyright ï¿½ 2006, 2007
+Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj,
+an open source solution from Projity. Attribution URL: http://www.projity.com
+Graphic Image as provided in the Covered Code as file:  openproj_logo.png with
 alternatives listed on http://www.projity.com/logo
 
-Display of Attribution Information is required in Larger Works which are defined 
-in the CPAL as a work which combines Covered Code or portions thereof with code 
-not governed by the terms of the CPAL. However, in addition to the other notice 
-obligations, all copies of the Covered Code in Executable and Source Code form 
-distributed must, as a form of attribution of the original author, include on 
-each user interface screen the "OpenProj" logo visible to all users.  The 
-OpenProj logo should be located horizontally aligned with the menu bar and left 
-justified on the top left of the screen adjacent to the File menu.  The logo 
-must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it 
-must direct them back to http://www.projity.com.  
+Display of Attribution Information is required in Larger Works which are defined
+in the CPAL as a work which combines Covered Code or portions thereof with code
+not governed by the terms of the CPAL. However, in addition to the other notice
+obligations, all copies of the Covered Code in Executable and Source Code form
+distributed must, as a form of attribution of the original author, include on
+each user interface screen the "OpenProj" logo visible to all users.  The
+OpenProj logo should be located horizontally aligned with the menu bar and left
+justified on the top left of the screen adjacent to the File menu.  The logo
+must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it
+must direct them back to http://www.projity.com.
 */
 package com.projity.util;
 import java.io.IOException;
@@ -64,6 +64,8 @@ import java.util.HashMap;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.collections.comparators.ComparableComparator;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.datatype.Duration;
 import com.projity.datatype.Money;
@@ -78,7 +80,7 @@ import com.projity.strings.Messages;
  * Utility functions for manipulating primitive types
  */
 public class ClassUtils {
-
+	private static Log log = LogFactory.getLog(ClassUtils.class);
 	public static final Long defaultLong = new Long(0L);
 	public static final Double defaultDouble = new Double(0.0);
 	public static final Integer defaultInteger = new Integer(0);
@@ -131,7 +133,7 @@ public class ClassUtils {
 			return null;
 		}
 	}
-	
+
 	public static boolean isDefaultValue(Object value) {
 		return (value == defaultLong
 			|| value == defaultDouble
@@ -180,7 +182,7 @@ public class ClassUtils {
 			return null;
 		}
 	}
-	
+
 	public static boolean isMultipleValue(Object value) {
 		if (value == null)
 			return false;
@@ -194,9 +196,9 @@ public class ClassUtils {
 			|| value == Duration.ZERO
 			|| value == DateTime.getZeroDate());
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Get the corresponding object class from a primitive class
 	 * @param clazz primitive class
@@ -223,7 +225,7 @@ public class ClassUtils {
 			return Double.class;
 		throw new ClassCastException("Cannot convert class" + clazz + " to an object class");
 	}
-	
+
 /**
  * Convert a Double to an Object of a given class
  * @param value Double value to convert
@@ -242,7 +244,7 @@ public class ClassUtils {
 		else if (clazz == Long.class)
 			return new Long(value.longValue());
 		else if (clazz == Float.class)
-			return new Float(value.floatValue());			
+			return new Float(value.floatValue());
 		else if (clazz == Double.class)
 			return value;
 		else if (clazz == Money.class)
@@ -251,12 +253,12 @@ public class ClassUtils {
 			return Duration.getInstanceFromDouble(value);
 		else if (clazz == Work.class)
 			return Work.getWorkInstanceFromDouble(value);
-		
 
-		
+
+
 		throw new IllegalArgumentException("Class " + clazz + " cannot be converted from a Double");
 	}
- 
+
 	public static java.lang.reflect.Field staticFieldFromFullName(String nameAndField) {
 		int lastDot = nameAndField.lastIndexOf(".");
 		String className = nameAndField.substring(0,lastDot);
@@ -275,11 +277,11 @@ public class ClassUtils {
 		}
 		return null;
 	}
-	
+
 	public static Method staticVoidMethodFromFullName(String nameAndField) {
 		return staticMethodFromFullName(nameAndField,null);
 	}
-	
+
 	public static Method staticMethodFromFullName(String nameAndField, Class[] args) {
 		int lastDot = nameAndField.lastIndexOf(".");
 		String className = nameAndField.substring(0,lastDot);
@@ -297,8 +299,8 @@ public class ClassUtils {
 			e.printStackTrace();
 		}
 		return null;
-	}	
-	
+	}
+
 	public static Object invokeVoidStaticMethodFromFullName(String nameAndField) {
 		if (nameAndField == null)
 			return null;
@@ -320,7 +322,7 @@ public class ClassUtils {
 	/**
 	 * Set the array size of the custom field this applies to
 	 * @param boundsField
-	 */	
+	 */
 		public static void setStaticField(String field, int value) {
 			try {
 				staticFieldFromFullName(field).setInt(null,value);
@@ -332,7 +334,7 @@ public class ClassUtils {
 				e.printStackTrace();
 			}
 		}
-		
+
 		public static void setStaticField(String field, String value) {
 			try {
 				staticFieldFromFullName(field).set(null,value);
@@ -343,7 +345,7 @@ public class ClassUtils {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}		
+		}
 
 		/**
 		 * Safe Class.forName.  See http://radio.weblogs.com/0112098/stories/2003/02/12/classfornameIsEvil.html
@@ -353,15 +355,17 @@ public class ClassUtils {
 		 */
 		public static Class forName(String className) throws ClassNotFoundException {
 			Class theClass = null;
+			log.debug("Load class :"+className);
 			try {
 			    theClass = Class.forName( className, true, Thread.currentThread().getContextClassLoader() );
 			}
 			catch (ClassNotFoundException e) {
+				log.fatal("Class not found("+className+"): ",e);
 			    theClass = Class.forName( className );
 			}
 			return theClass;
 		}
-		
+
 		public static boolean setSimpleProperty(Object bean, String name, Object value) {
 			try {
 				PropertyUtils.setSimpleProperty(bean,name,value);
@@ -392,7 +396,7 @@ public class ClassUtils {
 			catch (InvocationTargetException e) {}
 			catch (NoSuchMethodException e) {}
 			return value != null&&value.booleanValue();
-			
+
 		}
 		private static Class[] fieldGetterParams = new Class[] {Field.class};
 		public static boolean isObjectFieldReadOnly(Object object,Field field){
@@ -408,9 +412,9 @@ public class ClassUtils {
 			catch (InvocationTargetException e) {}
 			catch (NoSuchMethodException e) {}
 			return value != null&&value.booleanValue();
-			
+
 		}
-		
+
 		private static HashMap<Class,Comparator> comparatorMap = null;
 		private static final Comparator defaultTextComparator=
 				new Comparator() {
@@ -543,11 +547,11 @@ public class ClassUtils {
 			if (result == null) { // in case none found, try comparing if the class is comparable
 				if (Comparable.class.isAssignableFrom(clazz))
 					return ComparableComparator.getInstance();
-				else 
+				else
 					return defaultTextComparator;
 			}
 			return comparatorMap.get(clazz);
-			
+
 		}
 		public static boolean isNull(Object value) {
 			if (value instanceof Long)
@@ -558,10 +562,10 @@ public class ClassUtils {
 				return (((Number) value).doubleValue() == ClassUtils.NULL_DOUBLE);
 			return false;
 		}
-		
-		
-		
-		
+
+
+
+
 
 		/**
 		 * ByteArrayInputStream implementation that does not synchronize methods.
@@ -739,6 +743,6 @@ public class ClassUtils {
 	        return obj;
 	    }
 
-		
+
 
 }

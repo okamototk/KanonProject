@@ -120,7 +120,7 @@ public abstract class AbstractSession implements Session{
 		return false;
 	}
 	public void refreshMetadata(Project project) {
-		
+
 	}
 	public boolean needsReload(Project project) {
 		return false;

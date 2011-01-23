@@ -53,6 +53,8 @@ import java.util.Collection;
 import java.util.List;
 
 import org.apache.commons.collections.Closure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.exchange.FileImporter;
 import com.projity.grouping.core.model.DefaultNodeModel;
@@ -72,7 +74,7 @@ public class LocalSession extends AbstractSession{
 	public static final String LOCAL_PROJECT_IMPORTER = "com.projity.exchange.LocalFileImporter";
 	public static final String SERVER_LOCAL_PROJECT_IMPORTER = "com.projity.exchange.ServerLocalFileImporter";
 	public static final String MICROSOFT_PROJECT_IMPORTER = "com.projity.exchange.MicrosoftImporter";
-
+	private static Log log = LogFactory.getLog(LocalSession.class);
 
 	protected long localSeed;
 	public synchronized long getId(){
@@ -160,14 +162,11 @@ public class LocalSession extends AbstractSession{
 	    		}
 	    	});
 		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.error("Fail create instance: ",e);
 		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("Illegal access: ",e);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.warn("Class is not found: ",e);
 		}
      	return job;
     }
@@ -195,8 +194,7 @@ public class LocalSession extends AbstractSession{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.fatal("Class not found ("+opt.getImporter()+") :",e);
 		}
 		importer.setJobQueue(jobQueue);
 		importer.setProjectFactory(ProjectFactory.getInstance());//used?
