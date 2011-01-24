@@ -66,7 +66,6 @@
                     <extraJvmArguments>-Xmx512m</extraJvmArguments>
                     <programs>
                         <program>
-
                             <mainClass>com.projity.main.Main</mainClass>
                             <name>kanon</name>
                         </program>
@@ -83,6 +82,44 @@
                 </executions>
 
             </plugin>    
+
+    <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>webstart-maven-plugin</artifactId>
+ 
+        <executions>
+          <execution>
+            <goals>
+              <goal>jnlp</goal>
+            </goals>
+          </execution>
+        </executions>
+ 
+        <configuration>
+          <spec>1.5+</spec>
+          <dependencies>
+            <excludes>
+              <exclude>org.ultimania.kanon:kanon-project-pkg</exclude>
+            </excludes>
+<!--
+            <includes>
+              <include>org.ultimania.kanon:kanon-project-ui</include>
+            </includes>
+-->
+          </dependencies>
+<!--
+          <dependencies>
+            <includes>
+              <include>xstream:xstream</include>
+              <include>xpp3:xpp3_min</include>
+-->
+
+            <jnlp>
+                <!--<outputFile></outputFile>-->
+                <mainClass>com.projity.main.Main</mainClass>
+            </jnlp>
+        </configuration>
+    </plugin>
 </plugins>
 </build>
 
