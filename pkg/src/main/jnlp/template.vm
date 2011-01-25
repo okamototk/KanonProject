@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp
+    spec="1.0+"
+    codebase="http://localhost/"
+    href="$outputFile">
+  <information>
+    <title>$project.Name</title>
+    <vendor>$project.Organization.Name</vendor>
+    <homepage href="$project.url"/>
+    <description">$project.Description</description>
+    <offline-allowed />
+    <icon
+      width="35"
+      height="26"
+      href="images/icon.gif"/>
+    <icon
+      kind="splash"
+      href="images/icon.jpg"/>
+  </information>
+  <security>
+     <all-permissions/>
+  </security>
+  <resources>
+    <j2se version="1.5+"
+     initial-heap-size="128m"
+     max-heap-size="256m"
+     />
+     $dependencies
+  </resources>
+  <application-desc main-class="$mainClass">
+  </application-desc>
+</jnlp>

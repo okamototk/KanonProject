@@ -8,9 +8,14 @@
   <artifactId>kanon-project-pkg</artifactId>
   <version>0.1-dev</version>
   <packaging>jar</packaging>
-
   <name>Kanon Project</name>
   <url>http://kanon.ultimania.org</url>
+  <organization>
+    <name>Kanon Lab</name>
+    <url>http://kanon.ultimania.org/</url>
+  </organization>
+  <description>
+  </description>
   <dependencies>
     <dependency>
       <groupId>org.ultimania.kanon</groupId>
@@ -51,7 +56,7 @@
                 </executions>
             </plugin>
 
-<!-- create kanon.bat, kanon scropt. -->
+           <!-- create kanon.bat, kanon scropt. -->
            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>appassembler-maven-plugin</artifactId>
@@ -83,8 +88,9 @@
 
             </plugin>    
 
+    <!-- create Javakanon.bat, kanon scropt. -->
     <plugin>
-        <groupId>org.codehaus.mojo</groupId>
+        <groupId>org.codehaus.mojo.webstart</groupId>
         <artifactId>webstart-maven-plugin</artifactId>
  
         <executions>
@@ -97,25 +103,37 @@
  
         <configuration>
           <spec>1.5+</spec>
+          <excludeTransitive>true</excludeTransitive>
           <dependencies>
             <excludes>
-              <exclude>org.ultimania.kanon:kanon-project-pkg</exclude>
+              <exclude>org.ultimania.kanon:kanon-project-ui</exclude>
             </excludes>
-<!--
             <includes>
-              <include>org.ultimania.kanon:kanon-project-ui</include>
             </includes>
--->
           </dependencies>
-<!--
-          <dependencies>
-            <includes>
-              <include>xstream:xstream</include>
-              <include>xpp3:xpp3_min</include>
--->
+
+      <sign>
+            <keystore>kanon.keystore</keystore>
+            <alias>kanon-key</alias>
+            <storepass>kanonlab</storepass>
+            <keypass>kanonlab</keypass>
+            <dnameCn>Kanon</dnameCn>
+            <dnameOu>Kanon</dnameOu>
+            <dnameO>Kanon</dnameO>
+            <dnameL>Kamakura</dnameL>
+            <dnameSt>Kanagawa</dnameSt>
+            <dnameC>JP</dnameC>
+
+            <validity>365</validity>
+            <verify>false</verify> 
+
+            <keystoreConfig>
+              <delete>true</delete> 
+              <gen>true</gen>
+            </keystoreConfig>
+          </sign>
 
             <jnlp>
-                <!--<outputFile></outputFile>-->
                 <mainClass>com.projity.main.Main</mainClass>
             </jnlp>
         </configuration>
