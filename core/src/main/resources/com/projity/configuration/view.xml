@@ -58,7 +58,7 @@ must direct them back to http://www.projity.com.
 			<middle shapeName="FULL_HEIGHT" colorName="BLUE" paintName="DEFAULT" strokeName="FRAMED"/>
 			-->
 					<format id="Bar.task" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator" from="Field.start" to="Field.finish">
-			<middle shapeName="FULL_HEIGHT" colorName="GRAY" paintName="GRADIENT" strokeName="FRAMED"/>
+			<middle shapeName="FULL_HEIGHT" colorName="BLUE" paintName="GRADIENT" strokeName="FRAMED"/>
 
 		</format>
 		<format id="Bar.milestone" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.finish" to="Field.finish">
@@ -75,7 +75,7 @@ must direct them back to http://www.projity.com.
 		</format>
 		 -->
 		<format id="Bar.critical" row="1" layer="1" intervalGenerator="com.projity.pm.graphic.gantt.GanttBarIntervalGenerator"  from="Field.start" to="Field.finish">
-			<middle shapeName="FULL_HEIGHT" colorName="ORANGE" paintName="GRADIENT" strokeName="FRAMED"/>
+			<middle shapeName="FULL_HEIGHT" colorName="RED" paintName="GRADIENT" strokeName="FRAMED"/>
 		</format>
 
 <!--

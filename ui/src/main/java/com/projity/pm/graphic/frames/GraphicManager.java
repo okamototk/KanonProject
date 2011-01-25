@@ -1178,7 +1178,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
-			BrowserControl.displayURL("http://ultiania.org/openproj_action");
+			BrowserControl.displayURL("http://www.projity.com/");
 		}
 	}
 
