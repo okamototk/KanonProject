@@ -1,4 +1,4 @@
-■Kanon Project                                                       (C)2011 Kanon Project
+■Kanon Project  
 
 ■はじめに
 オープンソースでプロジェクトをガントチャートで管理できるソフトウェアとして、OpenProjがあります。
@@ -29,8 +29,14 @@ $ mvn install
 
 $ mvn assembly:assembly
 
+Java Web Start用のファイルを生成するには、pkgディレクトリで
+
+$ mvn webstart:jnlp
+
+と入力してください。target/jnlpディレクトリに署名済みのjarとjnlpファイルが作成されます。
+
 ■■実行
-生成されたzipを展開して、binディレクトリの kanon.bat or kanon スクリプトを実行します。
+pkg/targetディレクトリに生成されたzipを展開して、binディレクトリの kanon.bat or kanon スリプトを実行します。
 
 
 ■謝辞
