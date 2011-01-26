@@ -2214,7 +2214,7 @@ public class NormalTask extends Task implements Allocation, TaskSpecificFields,
 
 		return task;
 	}
-	public void cloneTo(Taswrik task){
+	public void cloneTo(Task task){
 		if (task instanceof NormalTask){
 			NormalTask n=(NormalTask)task;
 			n.estimated=estimated;
