@@ -8,8 +8,17 @@
   <artifactId>kanon-project</artifactId>
   <version>0.1-dev</version>
   <packaging>pom</packaging>
+	<name>Kanon Project</name>
+	<url>http://kanon.ultimania.org</url>
+	<organization>
+		<name>Kanon Lab</name>
+		<url>http://kanon.ultimania.org/</url>
+	</organization>
+	<description>
+	   Kanon Project Manement Software. It supports Gantt chart and resource management.
+	</description>
 
-  <name>Kanon Project</name>
+	<name>Kanon Project</name>
   <url>http://kanon.ultimania.org</url>
  
   <modules>

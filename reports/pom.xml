@@ -1,48 +1,56 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ultimania.kanon</groupId>
-  <artifactId>kanon-project-reports</artifactId>
-  <version>0.1-dev</version>
-  <packaging>jar</packaging>
+	<groupId>org.ultimania.kanon</groupId>
+	<artifactId>kanon-project-reports</artifactId>
+	<version>0.1-dev</version>
+	<packaging>jar</packaging>
 
-  <name>Kanon Project :: Reports</name>
-  <url>http://kanon.ultimania.org</url>
+	<name>Kanon Project</name>
+	<url>http://kanon.ultimania.org</url>
+	<organization>
+		<name>Kanon Lab</name>
+		<url>http://kanon.ultimania.org/</url>
+	</organization>
+	<description>
+	   Kanon Project Manement Software. It supports Gantt chart and resource management.
+	</description>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
 
-  <dependencies>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-    <dependency>
-      <groupId>org.ultimania.kanon</groupId>
-      <artifactId>kanon-project-core</artifactId>
-      <version>0.1-dev</version>
-    </dependency>
+	<dependencies>
 
-    <dependency>
-    	<groupId>net.sf.jasperreports</groupId>
-    	<artifactId>jasperreports</artifactId>
-    	<version>4.0.0</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
+		<dependency>
+			<groupId>org.ultimania.kanon</groupId>
+			<artifactId>kanon-project-core</artifactId>
+			<version>0.1-dev</version>
+		</dependency>
 
-  </dependencies>
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>4.0.0</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>  
-    </plugins>
-  </build>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

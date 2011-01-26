@@ -1,82 +1,87 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ultimania.kanon</groupId>
-  <artifactId>kanon-project-exchange</artifactId>
-  <version>0.1-dev</version>
-  <packaging>jar</packaging>
+	<groupId>org.ultimania.kanon</groupId>
+	<artifactId>kanon-project-exchange</artifactId>
+	<version>0.1-dev</version>
+	<packaging>jar</packaging>
 
-  <name>Kanon Project :: Exchange</name>
-  <url>http://kanon.ultimania.org</url>
+	<name>Kanon Project</name>
+	<url>http://kanon.ultimania.org</url>
+	<organization>
+		<name>Kanon Lab</name>
+		<url>http://kanon.ultimania.org/</url>
+	</organization>
+	<description>
+	   Kanon Project Manement Software. It supports Gantt chart and resource management.
+	</description>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
 
-  <dependencies>
+	<dependencies>
 
-    <dependency>
-      <groupId>org.ultimania.kanon</groupId>
-      <artifactId>kanon-project-core</artifactId>
-      <version>0.1-dev</version>
-    </dependency>
+		<dependency>
+			<groupId>org.ultimania.kanon</groupId>
+			<artifactId>kanon-project-core</artifactId>
+			<version>0.1-dev</version>
+		</dependency>
 
-    <dependency>
-      <groupId>poi</groupId>
-      <artifactId>poi-2.5.1-final</artifactId>
-      <version>20040804</version>
-    </dependency>
-
-
-    <dependency>
-      <groupId>net.sf.mpxj</groupId>
-      <artifactId>mpxj</artifactId>
-      <version>custom</version>
-    </dependency>
+		<dependency>
+			<groupId>poi</groupId>
+			<artifactId>poi-2.5.1-final</artifactId>
+			<version>20040804</version>
+		</dependency>
 
 
-    <dependency>
-    	<groupId>junit</groupId>
-    	<artifactId>junit</artifactId>
-    	<version>4.8.2</version>
-    	<type>jar</type>
-    	<scope>test</scope>
-    </dependency>
-    <dependency>
-    	<groupId>com.sun.xml.bind</groupId>
-    	<artifactId>jaxb-impl</artifactId>
-    	<version>2.2.2</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-    <dependency>
-    	<groupId>com.sun.xml.bind</groupId>
-    	<artifactId>jaxb1-impl</artifactId>
-    	<version>2.2</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
-    </dependency>
-  </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-        <!--
-          <skipTests>true</skipTests>
-          -->
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
+		<dependency>
+			<groupId>net.sf.mpxj</groupId>
+			<artifactId>mpxj</artifactId>
+			<version>custom</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.8.2</version>
+			<type>jar</type>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb1-impl</artifactId>
+			<version>2.2</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<!-- <skipTests>true</skipTests> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

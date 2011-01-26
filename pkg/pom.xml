@@ -1,145 +1,147 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.ultimania.kanon</groupId>
-  <artifactId>kanon-project-pkg</artifactId>
-  <version>0.1-dev</version>
-  <packaging>jar</packaging>
-  <name>Kanon Project</name>
-  <url>http://kanon.ultimania.org</url>
-  <organization>
-    <name>Kanon Lab</name>
-    <url>http://kanon.ultimania.org/</url>
-  </organization>
-  <description>
-  </description>
-  <dependencies>
-    <dependency>
-      <groupId>org.ultimania.kanon</groupId>
-      <artifactId>kanon-project-ui</artifactId>
-      <version>0.1-dev</version>
-    </dependency>
-  </dependencies>
+	<groupId>org.ultimania.kanon</groupId>
+	<artifactId>kanon-project-pkg</artifactId>
+	<version>0.1-dev</version>
+	<packaging>jar</packaging>
+	<name>Kanon Project</name>
+	<url>http://kanon.ultimania.org</url>
+	<organization>
+		<name>Kanon Lab</name>
+		<url>http://kanon.ultimania.org/</url>
+	</organization>
+	<description>
+	   Kanon Project Manement Software. It supports Gantt chart and resource management.
+	</description>
 
-  <build>
-    <plugins>
-           <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <finalName>KanonProject-${version}</finalName>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <descriptors>
-                        <descriptor>src/main/assembly/bin.xml</descriptor>
-                    </descriptors>
-                    <!-- create fat jar -->
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <archive>
-                        <manifest>
-                            <mainClass>com.projity.main.Main</mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+	<dependencies>
+		<dependency>
+			<groupId>org.ultimania.kanon</groupId>
+			<artifactId>kanon-project-ui</artifactId>
+			<version>0.1-dev</version>
+		</dependency>
+	</dependencies>
 
-           <!-- create kanon.bat, kanon scropt. -->
-           <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>appassembler-maven-plugin</artifactId>
-                <version>1.0</version>
-                <configuration>
-                    <repositoryLayout>flat</repositoryLayout>
-                    <repositoryName>lib</repositoryName>
-                    <configurationDirectory>config</configurationDirectory>
-                    <generateRepository>false</generateRepository>
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.2</version>
+				<configuration>
+					<finalName>KanonProject-${version}</finalName>
+					<appendAssemblyId>false</appendAssemblyId>
+					<descriptors>
+						<descriptor>src/main/assembly/bin.xml</descriptor>
+					</descriptors>
+					<!-- create fat jar -->
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+					<archive>
+						<manifest>
+							<mainClass>com.projity.main.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
-                    <installArtifacts>true</installArtifacts>
-                    <extraJvmArguments>-Xmx512m</extraJvmArguments>
-                    <programs>
-                        <program>
-                            <mainClass>com.projity.main.Main</mainClass>
-                            <name>kanon</name>
-                        </program>
-                    </programs>
-                </configuration>
-                
-                <executions>
-                    <execution>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>assemble</goal>
-                        </goals>
-                    </execution>
-                </executions>
+			<!-- create kanon.bat, kanon scropt. -->
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>appassembler-maven-plugin</artifactId>
+				<version>1.0</version>
+				<configuration>
+					<repositoryLayout>flat</repositoryLayout>
+					<repositoryName>lib</repositoryName>
+					<configurationDirectory>config</configurationDirectory>
+					<generateRepository>false</generateRepository>
 
-            </plugin>    
+					<installArtifacts>true</installArtifacts>
+					<extraJvmArguments>-Xmx512m</extraJvmArguments>
+					<programs>
+						<program>
+							<mainClass>com.projity.main.Main</mainClass>
+							<name>kanon</name>
+						</program>
+					</programs>
+				</configuration>
 
-    <!-- create Javakanon.bat, kanon scropt. -->
-    <plugin>
-        <groupId>org.codehaus.mojo.webstart</groupId>
-        <artifactId>webstart-maven-plugin</artifactId>
- 
-        <executions>
-          <execution>
-            <goals>
-              <goal>jnlp</goal>
-            </goals>
-          </execution>
-        </executions>
- 
-        <configuration>
-          <spec>1.5+</spec>
-          <excludeTransitive>true</excludeTransitive>
-          <dependencies>
-            <excludes>
-              <exclude>org.ultimania.kanon:kanon-project-ui</exclude>
-            </excludes>
-            <includes>
-            </includes>
-          </dependencies>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>assemble</goal>
+						</goals>
+					</execution>
+				</executions>
 
-      <sign>
-            <keystore>kanon.keystore</keystore>
-            <alias>kanon-key</alias>
-            <storepass>kanonlab</storepass>
-            <keypass>kanonlab</keypass>
-            <dnameCn>Kanon</dnameCn>
-            <dnameOu>Kanon</dnameOu>
-            <dnameO>Kanon</dnameO>
-            <dnameL>Kamakura</dnameL>
-            <dnameSt>Kanagawa</dnameSt>
-            <dnameC>JP</dnameC>
+			</plugin>
 
-            <validity>365</validity>
-            <verify>false</verify> 
+			<!-- create kanon.bat, kanon scropt. -->
+			<plugin>
+				<groupId>org.codehaus.mojo.webstart</groupId>
+				<artifactId>webstart-maven-plugin</artifactId>
 
-            <keystoreConfig>
-              <delete>true</delete> 
-              <gen>true</gen>
-            </keystoreConfig>
-          </sign>
+				<executions>
+					<execution>
+						<goals>
+							<goal>jnlp</goal>
+						</goals>
+					</execution>
+				</executions>
 
-            <jnlp>
-                <mainClass>com.projity.main.Main</mainClass>
-            </jnlp>
-        </configuration>
-    </plugin>
-</plugins>
-</build>
+				<configuration>
+					<spec>1.5+</spec>
+					<excludeTransitive>true</excludeTransitive>
+					<dependencies>
+						<excludes>
+							<exclude>org.ultimania.kanon:kanon-project-ui</exclude>
+						</excludes>
+						<includes>
+						</includes>
+					</dependencies>
+
+					<sign>
+						<keystore>kanon.keystore</keystore>
+						<alias>kanon-key</alias>
+						<storepass>kanonlab</storepass>
+						<keypass>kanonlab</keypass>
+						<dnameCn>Kanon</dnameCn>
+						<dnameOu>Kanon</dnameOu>
+						<dnameO>Kanon</dnameO>
+						<dnameL>Kamakura</dnameL>
+						<dnameSt>Kanagawa</dnameSt>
+						<dnameC>JP</dnameC>
+
+						<validity>365</validity>
+						<verify>false</verify>
+
+						<keystoreConfig>
+							<delete>true</delete>
+							<gen>true</gen>
+						</keystoreConfig>
+					</sign>
+
+					<jnlp>
+						<mainClass>com.projity.main.Main</mainClass>
+					</jnlp>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>
 
