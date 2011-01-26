@@ -132,7 +132,6 @@ import com.projity.util.ClassUtils;
 import com.projity.util.DateTime;
 import com.projity.util.Environment;
 import com.projity.util.HashMapWithDirtyFlags;
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
 
 /**
  * @stereotype thing
@@ -2205,12 +2204,17 @@ public class NormalTask extends Task implements Allocation, TaskSpecificFields,
 //		task.barClosureInstance = new BarClosure();
 		if (extraFields != null) {
 			task.extraFields = (HashMapWithDirtyFlags) ClassUtils.deepCopy(extraFields);
-			task.setInvestmentMilestone(null); // this is not cloneable as must be unique
+			try {
+				task.setInvestmentMilestone(null);
+			} catch (FieldParseException e) {
+				e.printStackTrace();
+				// TODO
+			}
 		}
 
 		return task;
 	}
-	public void cloneTo(Task task){
+	public void cloneTo(Taswrik task){
 		if (task instanceof NormalTask){
 			NormalTask n=(NormalTask)task;
 			n.estimated=estimated;
@@ -2637,13 +2641,13 @@ System.out.println("dura proj --- mar " + DurationFormat.format(getDurationMilli
 		Field f = Configuration.getFieldFromId("Field.investmentMilestone");
 		return (String) getExtraFields().get(f.getAlternateId());
 	}
-	public void setInvestmentMilestone(String investmentMilestone) {
+	public void setInvestmentMilestone(String investmentMilestone) throws FieldParseException {
 		Field f = Configuration.getFieldFromId("Field.investmentMilestone");
 		if (investmentMilestone != null && investmentMilestone.trim().length()> 0) {
 			NormalTask found = (NormalTask) f.findFirstInCollection(investmentMilestone, project.getTasks());
 			if (found != null && found != this) {
 				String val = (String) f.getSelect().getKey(investmentMilestone,this);
-				throw new ParseException(Messages.getStringWithParam("Text.milestoneInUse", new Object[] {val,found.getName()}),0);
+				throw new FieldParseException(Messages.getStringWithParam("Text.milestoneInUse", new Object[] {val,found.getName()}));
 			}
 			setExternallyVisible(true);
 		}
