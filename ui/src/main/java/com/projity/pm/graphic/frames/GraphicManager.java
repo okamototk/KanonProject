@@ -125,6 +125,7 @@ import org.apache.batik.util.gui.resource.MissingListenerException;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.ultimania.kanon.DebugUtil;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
 
@@ -155,6 +156,7 @@ import com.projity.exchange.ResourceMappingForm;
 import com.projity.field.Field;
 import com.projity.graphic.configuration.SpreadSheetFieldArray;
 import com.projity.grouping.core.Node;
+import com.projity.grouping.core.NodeFactory;
 import com.projity.grouping.core.VoidNodeImpl;
 import com.projity.grouping.core.model.NodeModel;
 import com.projity.grouping.core.transform.ViewTransformer;
@@ -189,6 +191,7 @@ import com.projity.pm.graphic.views.ProjectsDialog;
 import com.projity.pm.graphic.views.Searchable;
 import com.projity.pm.resource.Resource;
 import com.projity.pm.resource.ResourcePool;
+import com.projity.pm.task.NormalTask;
 import com.projity.pm.task.Project;
 import com.projity.pm.task.ProjectFactory;
 import com.projity.pm.task.SubProj;
@@ -1037,6 +1040,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_PRINT, new PrintAction());
 		actionsMap.addHandler(ACTION_PRINT_PREVIEW, new PrintPreviewAction());
 		actionsMap.addHandler(ACTION_PDF, new PDFAction());
+		actionsMap.addHandler(ACTION_PNG, new PNGAction());
 		actionsMap.addHandler(ACTION_CLOSE_PROJECT, new CloseProjectAction());
 		actionsMap.addHandler(ACTION_UNDO, new UndoAction());
 		actionsMap.addHandler(ACTION_REDO, new RedoAction());
@@ -1095,8 +1099,10 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_LOOK_AND_FEEL, new LookAndFeelAction());
 		actionsMap.addHandler(ACTION_FULL_SCREEN, new FullScreenAction());
 		actionsMap.addHandler(ACTION_REFRESH, new RefreshAction());
+		actionsMap.addHandler("Shell",new ShellAction());
 		// TODO: メニューがエラーになるので一時的に外した。
 		// 多分 menu.properties,menu_ja.propertiesに定義してやれば解決できる
+
 //		actionsMap.addHandler(ACTION_REINITIALIZE, new ReinitializeAction());
 //		actionsMap.addHandler(ACTION_UNDO_STACK, new UndoStackAction());
 
@@ -1603,6 +1609,21 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 				Cursor cur = c.getCursor();
 				c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				savePDF();
+				c.setCursor(cur);
+			}
+		}
+	}
+
+	public class PNGAction extends MenuActionsMap.DocumentMenuAction {
+		private static final long serialVersionUID = 1L;
+		public void actionPerformed(ActionEvent arg0) {
+			setMeAsLastGraphicManager();
+			if (isDocumentActive()) {
+				Component c = (Component)arg0.getSource();
+				Cursor cur = c.getCursor();
+				c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+				GraphPageable document = PrintDocumentFactory.getInstance().createDocument(getCurrentFrame(),false);
+				if(document!=null)document.printToFile();
 				c.setCursor(cur);
 			}
 		}
@@ -2921,6 +2942,57 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 			if (project!=null&&project.getUndoController()!=null) project.getUndoController().showEditsDialog();
 		}
 	}
+
+	public class ShellAction extends MenuActionsMap.DocumentMenuAction {
+		public void actionPerformed(ActionEvent event) {
+			Project p = getProject();
+			LinkedList link2 = p.getTasks();
+			DebugUtil.dumpLinkedList(link2);
+			ProjectFactory factory = ProjectFactory.getInstance();
+
+			Project project = factory.createProject();
+			LinkedList link = project.getTasks();
+			project.setName("Trac");
+			project.setStart(System.currentTimeMillis()-10000);
+
+
+			//Task task = new NormalTask();
+			NormalTask parent = project.createScriptedTask(false, false);
+			parent.setDuration(100000);
+			parent.setName("parent");
+			NormalTask task = project.createScriptedTask(false, false);
+			Object l = link.getLast();
+			link.remove(1);
+			LinkedList head = (LinkedList)link.getFirst();
+			Object a = head.get(0);
+			Object b = head.get(1);
+
+			((LinkedList)link).add(new LinkedList().add(l));
+
+			task.setName("はげ");
+			task.setStart(System.currentTimeMillis());
+			task.setEnd(System.currentTimeMillis()+200000);
+			task.setDuration(100000);
+//			Node cnode = NodeFactory.getInstance().createNode(task); // get a node for this task
+//			Node pnode = NodeFactory.getInstance().createNode(parent); // get a node for this task
+//			project.addToDefaultOutline(pnode,cnode);
+//			pnode.add(cnode);
+			project.recalculate();
+
+//			task.dependsOn(parent);
+//			parent.dependsOn(task);
+		//	project.add(parent);
+		//	project.add(task);
+			/*
+			Project project = getProject();
+			LinkedList tasks = project.getTasks();
+			Object o1 = tasks.getFirst();
+			Object o2 = tasks.getLast();
+			log.info("inshell");
+			*/
+		}
+	}
+
 
 
 /**

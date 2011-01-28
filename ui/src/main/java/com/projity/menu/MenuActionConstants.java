@@ -60,6 +60,7 @@ public interface MenuActionConstants {
 	public static final String ACTION_PRINT                   = "Print";
 	public static final String ACTION_PRINT_PREVIEW           = "PrintPreview";
 	public static final String ACTION_PDF         			  = "PDF";
+	public static final String ACTION_PNG         			  = "PNG";
 	public static final String ACTION_EXIT                    = "Exit";
 	public static final String ACTION_PUBLISH                 = "Publish";
 	public static final String ACTION_REVERT                  = "Revert";
