@@ -125,7 +125,9 @@ import org.apache.batik.util.gui.resource.MissingListenerException;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.xmlrpc.XmlRpcException;
 import org.ultimania.kanon.DebugUtil;
+import org.ultimania.kanon.exchange.TracImporter;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
 
@@ -2940,6 +2942,31 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 			setMeAsLastGraphicManager();
 			Project project=getCurrentProject();
 			if (project!=null&&project.getUndoController()!=null) project.getUndoController().showEditsDialog();
+		}
+	}
+
+	public class ImportTracTicketAction extends MenuActionsMap.DocumentMenuAction {
+		public void actionPerformed(ActionEvent event) {
+			TracImporter importer = new TracImporter("http://localhost/trac/SampleProject/", "admin","admin");
+			String msg = importer.checkConnection();
+			if(msg!=null){
+
+			}
+			try {
+				importer.importByQuery("status!=close");
+			} catch (XmlRpcException e) {
+				e.printStackTrace();
+			}
+			Project project = importer.getProject();
+			project.initialize(false,false);
+			project.setBoundsAfterReadProject();
+
+			Environment.setImporting(false);
+			project.setWasImported(true);
+
+			final Session session=SessionFactory.getInstance().getSession(true);
+			session.refreshMetadata(project);
+			session.readCurrencyData(project);
 		}
 	}
 
