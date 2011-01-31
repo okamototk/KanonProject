@@ -9,6 +9,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import javax.swing.text.AsyncBoxView.ChildState;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xmlrpc.XmlRpcException;
@@ -39,6 +41,8 @@ public class TracImporter {
 	private String endField = "due_close";
 	private String parentField = "parents";
 	private String completeField = "complete";
+	private HashMap<Integer,ArrayList<Integer>> childMap = new HashMap<Integer,ArrayList<Integer>>();
+	private ArrayList<Integer> rootNode = new ArrayList<Integer>();
 
 	public TracImporter(String tracurl, String username, String password) {
 		log.debug("URL: " + tracurl);
@@ -70,7 +74,7 @@ public class TracImporter {
 			ticketList.add(client.get(id));
 		}
 		importTicket();
-//		importHierarchy();
+		importHierarchy();
 	}
 
 	private long convertDate(Ticket t, String fieldName) {
@@ -131,6 +135,19 @@ public class TracImporter {
 			} else {
 				task.setPercentComplete(0);
 			}
+			String parent = t.$(parentField);
+			if (parent != null && parent.trim().length() > 0) {
+				int pid = Integer.parseInt(parent);
+				ArrayList<Integer> children = childMap.get(pid);
+				if(children==null){
+					children = new ArrayList<Integer>();
+					childMap.put(pid, children);
+				}
+				System.out.println(""+parent+"->"+t.id);
+				children.add(t.id);
+			} else {
+				rootNode.add(t.id);
+			}
 
 			if(start!=0){
 				task.setStart(start);
@@ -141,7 +158,7 @@ public class TracImporter {
 				task.setEnd(end);
 				task.getCurrentSchedule().setEnd((long)(start+(end-start)*complete));
 //				task.getCurrentSchedule().setEnd((long)(start+(end-start)*complete));
-				task.setActualDuration(end-start);
+				task.setActualDuration((long)((end-start)*complete/2));
 			}
 
 			// TODO: 以下の設定
@@ -149,42 +166,33 @@ public class TracImporter {
 			// コンポーネント
 			// マイルストーン
 
-			project.addToDefaultOutline(null ,NodeFactory.getInstance().createNode(task));
+			// デバッグ用コード
+			// 使うときはimportHierarchy() をコメントアウトする。
+			//project.addToDefaultOutline(null ,NodeFactory.getInstance().createNode(task));
 		}
 	}
 
 	private void importHierarchy() {
-		ArrayList<Task> hasParent = new ArrayList<Task>();
-		for (Ticket t : ticketList) {
-			String parent = t.$(parentField);
-			if (parent != null && parent.trim().length() > 0) {
-				Task task = map.get(t.id);
-				try {
-					Task parentTask = map.get(Integer.parseInt(parent));
-					if (parentTask != null) {
-						Node taskNode = NodeFactory.getInstance().createNode(
-								task);
-						Node parentNode = NodeFactory.getInstance().createNode(
-								parentTask);
-						project.addToDefaultOutline(parentNode, taskNode);
-						hasParent.add(task);
-					} else {
-						log.error("#" + t.id + ": " + parentField + "='"
-								+ parent + "' is not exists");
-					}
-				} catch (NumberFormatException e) {
-					log.error("#" + t.id + ": " + parentField
-							+ "' is not Number format.", e);
-				}
+		for(Object rootId:rootNode){
+			int id = (Integer)rootId;
+			Task rootTask = map.get(id);
+			Node pnode = NodeFactory.getInstance().createNode(rootTask);
+			project.addToDefaultOutline(null, pnode);
+			importHierarchy(id, pnode);
+		}
+	}
+	private void importHierarchy(int parent, Node pnode){
+		ArrayList<Integer> children = (ArrayList<Integer>) childMap.get(parent);
+		System.out.println(""+parent+":"+children);
+		if(children!=null){
+			for(int i:children){
+				System.out.println("  "+i);
+				Node cnode = NodeFactory.getInstance().createNode(map.get(i));
+				project.addToDefaultOutline(pnode,cnode);
+				importHierarchy(i,cnode);
 			}
-		}
-		for (Task t : hasParent) {
-			map.remove(t);
-		}
-		for (int id : map.keySet()) {
-			Node node = NodeFactory.getInstance().createNode(map.get(id));
-			project.addToDefaultOutline(null, node);
 		}
 
 	}
+
 }
