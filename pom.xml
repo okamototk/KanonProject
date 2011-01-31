@@ -18,9 +18,6 @@
 	   Kanon Project Manement Software. It supports Gantt chart and resource management.
 	</description>
 
-	<name>Kanon Project</name>
-  <url>http://kanon.ultimania.org</url>
- 
   <modules>
      <module>contrib</module>
      <module>core</module>
