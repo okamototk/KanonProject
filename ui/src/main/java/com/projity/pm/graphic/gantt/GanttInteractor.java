@@ -270,6 +270,7 @@ public class GanttInteractor extends GraphInteractor{
     	}
     	long t=(long)getCoord().toTime(x);
     	long dt=(long)getCoord().toDuration(x-x0);
+    	log.debug("state="+state);
     	switch (state) {
 		case BAR_MOVE:
 			ScheduleService.getInstance().setInterval(this,(Schedule)sourceNode.getNode().getImpl(),selectedInterval.getStart()+dt,selectedInterval.getEnd()+dt,selectedInterval,ui.getGraph().getProject().getUndoController().getEditSupport());

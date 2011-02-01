@@ -71,7 +71,7 @@ public class VersionUtils {
 			if (bundle!=null) version=bundle.getString("kanon.version");
 
 		} catch (Exception e) {
-			log.error("Could not found version.properties file.",e);
+			log.error("Could not found org.ultimania.kanon.version.properties file.");
 		}
 		return version;
 	}

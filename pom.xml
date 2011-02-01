@@ -18,6 +18,10 @@
 	   Kanon Project Manement Software. It supports Gantt chart and resource management.
 	</description>
 
+<<<<<<< local
+=======
+
+>>>>>>> other
   <modules>
      <module>contrib</module>
      <module>core</module>

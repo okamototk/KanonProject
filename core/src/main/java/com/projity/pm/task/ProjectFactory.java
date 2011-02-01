@@ -65,6 +65,8 @@ import javax.swing.SwingUtilities;
 
 import org.apache.commons.collections.Closure;
 import org.apache.commons.collections.functors.ChainedClosure;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
 import com.projity.functor.PairClosure;
 import com.projity.grouping.core.Node;
@@ -99,6 +101,7 @@ public class ProjectFactory {
 	private String server = null;
 	Portfolio portfolio; // for now just one portfolio.  Perhaps portfolio should reference project factory and not like this
 	private static ProjectFactory projectFactory;
+	private Log log = LogFactory.getLog(ProjectFactory.class);
 	private boolean promptDisabled = false;
 	public boolean isPromptDisabled() {
 		return promptDisabled;
@@ -188,7 +191,7 @@ public class ProjectFactory {
 		//two following lines inverted to have a NodeModel with dataFactory set in DocumentFrame
 		((DefaultNodeModel)project.getTaskOutline()).setDataFactory(project);
 		addProject(project,!opt.isSync()&&!Environment.isTesting(),opt.isVerify());
-		System.out.println("Project returned");
+		log.info("Add project: "+project.getName());
 		return project;
 	}
 	public Project createProject(final CreateOptions opt) {
@@ -204,7 +207,7 @@ public class ProjectFactory {
 			SessionFactory.getInstance().schedule(job);
 			try {
 				Project project=(Project)job.waitResult();
-				System.out.println("Project returned end lock");
+				log.info("Projcect created: "+project.getName());
 				return project;
 			} catch (Exception e) {//Forward exception + Alert
 				e.printStackTrace();
@@ -321,8 +324,8 @@ public class ProjectFactory {
 					project.setReadOnly(true);
 					project.setLocal(true);
 				}
-				
-		
+
+
 				return project;
 			}
 		},false);
@@ -759,7 +762,7 @@ public class ProjectFactory {
 					project.setReadOnly(true);
 					project.setLocal(true);
 				}
-				
+
 				project.setDirty(false);
 				project.setGroupDirty(false);
 

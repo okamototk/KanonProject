@@ -1,51 +1,51 @@
 /*
-The contents of this file are subject to the Common Public Attribution License 
-Version 1.0 (the "License"); you may not use this file except in compliance with 
-the License. You may obtain a copy of the License at 
-http://www.projity.com/license . The License is based on the Mozilla Public 
-License Version 1.1 but Sections 14 and 15 have been added to cover use of 
-software over a computer network and provide for limited attribution for the 
-Original Developer. In addition, Exhibit A has been modified to be consistent 
+The contents of this file are subject to the Common Public Attribution License
+Version 1.0 (the "License"); you may not use this file except in compliance with
+the License. You may obtain a copy of the License at
+http://www.projity.com/license . The License is based on the Mozilla Public
+License Version 1.1 but Sections 14 and 15 have been added to cover use of
+software over a computer network and provide for limited attribution for the
+Original Developer. In addition, Exhibit A has been modified to be consistent
 with Exhibit B.
 
-Software distributed under the License is distributed on an "AS IS" basis, 
-WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
-specific language governing rights and limitations under the License. The 
-Original Code is OpenProj. The Original Developer is the Initial Developer and 
-is Projity, Inc. All portions of the code written by Projity are Copyright (c) 
+Software distributed under the License is distributed on an "AS IS" basis,
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the
+specific language governing rights and limitations under the License. The
+Original Code is OpenProj. The Original Developer is the Initial Developer and
+is Projity, Inc. All portions of the code written by Projity are Copyright (c)
 2006, 2007. All Rights Reserved. Contributors Projity, Inc.
 
-Alternatively, the contents of this file may be used under the terms of the 
-Projity End-User License Agreeement (the Projity License), in which case the 
-provisions of the Projity License are applicable instead of those above. If you 
-wish to allow use of your version of this file only under the terms of the 
-Projity License and not to allow others to use your version of this file under 
-the CPAL, indicate your decision by deleting the provisions above and replace 
-them with the notice and other provisions required by the Projity  License. If 
-you do not delete the provisions above, a recipient may use your version of this 
+Alternatively, the contents of this file may be used under the terms of the
+Projity End-User License Agreeement (the Projity License), in which case the
+provisions of the Projity License are applicable instead of those above. If you
+wish to allow use of your version of this file only under the terms of the
+Projity License and not to allow others to use your version of this file under
+the CPAL, indicate your decision by deleting the provisions above and replace
+them with the notice and other provisions required by the Projity  License. If
+you do not delete the provisions above, a recipient may use your version of this
 file under either the CPAL or the Projity License.
 
-[NOTE: The text of this license may differ slightly from the text of the notices 
-in Exhibits A and B of the license at http://www.projity.com/license. You should 
+[NOTE: The text of this license may differ slightly from the text of the notices
+in Exhibits A and B of the license at http://www.projity.com/license. You should
 use the latest text at http://www.projity.com/license for your modifications.
 You may not remove this license text from the source files.]
 
-Attribution Information: Attribution Copyright Notice: Copyright © 2006, 2007 
-Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj, 
-an open source solution from Projity. Attribution URL: http://www.projity.com 
-Graphic Image as provided in the Covered Code as file:  openproj_logo.png with 
+Attribution Information: Attribution Copyright Notice: Copyright ï¿½ 2006, 2007
+Projity, Inc. Attribution Phrase (not exceeding 10 words): Powered by OpenProj,
+an open source solution from Projity. Attribution URL: http://www.projity.com
+Graphic Image as provided in the Covered Code as file:  openproj_logo.png with
 alternatives listed on http://www.projity.com/logo
 
-Display of Attribution Information is required in Larger Works which are defined 
-in the CPAL as a work which combines Covered Code or portions thereof with code 
-not governed by the terms of the CPAL. However, in addition to the other notice 
-obligations, all copies of the Covered Code in Executable and Source Code form 
-distributed must, as a form of attribution of the original author, include on 
-each user interface screen the "OpenProj" logo visible to all users.  The 
-OpenProj logo should be located horizontally aligned with the menu bar and left 
-justified on the top left of the screen adjacent to the File menu.  The logo 
-must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it 
-must direct them back to http://www.projity.com.  
+Display of Attribution Information is required in Larger Works which are defined
+in the CPAL as a work which combines Covered Code or portions thereof with code
+not governed by the terms of the CPAL. However, in addition to the other notice
+obligations, all copies of the Covered Code in Executable and Source Code form
+distributed must, as a form of attribution of the original author, include on
+each user interface screen the "OpenProj" logo visible to all users.  The
+OpenProj logo should be located horizontally aligned with the menu bar and left
+justified on the top left of the screen adjacent to the File menu.  The logo
+must be at least 100 x 25 pixels.  When users click on the "OpenProj" logo it
+must direct them back to http://www.projity.com.
 */
 package com.projity.dialog;
 
@@ -105,7 +105,7 @@ public class TaskInformationDialog extends InformationDialog {
 	private JTabbedPane taskTabbedPane;
 	private int notesTabIndex;
 	private int resourcesTabIndex;
-	
+
 	public void setObject(Object object) {
 		super.setObject(object);
 		String title = Messages.getString("TaskInformationDialog.TaskInformation");
@@ -113,13 +113,13 @@ public class TaskInformationDialog extends InformationDialog {
 			title += " - " + ((HasId)object).getId();
 		this.setTitle(title);
 	}
-	public JComponent createContentPanel() {	
-	    	
+	public JComponent createContentPanel() {
+
 		FormLayout layout = new FormLayout("350dlu:grow","fill:250dlu:grow"); //$NON-NLS-1$ //$NON-NLS-2$
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 		builder.setDefaultDialogBorder();
 		CellConstraints cc = new CellConstraints();
-		
+
 		taskTabbedPane= new JTabbedPane();
 		taskTabbedPane.addTab(Messages.getString("TaskInformationDialog.General"),createGeneralPanel()); //$NON-NLS-1$
 		taskTabbedPane.addTab(Messages.getString("TaskInformationDialog.Predecessors"),createPredecessorsPanel()); //$NON-NLS-1$
@@ -129,7 +129,7 @@ public class TaskInformationDialog extends InformationDialog {
 		resourcesTabIndex = taskTabbedPane.indexOfTab(resources);
 
 		taskTabbedPane.addTab(Messages.getString("TaskInformationDialog.Advanced"),createAdvancedPanel()); //$NON-NLS-1$
-		
+
 		String notes = Messages.getString("TaskInformationDialog.Notes"); //$NON-NLS-1$
 		taskTabbedPane.addTab(notes,createNotesPanel());
 		notesTabIndex = taskTabbedPane.indexOfTab(notes);
@@ -147,7 +147,7 @@ public class TaskInformationDialog extends InformationDialog {
 	}
 
 	protected JComponent createHeaderFieldsPanel(FieldComponentMap map) {
-		// Repeat of fields from general tab 
+		// Repeat of fields from general tab
 		FormLayout layout = new FormLayout(
 		        "p,3dlu,300dlu" //$NON-NLS-1$
 				,"p,3dlu"); //$NON-NLS-1$
@@ -156,28 +156,28 @@ public class TaskInformationDialog extends InformationDialog {
 		builder.nextLine(); // border at bottom
 		return builder.getPanel();
 	}
-	
+
 
 	private JComponent createGeneralPanel(){
 		FieldComponentMap map = createMap();
 		FormLayout layout = new FormLayout(
-		        "max(50dlu;pref), 3dlu, 90dlu 10dlu, p, 3dlu,90dlu,60dlu", // extra padding on right is for estimated field //$NON-NLS-1$
-				"p, 3dlu,p,3dlu,p 3dlu,p, 3dlu, p, 3dlu, p, 3dlu, p,3dlu, p, 13dlu,p,3dlu,p, 3dlu, fill:50dlu:grow"); //$NON-NLS-1$
+		        "max(50dlu;pref), 3dlu, 90dlu, 10dlu, p, 3dlu,90dlu,60dlu", // extra padding on right is for estimated field //$NON-NLS-1$
+				"p, 3dlu,p,3dlu,p ,3dlu,p, 3dlu, p, 3dlu, p, 3dlu, p,3dlu, p, 13dlu,p,3dlu,p, 3dlu, fill:50dlu:grow"); //$NON-NLS-1$
 
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 		CellConstraints cc = new CellConstraints();
 		builder.setDefaultDialogBorder();
 		builder.add(createHeaderFieldsPanel(map),cc.xyw(builder.getColumn(), builder
 				.getRow(), 8));
-		
-		
+
+
 		builder.nextLine(2);
 		map.appendSometimesReadOnly(builder,"Field.duration"); //$NON-NLS-1$
 		map.append(builder,"Field.estimated"); //$NON-NLS-1$
 		builder.nextLine(2);
 		map.appendSometimesReadOnly(builder,"Field.percentComplete"); //$NON-NLS-1$
 		map.append(builder,"Field.priority"); //$NON-NLS-1$
-		
+
 		builder.nextLine(2);
 		map.appendSometimesReadOnly(builder,"Field.cost"); //$NON-NLS-1$
 		map.append(builder,"Field.work"); //$NON-NLS-1$
@@ -201,7 +201,7 @@ public class TaskInformationDialog extends InformationDialog {
 		}
 		return builder.getPanel();
 	}
-	
+
 	private JComponent createAdvancedPanel(){
 		FieldComponentMap map = createMap();
 		FormLayout layout = new FormLayout(
@@ -211,7 +211,7 @@ public class TaskInformationDialog extends InformationDialog {
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
 		builder.setDefaultDialogBorder();
 		CellConstraints cc = new CellConstraints();
-		
+
 		builder.add(createHeaderFieldsPanel(map),cc.xyw(builder.getColumn(), builder
 				.getRow(), 8));
 		builder.nextLine(2);
@@ -236,10 +236,10 @@ public class TaskInformationDialog extends InformationDialog {
 		map.append(builder,"Field.earnedValueMethod"); //$NON-NLS-1$
 
 		return builder.getPanel();
-	}	
-	
+	}
+
 	public JComponent createPredecessorsPanel() {
-		FieldComponentMap map = createMap();		
+		FieldComponentMap map = createMap();
 		FormLayout layout = new FormLayout("p:grow","p,3dlu,p,3dlu,fill:150dlu:grow"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
@@ -253,9 +253,9 @@ public class TaskInformationDialog extends InformationDialog {
 		builder.add(createPredecessorsSpreadsheet());
 		JComponent pred = builder.getPanel();
 		HelpUtil.addDocHelp(pred,"Linking");
-		return pred;	
+		return pred;
 	}
-	
+
 	private class DependencySpreadSheet extends SpreadSheet {
     	InformationDialog dlg;
 		Field clickField;
@@ -278,7 +278,7 @@ public class TaskInformationDialog extends InformationDialog {
 				}
     		}
     	}
-    	
+
 		public Component prepareRenderer(TableCellRenderer renderer, int row,
 				int column) {
 			Component component =  super.prepareRenderer(renderer, row, column);
@@ -289,14 +289,14 @@ public class TaskInformationDialog extends InformationDialog {
 			}
 			return component;
 		}
-		
+
 		@Override
 		protected void handleErrorAlert(String message, Container parent) {
 			Alert.error(Messages.getString("Message.invalidValue"), parent);
 		}
-	
+
 	}
-	
+
 	protected SpreadSheet predecessorsSpreadSheet;
  	public static final String DEPENDENCY_SPREADSHEET=SpreadSheetCategories.dependencySpreadsheetCategory;
     protected JScrollPane createPredecessorsSpreadsheet() {
@@ -330,7 +330,7 @@ public class TaskInformationDialog extends InformationDialog {
     }
 
 	public JComponent createSuccessorsPanel() {
-		FieldComponentMap map = createMap();		
+		FieldComponentMap map = createMap();
 		FormLayout layout = new FormLayout("p:grow","p,3dlu,p,3dlu,fill:150dlu:grow"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
@@ -344,9 +344,9 @@ public class TaskInformationDialog extends InformationDialog {
 		builder.add(createSuccessorsSpreadsheet());
 		JComponent succ = builder.getPanel();
 		HelpUtil.addDocHelp(succ,"Linking");
-		return succ;	
+		return succ;
 	}
-	
+
 	protected SpreadSheet successorsSpreadSheet;
     protected JScrollPane createSuccessorsSpreadsheet() {
         successorsSpreadSheet = new DependencySpreadSheet(this,false);
@@ -354,7 +354,7 @@ public class TaskInformationDialog extends InformationDialog {
     	successorsSpreadSheet.setCanModifyColumns(false);
     	successorsSpreadSheet.setCanSelectFieldArray(false);
     	successorsSpreadSheet.setActions(new String[]{MenuActionConstants.ACTION_DELETE});
-    	
+
     	SpreadSheetUtils.createCollectionSpreadSheet(successorsSpreadSheet
 				,(object==null)?new AssociationList():((Task)object).getSuccessorList()
 				//,(object==null)?null:((NormalTask)object).getDocument()
@@ -381,7 +381,7 @@ public class TaskInformationDialog extends InformationDialog {
 
 	public JComponent createResourcesPanel() {
 		FieldComponentMap map = createMap();
-		
+
 		FormLayout layout = new FormLayout("p:grow,0dlu,right:p","p,3dlu,p,3dlu,fill:150dlu:grow"); //$NON-NLS-1$ //$NON-NLS-2$
 
 		DefaultFormBuilder builder = new DefaultFormBuilder(layout);
@@ -396,7 +396,7 @@ public class TaskInformationDialog extends InformationDialog {
 				.getRow(), 3));
 		JComponent panel = builder.getPanel();
 		HelpUtil.addDocHelp(panel,"Assign_Resources");
-		return panel;	
+		return panel;
 	}
 
 	protected SpreadSheet assignmentSpreadSheet;
@@ -420,7 +420,7 @@ public class TaskInformationDialog extends InformationDialog {
     	SpreadSheetUtils.updateFilteredSpreadsheet(assignmentSpreadSheet,(object==null)?new AssociationList():((NormalTask)object).getAssignments());
     	((SpreadSheetModel)assignmentSpreadSheet.getModel()).fireUpdateAll();
     }
-    
+
 	public void updateAll() {
 		activateListeners();
 		super.updateAll();
@@ -428,7 +428,7 @@ public class TaskInformationDialog extends InformationDialog {
 		updateSuccessorsSpreadsheet();
 		updateAssignmentSpreadsheet();
 	}
-	
+
 	public void documentSelected(DocumentSelectedEvent evt) {
 		if (assignmentSpreadSheet==null) return;
         DocumentFrame df=evt.getCurrent();
@@ -439,8 +439,8 @@ public class TaskInformationDialog extends InformationDialog {
 			assignmentSpreadSheet.setCache(cache);
         }
 	}
-	
-	
+
+
 	protected void activateListeners() {
 		super.activateListeners();
 		predecessorsSpreadSheet.getCache().setReceiveEvents(true);
@@ -452,7 +452,7 @@ public class TaskInformationDialog extends InformationDialog {
 		super.desactivateListeners();
 		predecessorsSpreadSheet.getCache().setReceiveEvents(false);
 		successorsSpreadSheet.getCache().setReceiveEvents(false);
-		//assignmentSpreadSheet.getCache().setReceiveEvents(false); 
+		//assignmentSpreadSheet.getCache().setReceiveEvents(false);
 		//causes an update problem of the filtered cache
 	}
 
@@ -461,5 +461,5 @@ public class TaskInformationDialog extends InformationDialog {
 		return true;
 	}
 
-	
+
 }

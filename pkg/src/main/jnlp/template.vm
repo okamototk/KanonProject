@@ -12,10 +12,10 @@
     <icon
       width="35"
       height="26"
-      href="images/icon.gif"/>
+      href="images/icon.png"/>
     <icon
       kind="splash"
-      href="images/icon.jpg"/>
+      href="images/splash.jpg"/>
   </information>
   <security>
      <all-permissions/>

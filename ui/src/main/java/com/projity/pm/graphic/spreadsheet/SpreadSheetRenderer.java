@@ -49,6 +49,7 @@ must direct them back to http://www.projity.com.
 */
 package com.projity.pm.graphic.spreadsheet;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -171,7 +172,11 @@ public class SpreadSheetRenderer extends Renderer{
 	    	//component.setDoubleBuffered(false);
 	    	boolean opaque=component.isOpaque();
 			component.setOpaque(false);
-	    	//component.setForeground(Color.BLACK);
+
+			// PNGでExportする際に左のスプレッドシートを表示
+	    	component.setForeground(Color.BLACK);
+
+
 			component.setSize(compWidth, params.getRowHeight());
 	    	g2.translate(w+getColMargin(col),h);
 	    	//g2.setClip(0, 0, compWidth, params.getRowHeight());

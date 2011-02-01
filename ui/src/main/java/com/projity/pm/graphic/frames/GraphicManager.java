@@ -73,6 +73,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -125,6 +126,8 @@ import org.apache.batik.util.gui.resource.MissingListenerException;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
+import org.apache.xmlrpc.XmlRpcException;
+import org.ultimania.kanon.exchange.TracImporter;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
 
@@ -155,6 +158,7 @@ import com.projity.exchange.ResourceMappingForm;
 import com.projity.field.Field;
 import com.projity.graphic.configuration.SpreadSheetFieldArray;
 import com.projity.grouping.core.Node;
+import com.projity.grouping.core.NodeFactory;
 import com.projity.grouping.core.VoidNodeImpl;
 import com.projity.grouping.core.model.NodeModel;
 import com.projity.grouping.core.transform.ViewTransformer;
@@ -167,6 +171,7 @@ import com.projity.job.Mutex;
 import com.projity.menu.MenuActionConstants;
 import com.projity.menu.MenuActionsMap;
 import com.projity.menu.MenuManager;
+import com.projity.offline_graphics.SVGRenderer;
 import com.projity.options.CalendarOption;
 import com.projity.pm.assignment.Assignment;
 import com.projity.pm.graphic.ChangeAwareTextField;
@@ -189,6 +194,7 @@ import com.projity.pm.graphic.views.ProjectsDialog;
 import com.projity.pm.graphic.views.Searchable;
 import com.projity.pm.resource.Resource;
 import com.projity.pm.resource.ResourcePool;
+import com.projity.pm.task.NormalTask;
 import com.projity.pm.task.Project;
 import com.projity.pm.task.ProjectFactory;
 import com.projity.pm.task.SubProj;
@@ -1095,8 +1101,10 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_LOOK_AND_FEEL, new LookAndFeelAction());
 		actionsMap.addHandler(ACTION_FULL_SCREEN, new FullScreenAction());
 		actionsMap.addHandler(ACTION_REFRESH, new RefreshAction());
+		actionsMap.addHandler("Shell",new ShellAction());
 		// TODO: メニューがエラーになるので一時的に外した。
 		// 多分 menu.properties,menu_ja.propertiesに定義してやれば解決できる
+
 //		actionsMap.addHandler(ACTION_REINITIALIZE, new ReinitializeAction());
 //		actionsMap.addHandler(ACTION_UNDO_STACK, new UndoStackAction());
 
@@ -1165,7 +1173,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
-			saveLocalProject(true);		}
+			saveLocalProject(true, arg0);		}
 	}
 
 	public class AboutAction extends MenuActionsMap.GlobalMenuAction {
@@ -1365,7 +1373,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
 			if (Environment.getStandAlone())
-				saveLocalProject(false);
+				saveLocalProject(false, arg0);
 			else{
 				if (isDocumentActive()) {
 					final DocumentFrame frame=getCurrentFrame();
@@ -1413,18 +1421,18 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 
 	public class SaveProjectAsAction extends MenuActionsMap.DocumentMenuAction {
 		private static final long serialVersionUID = 1L;
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			setMeAsLastGraphicManager();
 			finishAnyOperations();
 			if (Environment.getStandAlone())
-				saveLocalProject(true);
+				saveLocalProject(true, e);
 			else{
 				if (isDocumentActive()) {
 					final DocumentFrame frame=getCurrentFrame();
 					final Project project = frame.getProject();
 					SaveOptions opt=new SaveOptions();
 					opt.setPostSaving(new Closure(){
-						public void execute(Object arg0) {
+						public void execute(Object e0) {
 							frame.setId(project.getUniqueId()+""); //$NON-NLS-1$
 							refreshSaveStatus(true);
 						}
@@ -2201,7 +2209,7 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		//showWaitCursor(false);
 		return project != null;
 	}
-	protected void saveLocalDocument(String fileName,final boolean saveAs){
+	protected void saveLocalDocument(String fileName,final boolean saveAs, ActionEvent e){
 		addHistory("saveLocalDocument",new Object[]{fileName,saveAs});
 		//showWaitCursor(true);
 		SaveOptions opt=new SaveOptions();
@@ -2217,7 +2225,31 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 				}
 			});
 		}
-		if (fileName.endsWith(".pod")){ //$NON-NLS-1$
+
+		if (fileName.endsWith(".png")){ //$NON-NLS-1$
+			Component c = (Component)e.getSource();
+			Cursor cur = c.getCursor();
+			c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			GraphPageable document = PrintDocumentFactory.getInstance().createDocument(getCurrentFrame(),false);
+			c.setCursor(cur);
+			   SVGRenderer vr = document.getRenderer().createSafePrintCopy();
+
+               int width = vr.getCanvasSize().width;
+               int height = vr.getCanvasSize().height;
+               java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(width, height,
+                               java.awt.image.BufferedImage.TYPE_INT_RGB);
+
+               java.awt.Graphics2D g = bi.createGraphics();
+               g.fillRect(0, 0, width, height);
+               vr.paint(g);
+
+               try {
+            	   javax.imageio.ImageIO.write(bi, "PNG", new File(fileName));
+               } catch (Exception ex){
+            	   log.error("Fail save PNG image.",ex);
+               }
+               return ;
+		} else if (fileName.endsWith(".pod")){ //$NON-NLS-1$
 			opt.setFileName(fileName);
 			opt.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
 		}
@@ -2287,14 +2319,14 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		if (fileName!=null) loadLocalDocument(fileName,!Environment.getStandAlone(), importCalendars);
 	}
 
-	public void saveLocalProject(boolean saveAs){
+	public void saveLocalProject(boolean saveAs, ActionEvent e){
 		String fileName=null;
 		Project project=getCurrentFrame().getProject();
 		if (!saveAs){
 			fileName=project.getFileName();
 		}
 		if (fileName==null) fileName=SessionFactory.getInstance().getLocalSession().chooseFileName(true,project.getGuessedFileName());
-		if (fileName!=null) saveLocalDocument(fileName,saveAs);
+		if (fileName!=null) saveLocalDocument(fileName,saveAs,e);
 	}
 
 
@@ -2921,6 +2953,81 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 			if (project!=null&&project.getUndoController()!=null) project.getUndoController().showEditsDialog();
 		}
 	}
+
+	public class ImportTracTicketAction extends MenuActionsMap.DocumentMenuAction {
+		public void actionPerformed(ActionEvent event) {
+			TracImporter importer = new TracImporter("http://localhost/trac/SampleProject/", "admin","admin");
+			String msg = importer.checkConnection();
+			if(msg!=null){
+
+			}
+			try {
+				importer.importByQuery("status!=close");
+			} catch (XmlRpcException e) {
+				e.printStackTrace();
+			}
+			Project project = importer.getProject();
+			project.initialize(false,false);
+			project.setBoundsAfterReadProject();
+
+			Environment.setImporting(false);
+			project.setWasImported(true);
+
+			final Session session=SessionFactory.getInstance().getSession(true);
+			session.refreshMetadata(project);
+			session.readCurrencyData(project);
+		}
+	}
+
+	public class ShellAction extends MenuActionsMap.DocumentMenuAction {
+		public void actionPerformed(ActionEvent event) {
+			Project p = getProject();
+			LinkedList link2 = p.getTasks();
+			ProjectFactory factory = ProjectFactory.getInstance();
+
+			Project project = factory.createProject();
+			LinkedList link = project.getTasks();
+			project.setName("Trac");
+			project.setStart(System.currentTimeMillis()-10000);
+
+
+			//Task task = new NormalTask();
+			NormalTask parent = project.createScriptedTask(false, false);
+			parent.setDuration(100000);
+			parent.setName("parent");
+			NormalTask task = project.createScriptedTask(false, false);
+			Object l = link.getLast();
+			link.remove(1);
+			LinkedList head = (LinkedList)link.getFirst();
+			Object a = head.get(0);
+			Object b = head.get(1);
+
+			((LinkedList)link).add(new LinkedList().add(l));
+
+			task.setName("はげ");
+			task.setStart(System.currentTimeMillis());
+			task.setEnd(System.currentTimeMillis()+200000);
+			task.setDuration(100000);
+//			Node cnode = NodeFactory.getInstance().createNode(task); // get a node for this task
+//			Node pnode = NodeFactory.getInstance().createNode(parent); // get a node for this task
+//			project.addToDefaultOutline(pnode,cnode);
+//			pnode.add(cnode);
+			project.recalculate();
+
+//			task.dependsOn(parent);
+//			parent.dependsOn(task);
+		//	project.add(parent);
+		//	project.add(task);
+			/*
+			Project project = getProject();
+			LinkedList tasks = project.getTasks();
+			Object o1 = tasks.getFirst();
+			Object o2 = tasks.getLast();
+			log.info("inshell");
+			*/
+		}
+	}
+
 
 
 /**

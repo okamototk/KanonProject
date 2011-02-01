@@ -158,12 +158,26 @@ public class FileHelper {
 		    }
 
 		};
+		final FileFilter pngFilter=new FileFilter(){
+		    public boolean accept(File f){
+		    	boolean isAllowed;
+				String n = f.getName().toLowerCase();
+		    	if (save) isAllowed=n.endsWith(".png");
+		    	else isAllowed=n.endsWith(".png");
+		    	return f.isDirectory()||isAllowed;
+		    }
+		    public String getDescription(){
+		    	return Messages.getString("File.PNG")+" (*.png)";
+		    }
+
+		};
 		FileFilter projectFilter=new FileFilter(){
 		    public boolean accept(File f){
 		    	if (/*Environment.getStandAlone()&&*/projityFilter.accept(f)) return true;
 		    	if (microsoftXMLFilter.accept(f)) return true;
 		    	if (plannerFilter.accept(f)) return true;
 		    	if (microsoftFilter.accept(f)) return true;
+		    	if (pngFilter.accept(f)) return true;
 		    	return false;
 		    }
 		    public String getDescription(){
@@ -178,8 +192,10 @@ public class FileHelper {
 				fileChooser.addChoosableFileFilter(microsoftXMLFilter);
 			}else{
 				fileChooser.addChoosableFileFilter(microsoftXMLFilter);
+				fileChooser.addChoosableFileFilter(pngFilter);
 				if (Environment.getStandAlone()) fileChooser.addChoosableFileFilter(projityFilter);
 			}
+
 		}else{
 			/*if (Environment.getStandAlone())*/ fileChooser.addChoosableFileFilter(projityFilter);
 			fileChooser.addChoosableFileFilter(microsoftFilter);
@@ -198,8 +214,12 @@ public class FileHelper {
 		if (save){
 			if (currentFilter==microsoftXMLFilter){
 				if(!fileName.endsWith(".xml")) fileName+=".xml";
+			} else if ((currentFilter==pngFilter)&&(!fileName.endsWith(".png"))){
+				fileName+=".png";
+			} else if ((currentFilter==projityFilter) &&!fileName.endsWith(".pod")){
+				fileName+=".pod";
 			}
-			else if (!fileName.endsWith(".pod")) fileName+=".pod";
+
 		}
 		return fileName;
 
@@ -207,7 +227,7 @@ public class FileHelper {
 
     public static boolean isFileNameAllowed(String fileName,boolean save) {
 		String n = fileName.toLowerCase();
-    	if (save) return n.endsWith(".xml")||n.endsWith("."+DEFAULT_FILE_EXTENSION);
+    	if (save) return n.endsWith(".xml")||n.endsWith(".png")||n.endsWith("."+DEFAULT_FILE_EXTENSION);
     	else return n.endsWith(".xml")||n.endsWith(".mpp")||n.endsWith(".mpx")||n.endsWith(".planner")||n.endsWith("."+DEFAULT_FILE_EXTENSION) || n.endsWith(".mpx");
 	}
 

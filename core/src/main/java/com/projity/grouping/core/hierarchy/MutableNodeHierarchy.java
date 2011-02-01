@@ -66,6 +66,9 @@ import javax.swing.event.EventListenerList;
 import javax.swing.event.TreeModelListener;
 import javax.swing.tree.TreePath;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.association.AssociationList;
 import com.projity.configuration.Settings;
 import com.projity.grouping.core.LazyParent;
@@ -102,6 +105,7 @@ public class MutableNodeHierarchy extends AbstractMutableNodeHierarchy{
     public static int DEFAULT_NB_MULTIPROJECT_END_VOID_NODES=1;
 
     private final Node root=NodeFactory.getInstance().createRootNode();
+    private static Log log = LogFactory.getLog(MutableNodeHierarchy.class);
 
 
 
