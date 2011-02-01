@@ -109,6 +109,7 @@
 					<dependencies>
 						<excludes>
 							<exclude>org.ultimania.kanon:kanon-project-ui</exclude>
+							<exclude>Eclipse:jdtcore</exclude>
 						</excludes>
 						<includes>
 						</includes>
