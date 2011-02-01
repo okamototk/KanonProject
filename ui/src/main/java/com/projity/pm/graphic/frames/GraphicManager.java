@@ -126,7 +126,6 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.xmlrpc.XmlRpcException;
-import org.ultimania.kanon.DebugUtil;
 import org.ultimania.kanon.exchange.TracImporter;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
@@ -2974,7 +2973,6 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		public void actionPerformed(ActionEvent event) {
 			Project p = getProject();
 			LinkedList link2 = p.getTasks();
-			DebugUtil.dumpLinkedList(link2);
 			ProjectFactory factory = ProjectFactory.getInstance();
 
 			Project project = factory.createProject();
