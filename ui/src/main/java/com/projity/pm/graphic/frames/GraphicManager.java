@@ -73,6 +73,7 @@ import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -170,6 +171,7 @@ import com.projity.job.Mutex;
 import com.projity.menu.MenuActionConstants;
 import com.projity.menu.MenuActionsMap;
 import com.projity.menu.MenuManager;
+import com.projity.offline_graphics.SVGRenderer;
 import com.projity.options.CalendarOption;
 import com.projity.pm.assignment.Assignment;
 import com.projity.pm.graphic.ChangeAwareTextField;
@@ -1172,7 +1174,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		private static final long serialVersionUID = 1L;
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
-			saveLocalProject(true);		}
+			saveLocalProject(true, arg0);		}
 	}
 
 	public class AboutAction extends MenuActionsMap.GlobalMenuAction {
@@ -1372,7 +1374,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		public void actionPerformed(ActionEvent arg0) {
 			setMeAsLastGraphicManager();
 			if (Environment.getStandAlone())
-				saveLocalProject(false);
+				saveLocalProject(false, arg0);
 			else{
 				if (isDocumentActive()) {
 					final DocumentFrame frame=getCurrentFrame();
@@ -1420,18 +1422,18 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 
 	public class SaveProjectAsAction extends MenuActionsMap.DocumentMenuAction {
 		private static final long serialVersionUID = 1L;
-		public void actionPerformed(ActionEvent arg0) {
+		public void actionPerformed(ActionEvent e) {
 			setMeAsLastGraphicManager();
 			finishAnyOperations();
 			if (Environment.getStandAlone())
-				saveLocalProject(true);
+				saveLocalProject(true, e);
 			else{
 				if (isDocumentActive()) {
 					final DocumentFrame frame=getCurrentFrame();
 					final Project project = frame.getProject();
 					SaveOptions opt=new SaveOptions();
 					opt.setPostSaving(new Closure(){
-						public void execute(Object arg0) {
+						public void execute(Object e0) {
 							frame.setId(project.getUniqueId()+""); //$NON-NLS-1$
 							refreshSaveStatus(true);
 						}
@@ -2223,7 +2225,7 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		//showWaitCursor(false);
 		return project != null;
 	}
-	protected void saveLocalDocument(String fileName,final boolean saveAs){
+	protected void saveLocalDocument(String fileName,final boolean saveAs, ActionEvent e){
 		addHistory("saveLocalDocument",new Object[]{fileName,saveAs});
 		//showWaitCursor(true);
 		SaveOptions opt=new SaveOptions();
@@ -2239,7 +2241,31 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 				}
 			});
 		}
-		if (fileName.endsWith(".pod")){ //$NON-NLS-1$
+
+		if (fileName.endsWith(".png")){ //$NON-NLS-1$
+			Component c = (Component)e.getSource();
+			Cursor cur = c.getCursor();
+			c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			GraphPageable document = PrintDocumentFactory.getInstance().createDocument(getCurrentFrame(),false);
+			c.setCursor(cur);
+			   SVGRenderer vr = document.getRenderer().createSafePrintCopy();
+
+               int width = vr.getCanvasSize().width;
+               int height = vr.getCanvasSize().height;
+               java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(width, height,
+                               java.awt.image.BufferedImage.TYPE_INT_RGB);
+
+               java.awt.Graphics2D g = bi.createGraphics();
+               g.fillRect(0, 0, width, height);
+               vr.paint(g);
+
+               try {
+            	   javax.imageio.ImageIO.write(bi, "PNG", new File(fileName));
+               } catch (Exception ex){
+            	   log.error("Fail save PNG image.",ex);
+               }
+               return ;
+		} else if (fileName.endsWith(".pod")){ //$NON-NLS-1$
 			opt.setFileName(fileName);
 			opt.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
 		}
@@ -2309,14 +2335,14 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 		if (fileName!=null) loadLocalDocument(fileName,!Environment.getStandAlone(), importCalendars);
 	}
 
-	public void saveLocalProject(boolean saveAs){
+	public void saveLocalProject(boolean saveAs, ActionEvent e){
 		String fileName=null;
 		Project project=getCurrentFrame().getProject();
 		if (!saveAs){
 			fileName=project.getFileName();
 		}
 		if (fileName==null) fileName=SessionFactory.getInstance().getLocalSession().chooseFileName(true,project.getGuessedFileName());
-		if (fileName!=null) saveLocalDocument(fileName,saveAs);
+		if (fileName!=null) saveLocalDocument(fileName,saveAs,e);
 	}
 
 

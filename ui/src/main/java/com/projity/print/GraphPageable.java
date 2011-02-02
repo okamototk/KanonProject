@@ -355,7 +355,7 @@ public class GraphPageable extends PrintDocument implements ViewPrintableParams{
                 int width = vr.getCanvasSize().width;
                 int height = vr.getCanvasSize().height;
                 java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(width, height,
-                                java.awt.image.BufferedImage.TYPE_INT_RGB);
+                        java.awt.image.BufferedImage.TYPE_INT_RGB);
 
                 java.awt.Graphics2D g = bi.createGraphics();
                 g.fillRect(0, 0, width, height);
