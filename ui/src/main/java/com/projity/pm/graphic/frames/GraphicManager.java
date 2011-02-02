@@ -1101,7 +1101,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_LOOK_AND_FEEL, new LookAndFeelAction());
 		actionsMap.addHandler(ACTION_FULL_SCREEN, new FullScreenAction());
 		actionsMap.addHandler(ACTION_REFRESH, new RefreshAction());
-		actionsMap.addHandler("Shell",new ShellAction());
+		actionsMap.addHandler("TicketImport", new ImportTracTicketAction());
 		// TODO: メニューがエラーになるので一時的に外した。
 		// 多分 menu.properties,menu_ja.propertiesに定義してやれば解決できる
 
@@ -2978,56 +2978,6 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 			session.readCurrencyData(project);
 		}
 	}
-
-	public class ShellAction extends MenuActionsMap.DocumentMenuAction {
-		public void actionPerformed(ActionEvent event) {
-			Project p = getProject();
-			LinkedList link2 = p.getTasks();
-			ProjectFactory factory = ProjectFactory.getInstance();
-
-			Project project = factory.createProject();
-			LinkedList link = project.getTasks();
-			project.setName("Trac");
-			project.setStart(System.currentTimeMillis()-10000);
-
-
-			//Task task = new NormalTask();
-			NormalTask parent = project.createScriptedTask(false, false);
-			parent.setDuration(100000);
-			parent.setName("parent");
-			NormalTask task = project.createScriptedTask(false, false);
-			Object l = link.getLast();
-			link.remove(1);
-			LinkedList head = (LinkedList)link.getFirst();
-			Object a = head.get(0);
-			Object b = head.get(1);
-
-			((LinkedList)link).add(new LinkedList().add(l));
-
-			task.setName("はげ");
-			task.setStart(System.currentTimeMillis());
-			task.setEnd(System.currentTimeMillis()+200000);
-			task.setDuration(100000);
-//			Node cnode = NodeFactory.getInstance().createNode(task); // get a node for this task
-//			Node pnode = NodeFactory.getInstance().createNode(parent); // get a node for this task
-//			project.addToDefaultOutline(pnode,cnode);
-//			pnode.add(cnode);
-			project.recalculate();
-
-//			task.dependsOn(parent);
-//			parent.dependsOn(task);
-		//	project.add(parent);
-		//	project.add(task);
-			/*
-			Project project = getProject();
-			LinkedList tasks = project.getTasks();
-			Object o1 = tasks.getFirst();
-			Object o2 = tasks.getLast();
-			log.info("inshell");
-			*/
-		}
-	}
-
 
 
 /**

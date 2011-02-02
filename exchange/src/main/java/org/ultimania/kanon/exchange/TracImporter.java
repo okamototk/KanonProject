@@ -165,7 +165,6 @@ public class TracImporter {
 			// 担当者
 			// コンポーネント
 			// マイルストーン
-
 			// デバッグ用コード
 			// 使うときはimportHierarchy() をコメントアウトする。
 			//project.addToDefaultOutline(null ,NodeFactory.getInstance().createNode(task));

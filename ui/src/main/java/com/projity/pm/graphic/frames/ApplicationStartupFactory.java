@@ -214,6 +214,14 @@ public class ApplicationStartupFactory extends StartupFactory {
 				lopt.add(args[2]);
 				lopt.add(args[3]);
 				opts.put("credentials",lopt);
+			} else if ("trac".equals(args[1])){
+				// for trac
+				List lopt = new LinkedList();
+				lopt.add(args[1]);
+				lopt.add(args[2]);
+				lopt.add(args[3]);
+				opts.put("auth",lopt);
+
 			}
 		}else{
 			String opt=null,label=null;

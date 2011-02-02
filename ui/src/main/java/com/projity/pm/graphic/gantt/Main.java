@@ -54,6 +54,9 @@ import java.util.Locale;
 
 import javax.swing.JOptionPane;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import com.projity.pm.graphic.frames.ApplicationStartupFactory;
 import com.projity.pm.graphic.frames.MainFrame;
 import com.projity.preference.ConfigurationFile;
@@ -64,6 +67,7 @@ import com.projity.util.Environment;
  *
  */
 public class Main {
+	public static Log log = LogFactory.getLog(Main.class);
 	public static void main(String[] args) {
 		System.setProperty("com.apple.mrj.application.apple.menu.about.name", Environment.getStandAlone()?"OpenProj":"Project-ON-Demand");
 		System.setProperty("apple.laf.useScreenMenuBar","true");
@@ -92,6 +96,7 @@ public class Main {
 
 		boolean newLook = false;
 //		HashMap opts = ApplicationStartupFactory.extractOpts(args); // allow setting menu look on command line - primarily for testing or webstart args
+		log.info(opts);
 //		newLook = opts.get("menu") == null;
 
 		Environment.setNewLook(newLook);

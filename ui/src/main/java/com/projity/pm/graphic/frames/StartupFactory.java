@@ -56,6 +56,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 import javax.swing.JOptionPane;
@@ -65,7 +66,9 @@ import javax.swing.SwingUtilities;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.apache.xmlrpc.XmlRpcException;
 import org.openproj.util.UpdateChecker;
+import org.ultimania.kanon.exchange.TracImporter;
 
 import com.projity.company.DefaultUser;
 import com.projity.configuration.Configuration;
@@ -485,7 +488,7 @@ public abstract class StartupFactory {
 				if (writable == null)
 					return;
 				AssignmentService.getInstance().setSubstituting(args.get("oldResourceId") != null);
-				log.debug("Start up action: C");
+				log.info("Load document: " + projectUrls);
 				gm.loadDocument(projectId, true,!writable,new Closure(){
 					public void execute(Object arg0) {
 						log.debug("Start up action: D");
@@ -516,8 +519,36 @@ public abstract class StartupFactory {
 				});
 			}
 			else if (projectUrls!=null && projectUrls.length > 0) {
-				gm.loadLocalDocument(projectUrls[0],!Environment.getStandAlone(),true);
-			}else{
+					log.info("Load document: " + projectUrls[0]);
+					gm.loadLocalDocument(projectUrls[0],!Environment.getStandAlone(),true);
+				}
+			} if(serverUrl!=null) {
+				if(opts.get("auth")!=null){
+					String username = (String)((LinkedList)opts.get("auth")).get(1);
+					String password = (String)((LinkedList)opts.get("auth")).get(2);
+					TracImporter importer = new TracImporter(serverUrl, username,password);
+					String msg = importer.checkConnection();
+					if(msg!=null){
+
+					}
+					try {
+						importer.importByQuery("status!=close");
+					} catch (XmlRpcException e) {
+						e.printStackTrace();
+					}
+					Project project = importer.getProject();
+					project.initialize(false,false);
+					project.setBoundsAfterReadProject();
+
+					Environment.setImporting(false);
+					project.setWasImported(true);
+
+					final Session session=SessionFactory.getInstance().getSession(true);
+					session.refreshMetadata(project);
+					session.readCurrencyData(project);
+					return ;
+
+				} else	{
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						if (Environment.isOpenProj()&&!Environment.isPlugin()) {
