@@ -339,36 +339,4 @@ public class GraphPageable extends PrintDocument implements ViewPrintableParams{
 		setTotalZoomY(zh);
 	}
 
-    public void printToFile() {
-    	// Print to png image
-        javax.swing.JFileChooser fc = new javax.swing.JFileChooser();
-        int returnVal = fc.showSaveDialog(null);
-        if (returnVal == javax.swing.JFileChooser.APPROVE_OPTION) {
-                java.io.File file = fc.getSelectedFile();
-                if (!file.getName().toLowerCase().endsWith(".png")) {
-                        // append ".png" extension
-                        file = new java.io.File(file.getParent(), file.getName() + ".png");
-                }
-
-                SVGRenderer vr = renderer.createSafePrintCopy();
-
-                int width = vr.getCanvasSize().width;
-                int height = vr.getCanvasSize().height;
-                java.awt.image.BufferedImage bi = new java.awt.image.BufferedImage(width, height,
-                        java.awt.image.BufferedImage.TYPE_INT_RGB);
-
-                java.awt.Graphics2D g = bi.createGraphics();
-                g.fillRect(0, 0, width, height);
-                vr.paint(g);
-
-                try {
-                        javax.imageio.ImageIO.write(bi, "PNG", file);
-                        // ImageIO.write(bi, "PNG", new File("/home/benderamp/Desktop/project1.png"));
-                        // ImageIO.write(bi, "JPEG", new File("/home/benderamp/Desktop/project1.jpg"));
-                } catch (java.io.IOException ex) {
-                        ex.printStackTrace();
-                }
-        }
-    }
-
 }

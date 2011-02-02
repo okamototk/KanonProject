@@ -1043,7 +1043,6 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_PRINT, new PrintAction());
 		actionsMap.addHandler(ACTION_PRINT_PREVIEW, new PrintPreviewAction());
 		actionsMap.addHandler(ACTION_PDF, new PDFAction());
-		actionsMap.addHandler(ACTION_PNG, new PNGAction());
 		actionsMap.addHandler(ACTION_CLOSE_PROJECT, new CloseProjectAction());
 		actionsMap.addHandler(ACTION_UNDO, new UndoAction());
 		actionsMap.addHandler(ACTION_REDO, new RedoAction());
@@ -1612,21 +1611,6 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 				Cursor cur = c.getCursor();
 				c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
 				savePDF();
-				c.setCursor(cur);
-			}
-		}
-	}
-
-	public class PNGAction extends MenuActionsMap.DocumentMenuAction {
-		private static final long serialVersionUID = 1L;
-		public void actionPerformed(ActionEvent arg0) {
-			setMeAsLastGraphicManager();
-			if (isDocumentActive()) {
-				Component c = (Component)arg0.getSource();
-				Cursor cur = c.getCursor();
-				c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-				GraphPageable document = PrintDocumentFactory.getInstance().createDocument(getCurrentFrame(),false);
-				if(document!=null)document.printToFile();
 				c.setCursor(cur);
 			}
 		}

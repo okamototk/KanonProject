@@ -190,9 +190,9 @@ public class FileHelper {
 			if (microsoftFilter.accept(fileChooser.getSelectedFile())){ //To select the good filter by default
 				if (Environment.getStandAlone()) fileChooser.addChoosableFileFilter(projityFilter);
 				fileChooser.addChoosableFileFilter(microsoftXMLFilter);
-				fileChooser.addChoosableFileFilter(pngFilter);
 			}else{
 				fileChooser.addChoosableFileFilter(microsoftXMLFilter);
+				fileChooser.addChoosableFileFilter(pngFilter);
 				if (Environment.getStandAlone()) fileChooser.addChoosableFileFilter(projityFilter);
 			}
 
@@ -214,9 +214,9 @@ public class FileHelper {
 		if (save){
 			if (currentFilter==microsoftXMLFilter){
 				if(!fileName.endsWith(".xml")) fileName+=".xml";
-			} else if ((currentFilter==pngFilter) &&(!fileName.endsWith(".png"))){
+			} else if ((currentFilter==pngFilter)&&(!fileName.endsWith(".png"))){
 				fileName+=".png";
-			} else if (!fileName.endsWith(".pod")){
+			} else if ((currentFilter==projityFilter) &&!fileName.endsWith(".pod")){
 				fileName+=".pod";
 			}
 
