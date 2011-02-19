@@ -379,7 +379,6 @@ public class NormalTask extends Task implements Allocation, TaskSpecificFields,
 			currentSchedule.setEnd(stop); // need to set this so setStop below works properly
 		}
 		setStop(stop);
-		System.out.println("duration " + getDurationMillis() + " ac " + getActualDuration() + " ddd " + actualDuration);
 	}
 
 /********************************************************************************

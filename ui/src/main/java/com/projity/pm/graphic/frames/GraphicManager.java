@@ -78,13 +78,17 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.swing.Action;
 import javax.swing.BorderFactory;
@@ -128,6 +132,8 @@ import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
 import org.apache.xmlrpc.XmlRpcException;
 import org.ultimania.kanon.exchange.TracImporter;
+import org.ultimania.kanon.exchange.TracUpdator;
+import org.ultimania.kanon.exchange.trac.Ticket;
 
 import apple.dts.samplecode.osxadapter.OSXAdapter;
 
@@ -1102,6 +1108,7 @@ public class GraphicManager implements  FrameHolder, NamedFrameListener, WindowS
 		actionsMap.addHandler(ACTION_FULL_SCREEN, new FullScreenAction());
 		actionsMap.addHandler(ACTION_REFRESH, new RefreshAction());
 		actionsMap.addHandler("TicketImport", new ImportTracTicketAction());
+		actionsMap.addHandler("UpdateServerTicket", new UpdateTracTicketAction());
 		// TODO: メニューがエラーになるので一時的に外した。
 		// 多分 menu.properties,menu_ja.propertiesに定義してやれば解決できる
 
@@ -2967,18 +2974,54 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
 				e.printStackTrace();
 			}
 			Project project = importer.getProject();
+			project.setFileName("http://admin:admin@localhost/trac/SampleProject/");
 			project.initialize(false,false);
 			project.setBoundsAfterReadProject();
-
 			Environment.setImporting(false);
 			project.setWasImported(true);
-
 			final Session session=SessionFactory.getInstance().getSession(true);
 			session.refreshMetadata(project);
 			session.readCurrencyData(project);
 		}
 	}
 
+	public class UpdateTracTicketAction extends MenuActionsMap.DocumentMenuAction {
+		public void actionPerformed(ActionEvent event) {
+			Project project = getProject();
+			String fname = project.getFileName();
+			Pattern a = Pattern.compile("http://(.*):(.*)@(.*)");
+			Matcher m = a.matcher(fname);
+			boolean b = m.matches();
+			String username=m.group(1);
+			String password=m.group(2);
+			String url= "http://"+m.group(3);
+			TracUpdator updator = new TracUpdator(url,username,password);
+			LinkedList<Task> tasks = project.getTasks();
+			updator.update(tasks);
+			/*
+			SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+			for(Task t:tasks){
+				if((!t.isLocal())&&t.isDirty()){
+					log.info("#"+t.getId());
+					long lastFinish = t.getLastSavedFinish();
+					long lastStart = t.getLastSavedStart();
+					long start = t.getStart();
+					log.info("start:");
+						Date startDate = new Date(start);
+						String tracStart=format.format(startDate);
+						log.info(tracStart+":"+format.format(new Date(lastStart)));
+					log.info("end:");
+					long end = t.getEnd();
+						Date endDate = new Date(end);
+						String tracEnd=format.format(endDate);
+						log.info(tracEnd+":"+format.format(new Date(lastFinish)));
+//					long complete = Math.round(t.getPercentComplete()*100);
+
+				}
+			}
+			*/
+		}
+	}
 
 /**
  * Decode the current workspace (currently using XML though could be binary)

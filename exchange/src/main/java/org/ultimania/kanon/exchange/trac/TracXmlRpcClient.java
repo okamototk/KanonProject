@@ -75,7 +75,6 @@ public class TracXmlRpcClient {
 	/**
 	 * 更新したフィールドとチケットIDを指定してチケットをアップデート
 	 *
-	 * @deprecated
 	 */
 	public void update(int id, HashMap<String, String> modifiedFields,
 			String message) throws XmlRpcException {

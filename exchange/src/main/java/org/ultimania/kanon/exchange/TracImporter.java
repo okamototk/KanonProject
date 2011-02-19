@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 import javax.swing.text.AsyncBoxView.ChildState;
 
@@ -82,8 +83,7 @@ public class TracImporter {
 		if (tracField != null && tracField.trim().length() != 0) {
 			try {
 				Date date = format.parse(tracField);
-				System.out.println(date);
-				return date.getTime();
+				return date.getTime()+TimeZone.getDefault().getRawOffset();
 			} catch (ParseException e) {
 				log.warn("#" + t.id + ": " + fieldName + "=" + tracField
 						+ " is invalid format " + dateFormat, e);
@@ -104,7 +104,6 @@ public class TracImporter {
 //		project.setTemporaryLocal(true);
 
 		for(Ticket t:ticketList){
-			System.out.println(t.id);
 			if(log.isInfoEnabled()){
 				log.info("#"+t.id+":"+t.$("summary")+":"+t.$(startField)+"-"+t.$(endField));
 			}
@@ -117,7 +116,8 @@ public class TracImporter {
 			map.put(t.id ,task);
 			task.setName(t.$("summary"));
 			task.setWbs(t.$("summary"));
-
+			task.isLocal();
+//			task.set
 			long start = convertDate(t,startField);
 			long end = convertDate(t,endField);
 //			task.setDuration(end-start);
@@ -143,7 +143,6 @@ public class TracImporter {
 					children = new ArrayList<Integer>();
 					childMap.put(pid, children);
 				}
-				System.out.println(""+parent+"->"+t.id);
 				children.add(t.id);
 			} else {
 				rootNode.add(t.id);
