@@ -67,6 +67,7 @@ import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.apache.xmlrpc.XmlRpcException;
+import org.jdesktop.swing.actions.ServerAction;
 import org.openproj.util.UpdateChecker;
 import org.ultimania.kanon.exchange.TracImporter;
 
@@ -537,6 +538,11 @@ public abstract class StartupFactory {
 						e.printStackTrace();
 					}
 					Project project = importer.getProject();
+					String HTTP_PREFIX = "http://";
+
+					project.setFileName(HTTP_PREFIX+username+":"+password+"@"+serverUrl.substring(HTTP_PREFIX.length()));
+
+
 					project.initialize(false,false);
 					project.setBoundsAfterReadProject();
 
@@ -552,7 +558,7 @@ public abstract class StartupFactory {
 				SwingUtilities.invokeLater(new Runnable() {
 					public void run() {
 						if (Environment.isOpenProj()&&!Environment.isPlugin()) {
-							LicenseDialog.showDialog(gm.getFrame(),false);
+//							LicenseDialog.showDialog(gm.getFrame(),false);
 							UserInfoDialog.showDialog(gm.getFrame(),false);
 //							TryPODDialog.maybeShow(gm.getFrame(),false);
 //							UpdateChecker.checkForUpdateInBackground();
