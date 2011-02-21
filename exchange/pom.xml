@@ -4,7 +4,7 @@
 
 	<groupId>org.ultimania.kanon</groupId>
 	<artifactId>kanon-project-exchange</artifactId>
-	<version>0.1-dev</version>
+	<version>0.1.1-dev</version>
 	<packaging>jar</packaging>
 
 	<name>Kanon Project</name>
@@ -26,7 +26,7 @@
 		<dependency>
 			<groupId>org.ultimania.kanon</groupId>
 			<artifactId>kanon-project-core</artifactId>
-			<version>0.1-dev</version>
+			<version>0.1.1-dev</version>
 		</dependency>
 
 		<dependency>
