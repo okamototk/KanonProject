@@ -235,7 +235,7 @@ public class Environment {
 
 	private static HashMap<Integer, String> fonts=new HashMap<Integer, String>();
 	static{
-		fonts.put(GANTT_ANNOTATIONS_FONT,"Arial BOLD 11");
+		fonts.put(GANTT_ANNOTATIONS_FONT,"TimesRoman BOLD 11");
 		fonts.put(NETWORK_FONT, "TimesRoman");
 	}
 	public static String getFont(int type) {
