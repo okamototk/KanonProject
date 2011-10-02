@@ -27,6 +27,7 @@ $ mvn install
 ■■パッケージ作成
 下記のコマンドを実行すると、KanonProject-x.x.x.zipという名前で配布ファイルが作成されます。
 
+$ cd pkg
 $ mvn assembly:assembly
 
 Java Web Start用のファイルを生成するには、pkgディレクトリで
