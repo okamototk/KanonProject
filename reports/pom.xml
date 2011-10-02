@@ -27,7 +27,7 @@
 		<dependency>
 			<groupId>org.ultimania.kanon</groupId>
 			<artifactId>kanon-project-core</artifactId>
-			<version>0.1-dev</version>
+			<version>0.1.1-dev</version>
 		</dependency>
 
 		<dependency>
