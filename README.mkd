@@ -1,0 +1,47 @@
+Kanon Project
+=============
+
+Kanon Project is clone of OpenProj known as Ganttchat based 
+Project Management tool as MS Project. OpenProj is grate 
+PM tool but it have not been maintained any more. 
+So author decide clone and fixed bug, improve function.
+
+* Support PNG/SVG export.
+* Intagrate trac ticket.
+* Import MS Project.
+* WebStart.
+* Maven build system.
+* Better Japanese Localization.
+
+Build
+-----
+### Setup Maven
+Setup maven for your environment like:
+
+    $ export MAVEN_HOME=/opt/maven
+    $ export MAVEN_OPTS="-Xmx500m -Xss128m"
+
+### Install custom jars.
+Kanon Project needs custom jars. In the first
+you have to install them.
+
+    $ bash install-jar.sh
+### Build
+Execute install and assembly like:
+
+    $ mvn install
+    $ cd pkg
+    $ mvn assembly:assembly
+
+Now you have ditribution:
+
+* pkg/target/KanonProject-0.1.4.zip
+
+If you want WebStart, execute webstart:jnlp instead of
+assembly:
+
+    $ mvn webstart:jnlp
+
+Let's enjoy!!
+
+Takashi Okamoto
