@@ -171,6 +171,19 @@ public class FileHelper {
 		    }
 
 		};
+		final FileFilter svgFilter=new FileFilter(){
+		    public boolean accept(File f){
+		    	boolean isAllowed;
+				String n = f.getName().toLowerCase();
+		    	if (save) isAllowed=n.endsWith(".svg");
+		    	else isAllowed=n.endsWith(".svg");
+		    	return f.isDirectory()||isAllowed;
+		    }
+		    public String getDescription(){
+		    	return Messages.getString("File.SVG")+" (*.svg)";
+		    }
+
+		};
 		FileFilter projectFilter=new FileFilter(){
 		    public boolean accept(File f){
 		    	if (/*Environment.getStandAlone()&&*/projityFilter.accept(f)) return true;
@@ -178,6 +191,7 @@ public class FileHelper {
 		    	if (plannerFilter.accept(f)) return true;
 		    	if (microsoftFilter.accept(f)) return true;
 		    	if (pngFilter.accept(f)) return true;
+		    	if (svgFilter.accept(f)) return true;
 		    	return false;
 		    }
 		    public String getDescription(){
@@ -193,6 +207,7 @@ public class FileHelper {
 			}else{
 				fileChooser.addChoosableFileFilter(microsoftXMLFilter);
 				fileChooser.addChoosableFileFilter(pngFilter);
+				fileChooser.addChoosableFileFilter(svgFilter);
 				if (Environment.getStandAlone()) fileChooser.addChoosableFileFilter(projityFilter);
 			}
 
@@ -216,6 +231,8 @@ public class FileHelper {
 				if(!fileName.endsWith(".xml")) fileName+=".xml";
 			} else if ((currentFilter==pngFilter)&&(!fileName.endsWith(".png"))){
 				fileName+=".png";
+			} else if ((currentFilter==pngFilter)&&(!fileName.endsWith(".svg"))){
+				fileName+=".svg";
 			} else if ((currentFilter==projityFilter) &&!fileName.endsWith(".pod")){
 				fileName+=".pod";
 			}

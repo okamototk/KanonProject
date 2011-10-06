@@ -74,6 +74,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -125,8 +126,12 @@ import javax.swing.undo.AbstractUndoableEdit;
 import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
+import org.w3c.dom.DOMImplementation;
+
 import org.apache.batik.util.gui.resource.ActionMap;
 import org.apache.batik.util.gui.resource.MissingListenerException;
+import org.apache.batik.dom.GenericDOMImplementation;
+import org.apache.batik.svggen.SVGGraphics2D;
 import org.apache.commons.collections.Closure;
 import org.apache.commons.logging.LogFactory;
 import org.apache.commons.logging.Log;
@@ -2256,6 +2261,25 @@ protected boolean loadLocalDocument(String fileName,boolean merge, boolean impor
             	   log.error("Fail save PNG image.",ex);
                }
                return ;
+               } else if (fileName.endsWith(".svg")){ //$NON-NLS-1$
+        		Component c = (Component)e.getSource();
+        		Cursor cur = c.getCursor();
+			c.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+			GraphPageable document = PrintDocumentFactory.getInstance().createDocument(getCurrentFrame(),false);
+                       SVGRenderer vr = document.getRenderer().createSafePrintCopy();
+                       DOMImplementation dom = GenericDOMImplementation.getDOMImplementation();
+                       org.w3c.dom.Document docxml = dom.createDocument(null, "svg", null);
+                       SVGGraphics2D generator = new SVGGraphics2D(docxml);
+                       vr.paint(generator);
+                  try {
+                       //FileWriter svgfile = new FileWriter("/home/eduardo/test.svg");
+                       PrintWriter writer = new PrintWriter(fileName);
+                       generator.stream(writer);
+                       writer.close();
+                  } catch (IOException ioe) {
+                       System.err.println("IO problem: " + ioe.toString());
+                  }
+                  return ;
 		} else if (fileName.endsWith(".pod")){ //$NON-NLS-1$
 			opt.setFileName(fileName);
 			opt.setImporter(LocalSession.LOCAL_PROJECT_IMPORTER);
