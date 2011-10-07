@@ -6,7 +6,7 @@
 
 	<groupId>org.ultimania.kanon</groupId>
 	<artifactId>kanon-project-pkg</artifactId>
-	<version>0.1.4-dev</version>
+	<version>0.9.0</version>
 	<packaging>jar</packaging>
 	<name>Kanon Project</name>
 	<url>http://kanon.ultimania.org</url>
