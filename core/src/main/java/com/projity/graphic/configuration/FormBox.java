@@ -82,14 +82,14 @@ public class FormBox {
 	public int getColumn() {
 		return column;
 	}
-	public void setColumn(Long column) {
-		this.column = column.intValue();
+	public void setColumn(int column) {
+		this.column = column;
 	}
 	public int getColumnSpan() {
 		return columnSpan;
 	}
-	public void setColumnSpan(Long columnSpan) {
-		this.columnSpan = columnSpan.intValue();
+	public void setColumnSpan(int columnSpan) {
+		this.columnSpan = columnSpan;
 	}
 	public String getFieldId() {
 		return fieldId;
@@ -114,14 +114,14 @@ public class FormBox {
 	public int getRow() {
 		return row;
 	}
-	public void setRow(Long row) {
-		this.row = row.intValue();
+	public void setRow(int row) {
+		this.row = row;
 	}
 	public int getRowSpan() {
 		return rowSpan;
 	}
-	public void setRowSpan(Long rowSpan) {
-		this.rowSpan = rowSpan.intValue();
+	public void setRowSpan(int rowSpan) {
+		this.rowSpan = rowSpan;
 	}
 	public String getTextId() {
 		return textId;
@@ -140,8 +140,8 @@ public class FormBox {
 	public int getMinZoom() {
 		return minZoom;
 	}
-	public void setMinZoom(Long minZoom) {
-		this.minZoom = minZoom.intValue();
+	public void setMinZoom(int minZoom) {
+		this.minZoom = minZoom;
 	}
 
 
