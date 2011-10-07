@@ -118,8 +118,8 @@ public class BarFormat implements NamedItem {
 	/**
 	 * @param line The line to set.
 	 */
-	public void setRow(Long line) {
-		this.row = line.intValue();
+	public void setRow(int line) {
+		this.row = line;
 	}
 	/**
 	 * @return Returns the middle.
@@ -177,8 +177,8 @@ public class BarFormat implements NamedItem {
 	public int getLayer() {
 		return layer;
 	}
-	public void setLayer(Long layer) {
-		this.layer = layer.intValue();
+	public void setLayer(int layer) {
+		this.layer = layer;
 	}
 
 	public String getIntervalGenerator() {
