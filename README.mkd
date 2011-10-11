@@ -42,6 +42,17 @@ assembly:
 
     $ mvn webstart:jnlp
 
-Let's enjoy!!
+Run
+---
+
+Unpack pkg/target/KanonProject-x.x.x.zip and execute bin/kanon.bat.
+
+### Run Kanon Project with Trac
+
+Kanon Project can integrated with trac. Run with:
+
+    $ java -jar lib/KanonProject-x.x.x.jar <TracURL> trac <username> <password>
+
+You have to install TracXMLRPC plugin and the user have XML_RPC permission.
 
 Takashi Okamoto
