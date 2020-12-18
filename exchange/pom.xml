@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>net.sf.mpxj</groupId>
 			<artifactId>mpxj</artifactId>
-			<version>custom</version>
+			<version>8.3.5</version>
 		</dependency>
 
 
